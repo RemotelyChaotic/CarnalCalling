@@ -1,0 +1,216 @@
+{
+    "bCanStartAtAnyScene": false,
+    "bCustomEngineVersion": false,
+    "bNeedsCodecs": false,
+    "bUsesWeb": false,
+    "dlState": 4,
+    "iNumberOfSoundEmitters": 5,
+    "iTargetVersion": 67587,
+    "iVersion": 1,
+    "metCmdMode": 256,
+    "sDescribtion": "",
+    "sFont": "Segoe UI",
+    "sMap": "",
+    "sName": "CCTest",
+    "sPlayerLayout": "qrc:/qml/resources/qml/JoipEngine/PlayerDefaultLayout.qml",
+    "sPluginFolder": "",
+    "sPreLoadScript": "Init.js",
+    "sSceneModel": "SceneModel.flow",
+    "sTitleCard": "",
+    "sUserData": "",
+    "tutorialState": 63,
+    "vsKinks": [
+    ],
+    "vsMountPoints": [
+    ],
+    "vspAchievements": [
+    ],
+    "vspResourceBundles": [
+    ],
+    "vspResources": [
+        {
+            "sName": "AStarBidirectional.js",
+            "sPath": "pfs:CarnalCallingQml/AStarBidirectional.js",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "js",
+            "type": 4,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardData.json",
+            "sPath": "pfs:Database/CardData.json",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "json",
+            "type": 5,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "GameDatabase.js",
+            "sPath": "pfs:Scripts/GameDatabase.js",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "js",
+            "type": 4,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "Init.js",
+            "sPath": "pfs:Scripts/Init.js",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "js",
+            "type": 4,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "MapData.json",
+            "sPath": "pfs:Database/MapData.json",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "json",
+            "type": 5,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "MapTypes.js",
+            "sPath": "pfs:CarnalCallingQml/MapTypes.js",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "js",
+            "type": 4,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "PlayerMap.qml",
+            "sPath": "pfs:CarnalCallingQml/PlayerMap.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "SceneModel.flow",
+            "sPath": "pfs:SceneModel.flow",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "flow",
+            "type": 9,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "Types.js",
+            "sPath": "pfs:Scripts/Types.js",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "js",
+            "type": 4,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "UnknownSvg",
+            "sPath": "pfs:Images/Icons/Unknown.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+                "icon"
+            ]
+        },
+        {
+            "sName": "WorldMap",
+            "sPath": "pfs:Images/Map/WorldMap.jpg",
+            "sResourceBundle": "",
+            "sSource": "https://www.deviantart.com/keenkris/art/Map-of-Equestria-And-Beyond-790278917",
+            "sSubType": "jpg",
+            "type": 0,
+            "vsResourceTags": [
+                "artist:keenkris",
+                "map"
+            ]
+        },
+        {
+            "sName": "WorldMap.js",
+            "sPath": "pfs:Scripts/WorldMap.js",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "js",
+            "type": 4,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "WorldMapLayout.qml",
+            "sPath": "pfs:CarnalCallingQml/WorldMapLayout.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "qmldir_CarnalCallingQml",
+            "sPath": "pfs:CarnalCallingQml/qmldir",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "",
+            "type": 3,
+            "vsResourceTags": [
+            ]
+        }
+    ],
+    "vspScenes": [
+        {
+            "bCanStartHere": false,
+            "iId": 0,
+            "sName": "WorldMap",
+            "sSceneLayout": "WorldMapLayout.qml",
+            "sScript": "WorldMap.js",
+            "sTitleCard": "",
+            "sceneMode": 1,
+            "vsResourceRefs": [
+            ]
+        },
+        {
+            "bCanStartHere": false,
+            "iId": 1,
+            "sName": "New_Scene",
+            "sSceneLayout": "WorldMapLayout.qml",
+            "sScript": "",
+            "sTitleCard": "",
+            "sceneMode": 1,
+            "vsResourceRefs": [
+            ]
+        }
+    ],
+    "vspTags": [
+        {
+            "sDescribtion": "keenkris",
+            "sName": "artist:keenkris",
+            "sType": "artist"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "icon",
+            "sType": "eImage"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "map",
+            "sType": "eImage"
+        }
+    ]
+}

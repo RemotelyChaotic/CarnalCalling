@@ -1,0 +1,58 @@
+{
+    "connections": [
+        {
+            "in_id": "{b1994520-b8d3-4413-b809-e724a212af70}",
+            "in_index": 0,
+            "in_type": "transition",
+            "out_id": "{b9522207-cf81-456b-8fe3-c3a064a4f0ee}",
+            "out_index": 0,
+            "out_type": "transition"
+        },
+        {
+            "in_id": "{984d364d-2024-40b0-99fc-884b66de655d}",
+            "in_index": 0,
+            "in_type": "transition",
+            "out_id": "{b1994520-b8d3-4413-b809-e724a212af70}",
+            "out_index": 0,
+            "out_type": "transition"
+        }
+    ],
+    "nodes": [
+        {
+            "id": "{b9522207-cf81-456b-8fe3-c3a064a4f0ee}",
+            "model": {
+                "name": "Entry Point"
+            },
+            "position": {
+                "x": -233.75,
+                "y": -65
+            }
+        },
+        {
+            "id": "{b1994520-b8d3-4413-b809-e724a212af70}",
+            "model": {
+                "bCanStartHere": false,
+                "name": "Scene",
+                "sLayout": "",
+                "sName": "WorldMap",
+                "sScript": "",
+                "sTitle": "",
+                "sceneMode": 1
+            },
+            "position": {
+                "x": -69.98399999999998,
+                "y": -69.98399999999998
+            }
+        },
+        {
+            "id": "{984d364d-2024-40b0-99fc-884b66de655d}",
+            "model": {
+                "name": "Exit Point"
+            },
+            "position": {
+                "x": 592.566,
+                "y": -49.59400000000001
+            }
+        }
+    ]
+}

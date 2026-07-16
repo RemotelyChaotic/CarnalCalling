@@ -1,0 +1,3 @@
+module CarnalCallingQml
+PlayerMap 1.0 PlayerMap.qml
+WorldMapLayout 1.0 WorldMapLayout.qml

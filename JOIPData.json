@@ -5,7 +5,7 @@
     "bUsesWeb": false,
     "dlState": 4,
     "iNumberOfSoundEmitters": 5,
-    "iTargetVersion": 67587,
+    "iTargetVersion": 67588,
     "iVersion": 1,
     "metCmdMode": 256,
     "sDescribtion": "",
@@ -45,6 +45,16 @@
             "sSource": "",
             "sSubType": "json",
             "type": 5,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "FogOfWar.qml",
+            "sPath": "pfs:CarnalCallingQml/FogOfWar.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
             "vsResourceTags": [
             ]
         },

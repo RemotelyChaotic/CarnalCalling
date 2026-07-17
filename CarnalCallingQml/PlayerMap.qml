@@ -242,6 +242,11 @@ Rectangle {
             property bool attachedToPath: false
             property real fixedPosX: 0
             property real fixedPosY: 0
+            property real visionRadius: 300
+
+            Component.onCompleted: {
+                image.player = playerRect;
+            }
         }
     }
 
@@ -528,6 +533,8 @@ Rectangle {
                 Image {
                     id: image
 
+                    property var player: null
+
                     property real originalWidth: sourceSize.width
                     property real originalHeight: sourceSize.height
                     property string hovered: ""
@@ -691,6 +698,17 @@ Rectangle {
                                 });
                             }
                         }
+                    }
+
+
+                    FogOfWar {
+                        anchors.fill: parent
+
+                        playerX: image.player ? (image.player.x + image.player.width / 2) : 0
+                        playerY: image.player ? (image.player.y + image.player.height / 2) : 0
+
+                        radius: image.player ? (image.player.visionRadius * flickableArea.zoom) : 0
+                        feather: radius * 0.7
                     }
                 }
             }

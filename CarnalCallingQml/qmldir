@@ -1,3 +1,4 @@
 module CarnalCallingQml
+FogOfWar 1.0 FogOfWar.qml
 PlayerMap 1.0 PlayerMap.qml
 WorldMapLayout 1.0 WorldMapLayout.qml

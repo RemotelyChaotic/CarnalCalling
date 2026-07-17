@@ -11,7 +11,7 @@
     "sDescribtion": "",
     "sFont": "Segoe UI",
     "sMap": "",
-    "sName": "CCTest",
+    "sName": "CarnalCalling",
     "sPlayerLayout": "qrc:/qml/resources/qml/JoipEngine/PlayerDefaultLayout.qml",
     "sPluginFolder": "",
     "sPreLoadScript": "Init.js",
@@ -189,17 +189,6 @@
             "sName": "WorldMap",
             "sSceneLayout": "WorldMapLayout.qml",
             "sScript": "WorldMap.js",
-            "sTitleCard": "",
-            "sceneMode": 1,
-            "vsResourceRefs": [
-            ]
-        },
-        {
-            "bCanStartHere": false,
-            "iId": 1,
-            "sName": "New_Scene",
-            "sSceneLayout": "WorldMapLayout.qml",
-            "sScript": "",
             "sTitleCard": "",
             "sceneMode": 1,
             "vsResourceRefs": [

@@ -8,5 +8,6 @@ function mapEventHandler(evtName, evtData) {
 
 }
 
+background.setBackgroundTexture("CloudsTileable");
 eventSender.registerEventHandler("mapEvent", mapEventHandler);
 eventSender.sendEvent("openMap", dataToSend);

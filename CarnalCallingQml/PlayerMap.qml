@@ -26,6 +26,9 @@ Rectangle {
 
     property string unknownMap: "UnknownSvg"
     property string unknownIcon: "UnknownSvg"
+    property string fogTexture: "Clouds"
+    property int fogTextureWidth: 524
+    property int fogTextureHeight: 265
 
     enum EMapObjType { Place = 0, Path = 1, Player = 2, PathInterpolator = 3 }
 
@@ -517,7 +520,8 @@ Rectangle {
             onPinchStarted: flickableArea.interactive = false
             onPinchFinished: flickableArea.interactive = true
             onPinchUpdated: {
-                if (mapPrivates.zoomingAllowed) {
+                // currently deactivated because it causes flickering
+                if (mapPrivates.zoomingAllowed && false) {
                     var p = mapToItem(flickableArea, pinch.center.x, pinch.center.y);
                     map.zoomAt(p.x, p.y,
                                pinch.scale - pinch.previousScale > 0 ? 1.1 : 1/1.1)
@@ -709,6 +713,25 @@ Rectangle {
 
                         radius: image.player ? (image.player.visionRadius * flickableArea.zoom) : 0
                         feather: radius * 0.7
+
+                        mapWidthFull: image.originalWidth
+                        mapHeightFull: image.originalHeight
+
+                        cloudSource: "image://DataBaseImageProivider/" + mapPrivates.currentlyLoadedProject.id + "/" + map.fogTexture
+                        cloudTextureWidth: map.fogTextureWidth * flickableArea.zoom
+                        cloudTextureHeight: map.fogTextureHeight * flickableArea.zoom
+
+                        explorationDataWidth: 33
+                        explorationDataHeight: 22
+                        explorationData: {
+                            var arr = [];
+                            for (var r = 0; explorationDataHeight > r; ++r) {
+                                for (var c = 0; explorationDataWidth > c; ++c) {
+                                    arr[c + explorationDataWidth * r] = Math.random() >= 0.5;
+                                }
+                            }
+                            return arr;
+                        }
                     }
                 }
             }
@@ -733,7 +756,8 @@ Rectangle {
                     mouse.accepted = false;
                 }
                 onWheel: {
-                    if (mapPrivates.zoomingAllowed) {
+                    // currently deactivated because it causes flickering
+                    if (mapPrivates.zoomingAllowed && false) {
                         var p = mapToItem(flickableArea, wheel.x, wheel.y);
                         map.zoomAt(p.x, p.y,
                                    wheel.angleDelta.y > 0 ? 1.1 : 1/1.1)

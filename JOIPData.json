@@ -49,6 +49,26 @@
             ]
         },
         {
+            "sName": "Clouds",
+            "sPath": "pfs:Images/Map/Clouds.png",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "png",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CloudsTileable",
+            "sPath": "pfs:Images/Map/CloudsTileable.png",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "png",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "FogOfWar.qml",
             "sPath": "pfs:CarnalCallingQml/FogOfWar.qml",
             "sResourceBundle": "",

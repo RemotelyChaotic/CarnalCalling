@@ -729,7 +729,7 @@ Rectangle {
                             var arr = [];
                             for (var r = 0; explorationDataRows > r; ++r) {
                                 for (var c = 0; explorationDataColumns > c; ++c) {
-                                    arr[c + explorationDataColumns * r] = Math.random() >= 0.5;
+                                    arr[c + explorationDataColumns * r] = Math.random() < 0.3;
                                 }
                             }
                             return arr;

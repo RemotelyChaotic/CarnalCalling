@@ -18,6 +18,7 @@ Rectangle {
     property int cloudTextureWidth: 512
     property int cloudTextureHeight: 512
 
+    // true means explored, false means unexplored
     property var explorationData: []
     property int explorationDataColumns: 512
     property int explorationDataRows: 512
@@ -140,9 +141,9 @@ Rectangle {
                 return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
             }
 
-            vec2 getDynamicCloudCoord(vec2 pIn)
+            vec2 getDynamicCloudCoord(vec2 pIn, vec2 offset, float speed)
             {
-                return vec2(pIn.x + timeOffset/2.0, pIn.y);
+                return pIn + offset + vec2(timeOffset * speed, 0.0);
             }
 
             float getExplorationalphaOfCloud(vec2 cloudAnchorCoord)
@@ -155,20 +156,18 @@ Rectangle {
                 vec2 uv1 = (tileIndex + vec2(1.5, 0.5)) / texSize;
                 float a0 = texture2D(explorationTexture, uv0).a;
                 float a1 = texture2D(explorationTexture, uv1).a;
-                float explored = mix(a0, a1, frac.x);
-                return explored;
+                float unexplored = mix(a0, a1, frac.x);
+                return unexplored;
             }
 
-            void main()
+            vec4 renderCloudLayer(vec2 p,
+                                  vec2 offset,
+                                  float speed,
+                                  out float exploredAlpha)
             {
-                // current point in screen space coordinates
-                vec2 p = qt_TexCoord0 * screenResolution;
-                float d = distance(p, vec2(playerX, playerY));
-                float alpha = smoothstep(radius, radius + feather, d);
-
                 // get cloud texture UV and color
                 // To move the clouds we just offset the coordinate with time
-                vec2 dynCloudCoord = getDynamicCloudCoord(p);
+                vec2 dynCloudCoord = getDynamicCloudCoord(p, offset, speed);
                 vec2 uvCloudTex = fract(dynCloudCoord / cloudResolution);
                 vec4 cloudColor = texture2D(cloudTexture, uvCloudTex);
 
@@ -183,16 +182,53 @@ Rectangle {
 
                 // Get exploration alpha of a cloud anchored at cloudAnchorCoord. Interpolated
                 // between neighbouring tiles.
-                float exploredAlpha = getExplorationalphaOfCloud(cloudAnchorCoord);
+                float unExploredAlpha = getExplorationalphaOfCloud(cloudAnchorCoord);
+                exploredAlpha = 1.0 - unExploredAlpha;
+                cloudColor.a *= exploredAlpha;
+                return cloudColor;
+            }
+
+            void main()
+            {
+                // current point in screen space coordinates
+                vec2 p = qt_TexCoord0 * screenResolution;
+                float d = distance(p, vec2(playerX, playerY));
+                float alpha = smoothstep(radius, radius + feather, d);
+
+                // calculate cloud layers
+                float explored0 = 0.0;
+                float explored1 = 0.0;
+                float explored2 = 0.0;
+                vec4 cloud0 = renderCloudLayer(
+                    p,
+                    vec2(0.0, 0.0),
+                    0.5,
+                    explored0);
+                vec4 cloud1 = renderCloudLayer(
+                    p,
+                    vec2(cloudResolution.x * 0.5, 37.0),
+                    0.35,
+                    explored1);
+                vec4 cloud2 = renderCloudLayer(
+                    p,
+                    vec2(cloudResolution.x * 0.25, -18.0),
+                    0.7,
+                    explored2);
+
+                vec4 clouds = cloud0;
+                clouds.rgb = mix(clouds.rgb, cloud1.rgb, cloud1.a);
+                clouds.a = 1.0 - (1.0 - clouds.a) * (1.0 - cloud1.a);
+                clouds.rgb = mix(clouds.rgb, cloud2.rgb, cloud2.a);
+                clouds.a = 1.0 - (1.0 - clouds.a) * (1.0 - cloud2.a);
 
                 //Debug: paint the exploratioin map
-                //vec4 explorationData = texture2D(explorationTexture, qt_TexCoord0);
-                //float exploredAlphaDebug = step(0.5, explorationData.a * alpha);
+                vec4 explorationData = texture2D(explorationTexture, qt_TexCoord0);
+                float exploredAlphaDebug = step(0.5, explorationData.a * alpha);
 
-                float explored = exploredAlpha * alpha;
-                vec4 fog = vec4(/*exploredAlphaDebug*255.0*/0.0, 0.0, 0.0,
+                float explored = explored0 * explored1 * explored2 * alpha;
+                vec4 fog = vec4(exploredAlphaDebug*255.0, 0.0, 0.0,
                                 alpha * fogOpacity * qt_Opacity);
-                vec4 clouds = cloudColor;
+
                 gl_FragColor = mix(fog,
                                     mix(fog, clouds, clouds.a),
                                     explored);

@@ -30,6 +30,8 @@ Rectangle {
     property int fogTextureWidth: 524
     property int fogTextureHeight: 265
 
+    property bool lockZoom : false
+
     enum EMapObjType { Place = 0, Path = 1, Player = 2, PathInterpolator = 3 }
 
     Item {
@@ -521,7 +523,7 @@ Rectangle {
             onPinchFinished: flickableArea.interactive = true
             onPinchUpdated: {
                 // currently deactivated because it causes flickering
-                if (mapPrivates.zoomingAllowed && false) {
+                if (mapPrivates.zoomingAllowed && !map.lockZoom) {
                     var p = mapToItem(flickableArea, pinch.center.x, pinch.center.y);
                     map.zoomAt(p.x, p.y,
                                pinch.scale - pinch.previousScale > 0 ? 1.1 : 1/1.1)
@@ -721,13 +723,13 @@ Rectangle {
                         cloudTextureWidth: map.fogTextureWidth * flickableArea.zoom
                         cloudTextureHeight: map.fogTextureHeight * flickableArea.zoom
 
-                        explorationDataWidth: 33
-                        explorationDataHeight: 22
+                        explorationDataColumns: 33
+                        explorationDataRows: 22
                         explorationData: {
                             var arr = [];
-                            for (var r = 0; explorationDataHeight > r; ++r) {
-                                for (var c = 0; explorationDataWidth > c; ++c) {
-                                    arr[c + explorationDataWidth * r] = Math.random() >= 0.5;
+                            for (var r = 0; explorationDataRows > r; ++r) {
+                                for (var c = 0; explorationDataColumns > c; ++c) {
+                                    arr[c + explorationDataColumns * r] = Math.random() >= 0.5;
                                 }
                             }
                             return arr;
@@ -757,7 +759,7 @@ Rectangle {
                 }
                 onWheel: {
                     // currently deactivated because it causes flickering
-                    if (mapPrivates.zoomingAllowed && false) {
+                    if (mapPrivates.zoomingAllowed && !map.lockZoom) {
                         var p = mapToItem(flickableArea, wheel.x, wheel.y);
                         map.zoomAt(p.x, p.y,
                                    wheel.angleDelta.y > 0 ? 1.1 : 1/1.1)

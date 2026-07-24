@@ -146,7 +146,7 @@ Rectangle {
                 return pIn + offset + vec2(timeOffset * speed, 0.0);
             }
 
-            float getExplorationalphaOfCloud(vec2 cloudAnchorCoord)
+            float getExplorationAlphaOfCloud(vec2 cloudAnchorCoord)
             {
                 vec2 tile = cloudAnchorCoord * screenResolution / explorationResolution;
                 vec2 tileIndex = floor(tile);
@@ -156,8 +156,7 @@ Rectangle {
                 vec2 uv1 = (tileIndex + vec2(1.5, 0.5)) / texSize;
                 float a0 = texture2D(explorationTexture, uv0).a;
                 float a1 = texture2D(explorationTexture, uv1).a;
-                float unexplored = mix(a0, a1, frac.x);
-                return unexplored;
+                return mix(a0, a1, frac.x);
             }
 
             vec4 renderCloudLayer(vec2 p,
@@ -182,9 +181,13 @@ Rectangle {
 
                 // Get exploration alpha of a cloud anchored at cloudAnchorCoord. Interpolated
                 // between neighbouring tiles.
-                float unExploredAlpha = getExplorationalphaOfCloud(cloudAnchorCoord);
-                exploredAlpha = 1.0 - unExploredAlpha;
-                cloudColor.a *= exploredAlpha;
+                exploredAlpha = getExplorationAlphaOfCloud(cloudAnchorCoord);
+
+                //float visibility = 1.0 - smoothstep(0.2, 0.8, exploredAlpha);
+                float visibility = pow(1.0 - exploredAlpha, 3.0);
+                cloudColor.a *= visibility;
+
+                //return vec4(vec3(exploredAlpha), 1.0);
                 return cloudColor;
             }
 
@@ -196,9 +199,10 @@ Rectangle {
                 float alpha = smoothstep(radius, radius + feather, d);
 
                 // calculate cloud layers
-                float explored0 = 0.0;
-                float explored1 = 0.0;
-                float explored2 = 0.0;
+                float explored0 = 1.0;
+                float explored1 = 1.0;
+                float explored2 = 1.0;
+
                 vec4 cloud0 = renderCloudLayer(
                     p,
                     vec2(0.0, 0.0),
@@ -225,13 +229,12 @@ Rectangle {
                 vec4 explorationData = texture2D(explorationTexture, qt_TexCoord0);
                 float exploredAlphaDebug = step(0.5, explorationData.a * alpha);
 
-                float explored = explored0 * explored1 * explored2 * alpha;
+                //float explored = explored0 * explored1 * explored2 * alpha;
                 vec4 fog = vec4(exploredAlphaDebug*255.0, 0.0, 0.0,
                                 alpha * fogOpacity * qt_Opacity);
-
                 gl_FragColor = mix(fog,
                                     mix(fog, clouds, clouds.a),
-                                    explored);
+                                    alpha);
             }
         "
     }

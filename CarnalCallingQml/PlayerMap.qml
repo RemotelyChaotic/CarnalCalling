@@ -44,6 +44,19 @@ Rectangle {
         property int currentPlace: -1
         property var plannedTravel: null
         property bool zoomingAllowed: true
+
+        property int explorationDataColumns: 33
+        property int explorationDataRows: 22
+        property var explorationData: {
+            var arr = [];
+            for (var r = 0; explorationDataRows > r; ++r) {
+                for (var c = 0; explorationDataColumns > c; ++c) {
+                    arr[c + explorationDataColumns * r] = false;
+                }
+            }
+            return arr;
+        }
+        signal explorationDataUpdated()
     }
 
     function showWith(sResource, vMapData, current)
@@ -249,8 +262,53 @@ Rectangle {
             property real fixedPosY: 0
             property real visionRadius: 300
 
+            onXChanged: {
+                positionChanged();
+            }
+            onYChanged: {
+                positionChanged();
+            }
             Component.onCompleted: {
                 image.player = playerRect;
+                positionChanged();
+            }
+
+            function positionChanged() {
+                let zoomedVisionRadius = visionRadius * flickableArea.zoom;
+                let cellWidth = image.width / mapPrivates.explorationDataColumns;
+                let cellHeight = image.height / mapPrivates.explorationDataRows;
+                let bb = Qt.rect(x - zoomedVisionRadius,
+                                 y - zoomedVisionRadius,
+                                 zoomedVisionRadius * 2 + cellWidth, // we need to discover +1 so it looks better
+                                 zoomedVisionRadius * 2);
+
+                // Candidate cell indices
+                let firstCol = Math.max(0,
+                    Math.floor((bb.x - cellWidth / 2) / cellWidth));
+                let lastCol = Math.min(mapPrivates.explorationDataColumns - 1,
+                    Math.floor((bb.x + bb.width - cellWidth / 2) / cellWidth));
+
+                let firstRow = Math.max(0,
+                    Math.floor((bb.y - cellHeight / 2) / cellHeight));
+                let lastRow = Math.min(mapPrivates.explorationDataRows - 1,
+                    Math.floor((bb.y + bb.height - cellHeight / 2) / cellHeight));
+
+                for (let row = firstRow; row <= lastRow; ++row) {
+                    for (let col = firstCol; col <= lastCol; ++col) {
+                        let centerX = (col + 0.5) * cellWidth;
+                        let centerY = (row + 0.5) * cellHeight;
+
+                        if (centerX >= bb.x &&
+                            centerX <= bb.x + bb.width &&
+                            centerY >= bb.y &&
+                            centerY <= bb.y + bb.height) {
+                            //console.log("Cell", row, col, "center:", centerX, centerY);
+                            mapPrivates.explorationData[col + mapPrivates.explorationDataColumns * row] = true;
+                        }
+                    }
+                }
+
+                mapPrivates.explorationDataUpdated();
             }
         }
     }
@@ -708,6 +766,7 @@ Rectangle {
 
 
                     FogOfWar {
+                        id: fow
                         anchors.fill: parent
 
                         playerX: image.player ? (image.player.x + image.player.width / 2) : 0
@@ -723,16 +782,15 @@ Rectangle {
                         cloudTextureWidth: map.fogTextureWidth * flickableArea.zoom
                         cloudTextureHeight: map.fogTextureHeight * flickableArea.zoom
 
-                        explorationDataColumns: 33
-                        explorationDataRows: 22
-                        explorationData: {
-                            var arr = [];
-                            for (var r = 0; explorationDataRows > r; ++r) {
-                                for (var c = 0; explorationDataColumns > c; ++c) {
-                                    arr[c + explorationDataColumns * r] = Math.random() < 0.3;
-                                }
+                        explorationDataColumns: mapPrivates.explorationDataColumns
+                        explorationDataRows: mapPrivates.explorationDataRows
+                        explorationData: mapPrivates.explorationData
+
+                        Connections {
+                            target: mapPrivates
+                            onExplorationDataUpdated: {
+                                fow.explorationDataUpdated();
                             }
-                            return arr;
                         }
                     }
                 }

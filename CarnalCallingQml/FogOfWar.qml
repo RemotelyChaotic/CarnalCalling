@@ -22,8 +22,12 @@ Rectangle {
     property var explorationData: []
     property int explorationDataColumns: 512
     property int explorationDataRows: 512
+    signal explorationDataUpdated()
 
     onExplorationDataChanged: {
+        dataCanvas.requestPaint();
+    }
+    onExplorationDataUpdated: {
         dataCanvas.requestPaint();
     }
 
@@ -230,7 +234,7 @@ Rectangle {
                 float exploredAlphaDebug = step(0.5, explorationData.a * alpha);
 
                 //float explored = explored0 * explored1 * explored2 * alpha;
-                vec4 fog = vec4(exploredAlphaDebug*255.0, 0.0, 0.0,
+                vec4 fog = vec4(/*exploredAlphaDebug*255.0*/0.0, 0.0, 0.0,
                                 alpha * fogOpacity * qt_Opacity);
                 gl_FragColor = mix(fog,
                                     mix(fog, clouds, clouds.a),

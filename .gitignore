@@ -57,3 +57,6 @@
 # 3D Images
 *.3dm
 *.max
+
+# wip folder
+/.wip

@@ -96,107 +96,48 @@ Rectangle {
         mapPrivates.zoomingAllowed = true;
     }
 
-    function zoomAt(mx, my, factor)
+    function zoomAt(mxFlickable, myFlickable, factor)
     {
         var dOldZoom = flickableArea.zoom;
         var dNewZoom = Math.max(0.1, Math.min(10.0, dOldZoom * factor));
 
-        if (dOldZoom === dNewZoom)
+        if (dOldZoom === dNewZoom) {
             return;
+        }
+
+        // Position of the mouse in the zoomed content coordinate system
+        var contentMouseX = flickableArea.contentX + mxFlickable;
+        var contentMouseY = flickableArea.contentY + myFlickable;
 
         // Image position inside content at current zoom
-        var oldImageX = Math.max(0, (content.width - image.width));
-        var oldImageY = Math.max(0, (content.height - image.height));
+        var oldImageW = Math.max(0, image.width);
+        var oldImageH = Math.max(0, image.height);
 
-        var imageX = (oldImageX + flickableArea.contentX + mx) / dOldZoom;
-        var imageY = (oldImageY + flickableArea.contentX + mx) / dOldZoom;
+        var imageX = contentMouseX / dOldZoom;
+        var imageY = contentMouseY / dOldZoom;
 
         flickableArea.zoom = dNewZoom;
 
-        var newImgWidth = image.originalWidth * dNewZoom;
-        var newImgHeight = image.originalHeight * dNewZoom;
-        var imageXOrig = Math.max(0, (Math.max(flickableArea.width, newImgWidth) - newImgWidth));
-        var imageYOrig = Math.max(0, (Math.max(flickableArea.height, newImgHeight) - newImgHeight));
+        var newImageW = Math.max(0, image.width);
+        var newImageH = Math.max(0, image.height);
 
-        flickableArea.contentX =
-                imageXOrig + imageX * dNewZoom - mx;
-
-        flickableArea.contentY =
-                imageYOrig + imageY * dNewZoom - my;
-
-        // make sure map objects scale corectly
-        for (let i = 0; image.children.length > i; ++i) {
-            switch (image.children[i].objType) {
-                case PlayerMap.Player:
-                {
-                    let foundPlayerPlace = mapPrivates.mapData.places.find((element) => element.id === mapPrivates.currentPlace);
-
-                    // if the child is a location, calculate the new center
-                    // Pixel position in the scaled image
-                    var targetXP = imageXOrig + foundPlayerPlace.x * flickableArea.zoom;
-                    var targetYP = imageYOrig + foundPlayerPlace.y * flickableArea.zoom;
-
-                    let width = image.children[i].width;
-                    let height = image.children[i].height;
-
-                    image.children[i].fixedPosX = targetXP - width/2;
-                    image.children[i].fixedPosY = targetYP - height/2;
-                    break;
-                }
-                case PlayerMap.Place: // fallthrough
-                {
-                    let foundMapItem = mapPrivates.mapData.places.find((element) => element.id === image.children[i].objId);
-
-                    // if the child is a location, calculate the new center
-                    // Pixel position in the scaled image
-                    var targetX = imageXOrig + foundMapItem.x * flickableArea.zoom;
-                    var targetY = imageYOrig + foundMapItem.y * flickableArea.zoom;
-
-                    let width = image.children[i].width;
-                    let height = image.children[i].height;
-
-                    image.children[i].x = targetX - width/2;
-                    image.children[i].y = targetY - height/2;
-                    break;
-                }
-                case PlayerMap.Path: {
-                    let foundConnItem = mapPrivates.mapData.connections.find((element) => element.id === image.children[i].objId);
-                    let foundFrom = mapPrivates.mapData.places.find((element) => element.id === foundConnItem.from);
-                    let foundTo = mapPrivates.mapData.places.find((element) => element.id === foundConnItem.to);
-
-                    // if the child is a Path, calculate new tl br
-                    var targetX1 = imageXOrig + foundFrom.x * flickableArea.zoom;
-                    var targetY1 = imageYOrig + foundFrom.y * flickableArea.zoom;
-                    var targetX2 = imageXOrig + foundTo.x * flickableArea.zoom;
-                    var targetY2 = imageYOrig + foundTo.y * flickableArea.zoom;
-
-                    image.children[i].x = Math.min(targetX1, targetX2);
-                    image.children[i].y = Math.min(targetY1, targetY2);
-                    image.children[i].width = Math.max(targetX1, targetX2) - Math.min(targetX1, targetX2);
-                    image.children[i].height = Math.max(targetY1, targetY2) - Math.min(targetY1, targetY2);
-                    break;
-                }
-            }
-        }
+        flickableArea.contentX = (imageX * dNewZoom) - mxFlickable;
+        flickableArea.contentY = (imageY * dNewZoom) - myFlickable;
+        flickableArea.returnToBounds();
     }
 
-    function moveToImagePixel(ix, iy, animate = true)
+    function moveToImagePixel(ixImage, iyImage, animate = true)
     {
         if (image.status !== Image.Ready) {
             return;
         }
 
-        // Image position inside content at current zoom
-        var imageX = Math.max(0, (content.width - image.width));
-        var imageY = Math.max(0, (content.height - image.height));
-
-        // Pixel position in the scaled image
-        var targetX = imageX + ix * flickableArea.zoom;
-        var targetY = imageY + iy * flickableArea.zoom;
+        var xInViewport = ixImage * flickableArea.zoom;
+        var yInViewport = iyImage * flickableArea.zoom;
 
         // Center this pixel in the view
-        var targetContentX = targetX - flickableArea.width / 2;
-        var targetContentY = targetY - flickableArea.height / 2;
+        var targetContentX = xInViewport - flickableArea.width / 2;
+        var targetContentY = yInViewport - flickableArea.height / 2;
 
         // Clamp to valid range
         cXAnim.to = Math.max(0,
@@ -206,7 +147,7 @@ Rectangle {
             Math.min(flickableArea.contentHeight - flickableArea.height,
                      targetContentY));
         if (animate) {
-            zoomAnim.start();
+            panAnim.start();
         } else {
             flickableArea.contentX = cXAnim.to;
             flickableArea.contentY = cYAnim.to;
@@ -231,27 +172,28 @@ Rectangle {
         }
     }
 
-    // smooth zoom
+    // smooth pan
     ParallelAnimation {
-        id: zoomAnim
+        id: panAnim
         loops: 1
         running: false
         NumberAnimation { id: cXAnim; target: flickableArea; property: "contentX"; to: 0; duration: 500 }
         NumberAnimation { id: cYAnim; target: flickableArea; property: "contentY"; to: 0; duration: 500 }
     }
 
+
     // player marker
     Component {
         id: player
         Rectangle {
             id: playerRect
-            x: attachedToPath ? pathInterpolator.x - width / 2 : fixedPosX
-            y: attachedToPath ? pathInterpolator.y - height / 2 : fixedPosY
-            width: map.placeWidth
-            height: map.placeHeight
+            x: attachedToPath ? pathInterpolator.x - width / 2 : fixedPosX - width / 2
+            y: attachedToPath ? pathInterpolator.y - height / 2 : fixedPosY - height / 2
+            width: map.placeWidth / flickableArea.zoom
+            height: map.placeHeight / flickableArea.zoom
             color: "transparent"
 
-            border.width: 6
+            border.width: 6 / flickableArea.zoom
             border.color: "#ff00ff"
 
             radius: width / 2
@@ -274,7 +216,7 @@ Rectangle {
             }
 
             function positionChanged() {
-                let zoomedVisionRadius = visionRadius * flickableArea.zoom;
+                let zoomedVisionRadius = visionRadius;
                 let cellWidth = image.width / mapPrivates.explorationDataColumns;
                 let cellHeight = image.height / mapPrivates.explorationDataRows;
                 let bb = Qt.rect(x - zoomedVisionRadius,
@@ -318,8 +260,10 @@ Rectangle {
         id: mapIconComp
         Rectangle {
             id: mapIconRect
-            width: map.placeWidth
-            height: map.placeHeight
+            x: fixedPosX - width / 2
+            y: fixedPosY - height / 2
+            width: map.placeWidth / flickableArea.zoom
+            height: map.placeHeight / flickableArea.zoom
             color: "transparent"
 
             property int objType: PlayerMap.Place
@@ -330,6 +274,9 @@ Rectangle {
             property bool hovered: image.hovered === name && name !== ""
             property bool selected: image.selected === name && name !== ""
 
+            property real fixedPosX: 0
+            property real fixedPosY: 0
+
             Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 y: mapIconRect.height - height / 2
@@ -338,22 +285,22 @@ Rectangle {
                 color: "black"
                 radius: 10
 
-                border.width: 4
+                border.width: 4 / flickableArea.zoom
                 border.color: objId === mapPrivates.currentPlace ? map.colorCurrentPlace : "transparent"
 
                 TextItemFormated {
                     id: iconText
                     anchors.centerIn: parent
                     text: mapIconRect.name
-                    pointSize: 8
-                    maximumWidth: mapIconRect.width + 50
+                    pointSize: 8 / flickableArea.zoom
+                    maximumWidth: mapIconRect.width / flickableArea.zoom + 50
                 }
             }
             IconResourceDelegate {
                 id: mapIconInstance
                 anchors.centerIn: parent
-                width: mapIconRect.hovered ? map.placeWidth : (map.placeWidth - 20)
-                height: mapIconRect.hovered ? map.placeHeight : (map.placeHeight - 20)
+                width: mapIconRect.hovered ? map.placeWidth / flickableArea.zoom : (map.placeWidth / flickableArea.zoom - 20 / flickableArea.zoom)
+                height: mapIconRect.hovered ? map.placeHeight / flickableArea.zoom : (map.placeHeight / flickableArea.zoom - 20 / flickableArea.zoom)
                 pResource: {
                     let res = mapPrivates.currentlyLoadedProject.resource(mapIconRect.icon);
                     if (null == res) {
@@ -366,6 +313,12 @@ Rectangle {
                 Connections {
                     target: mapIconRect
                     onHoveredChanged: {
+                        mapIconInstance.reloadResource();
+                    }
+                }
+                Connections {
+                    target: flickableArea
+                    onZoomChanged: {
                         mapIconInstance.reloadResource();
                     }
                 }
@@ -393,8 +346,8 @@ Rectangle {
                 TimerDisplay {
                     id: timerDisplay
                     anchors.centerIn: parent
-                    width: map.placeWidth + root.style.timerDisplay.groveWidth/2
-                    height: map.placeWidth + root.style.timerDisplay.groveWidth/2
+                    width: map.placeWidth / flickableArea.zoom + root.style.timerDisplay.groveWidth/2 / flickableArea.zoom
+                    height: map.placeWidth / flickableArea.zoom + root.style.timerDisplay.groveWidth/2 / flickableArea.zoom
                     fillColor: "transparent"
 
                     visible: mapIconRect.selected
@@ -405,8 +358,8 @@ Rectangle {
                     secondaryColor: map.secondaryColorSelection
                     tertiaryColor: map.tertiaryColorSelection
 
-                    borderWidth: root.style.timerDisplay.borderWidth
-                    groveWidth: root.style.timerDisplay.groveWidth
+                    borderWidth: root.style.timerDisplay.borderWidth / flickableArea.zoom
+                    groveWidth: root.style.timerDisplay.groveWidth / flickableArea.zoom
 
                     decorationVisible: false
                     timeMsMax: 0
@@ -528,7 +481,7 @@ Rectangle {
                     id: pathShape
 
                     strokeColor: map.colorTravel
-                    strokeWidth: 5
+                    strokeWidth: 5 / flickableArea.zoom
                     strokeStyle: ShapePath.DashLine
                     fillColor: "transparent"
 
@@ -564,14 +517,18 @@ Rectangle {
 
         property real zoom: 0.5
 
-        contentWidth: Math.max(width, image.width)
-        contentHeight: Math.max(height, image.height)
+        contentWidth: pinchArea.width * zoom
+        contentHeight: pinchArea.height * zoom
+        boundsBehavior: Flickable.DragAndOvershootBounds
 
         PinchArea {
             id: pinchArea
             // The PinchArea must match the full size of the flickable content
-            width: Math.max(flickableArea.width, content.width)
-            height: Math.max(flickableArea.height, content.height)
+            width: content.width
+            height: content.height
+
+            scale: flickableArea.zoom
+            transformOrigin: Item.TopLeft
 
             pinch.minimumScale: 0.5
             pinch.maximumScale: 4.0
@@ -590,12 +547,14 @@ Rectangle {
 
             Item {
                 id: content
-
-                width: flickableArea.contentWidth
-                height: flickableArea.contentHeight
+                width: image.width
+                height: image.height
 
                 Image {
                     id: image
+                    anchors.centerIn: parent
+                    width: originalWidth
+                    height: originalHeight
 
                     property var player: null
 
@@ -604,17 +563,13 @@ Rectangle {
                     property string hovered: ""
                     property string selected: ""
 
-                    width: originalWidth * flickableArea.zoom
-                    height: originalHeight * flickableArea.zoom
-
                     asynchronous: true
                     smooth: Settings.playerImageSmooth
                     antialiasing: Settings.playerAntialiasing
                     mipmap: Settings.playerImageMipMap
                     source: ""
 
-                    fillMode: Image.Stretch
-                    scale: 1.0
+                    fillMode: Image.PreserveAspectFit
 
                     // player interpolator
                     PathInterpolator {
@@ -624,8 +579,8 @@ Rectangle {
                         property int objType: PlayerMap.PathInterpolator
 
                         onProgressChanged: {
-                            var targetContentX = pathInterpolator.x - flickableArea.width / 2;
-                            var targetContentY = pathInterpolator.y - flickableArea.height / 2;
+                            var targetContentX = pathInterpolator.x * flickableArea.zoom - flickableArea.width / 2;
+                            var targetContentY = pathInterpolator.y * flickableArea.zoom - flickableArea.height / 2;
                             // Clamp to valid range
                             flickableArea.contentX = Math.max(0,
                                 Math.min(flickableArea.contentWidth - flickableArea.width,
@@ -650,18 +605,15 @@ Rectangle {
                                     mapPrivates.currentPlace = targetPlace;
                                     targetPlace = -1;
 
-                                    // Image position inside content at current zoom
-                                    var imageX = Math.max(0, (content.width - image.width));
-                                    var imageY = Math.max(0, (content.height - image.height));
                                     let foundPlayerPlace = mapPrivates.mapData.places.find((element) => element.id === mapPrivates.currentPlace);
-                                    var targetXP = imageX + foundPlayerPlace.x * flickableArea.zoom;
-                                    var targetYP = imageY + foundPlayerPlace.y * flickableArea.zoom;
+                                    var targetXP = foundPlayerPlace.x;
+                                    var targetYP = foundPlayerPlace.y;
 
                                     // set Player stuff
                                     for (var i = 0; image.children.length > i; ++i) {
                                         if (image.children[i].objType === PlayerMap.Player) {
-                                            image.children[i].fixedPosX = targetXP - map.placeWidth/2;
-                                            image.children[i].fixedPosY = targetYP - map.placeHeight/2;
+                                            image.children[i].fixedPosX = targetXP;
+                                            image.children[i].fixedPosY = targetYP;
                                             image.children[i].attachedToPath = false;
                                             moveToImagePixel(foundPlayerPlace.x, foundPlayerPlace.y, true);
                                             break;
@@ -683,21 +635,16 @@ Rectangle {
 
                     function populateMap()
                     {
-                        // Image position inside content at current zoom
-                        var imageX = Math.max(0, (content.width - image.width));
-                        var imageY = Math.max(0, (content.height - image.height));
-
                         for (let i = 0; mapPrivates.mapData.connections.length > i; ++i) {
                             // Pixel position in the scaled image
                             let foundFrom = mapPrivates.mapData.places.find((element) => element.id === mapPrivates.mapData.connections[i].from);
                             let foundTo = mapPrivates.mapData.places.find((element) => element.id === mapPrivates.mapData.connections[i].to);
 
                             if (null != foundFrom && null != foundTo) {
-                                var targetX1 = imageX + foundFrom.x * flickableArea.zoom;
-                                var targetY1 = imageY + foundFrom.y * flickableArea.zoom;
-                                var targetX2 = imageX + foundTo.x * flickableArea.zoom;
-                                var targetY2 = imageY + foundTo.y * flickableArea.zoom;
-
+                                var targetX1 = foundFrom.x
+                                var targetY1 = foundFrom.y;
+                                var targetX2 = foundTo.x;
+                                var targetY2 = foundTo.y;
                                 mapPath.createObject(image,
                                                      {
                                                          objId: mapPrivates.mapData.connections[i].id,
@@ -714,24 +661,24 @@ Rectangle {
 
                         // Pixel position in the scaled image
                         let foundPlayerPlace = mapPrivates.mapData.places.find((element) => element.id === mapPrivates.currentPlace);
-                        var targetXP = imageX + foundPlayerPlace.x * flickableArea.zoom;
-                        var targetYP = imageY + foundPlayerPlace.y * flickableArea.zoom;
+                        var targetXP = foundPlayerPlace.x;
+                        var targetYP = foundPlayerPlace.y;
                         player.createObject(image,
                                             {
-                                                fixedPosX: targetXP - map.placeWidth/2,
-                                                fixedPosY: targetYP - map.placeHeight/2,
+                                                fixedPosX: targetXP,
+                                                fixedPosY: targetYP,
                                             });
 
                         for (let i = 0; mapPrivates.mapData.places.length > i; ++i) {
                             // Pixel position in the scaled image
-                            var targetX = imageX + mapPrivates.mapData.places[i].x * flickableArea.zoom;
-                            var targetY = imageY + mapPrivates.mapData.places[i].y * flickableArea.zoom;
+                            var targetX = mapPrivates.mapData.places[i].x;
+                            var targetY = mapPrivates.mapData.places[i].y;
 
                             mapIconComp.createObject(image,
                                                      {
                                                          objId: mapPrivates.mapData.places[i].id,
-                                                         x: targetX - map.placeWidth/2,
-                                                         y: targetY - map.placeHeight/2,
+                                                         fixedPosX: targetX,
+                                                         fixedPosY: targetY,
                                                          name: mapPrivates.mapData.places[i].name,
                                                          icon: mapPrivates.mapData.places[i].icon,
                                                          scene: mapPrivates.mapData.places[i].scene
@@ -764,7 +711,6 @@ Rectangle {
                         }
                     }
 
-
                     FogOfWar {
                         id: fow
                         anchors.fill: parent
@@ -772,15 +718,15 @@ Rectangle {
                         playerX: image.player ? (image.player.x + image.player.width / 2) : 0
                         playerY: image.player ? (image.player.y + image.player.height / 2) : 0
 
-                        radius: image.player ? (image.player.visionRadius * flickableArea.zoom) : 0
+                        radius: image.player ? image.player.visionRadius : 0
                         feather: radius * 0.7
 
                         mapWidthFull: image.originalWidth
                         mapHeightFull: image.originalHeight
 
                         cloudSource: "image://DataBaseImageProivider/" + mapPrivates.currentlyLoadedProject.id + "/" + map.fogTexture
-                        cloudTextureWidth: map.fogTextureWidth * flickableArea.zoom
-                        cloudTextureHeight: map.fogTextureHeight * flickableArea.zoom
+                        cloudTextureWidth: map.fogTextureWidth
+                        cloudTextureHeight: map.fogTextureHeight
 
                         explorationDataColumns: mapPrivates.explorationDataColumns
                         explorationDataRows: mapPrivates.explorationDataRows
@@ -795,36 +741,35 @@ Rectangle {
                     }
                 }
             }
+        }
+    }
 
-            MouseArea {
-                anchors.fill: parent
-                acceptedButtons: Qt.NoButton
-                hoverEnabled: true
-                propagateComposedEvents: true
+    MouseArea {
+        anchors.fill: parent
+        acceptedButtons: Qt.NoButton
+        hoverEnabled: true
+        propagateComposedEvents: true
 
-                onPositionChanged: {
-                    // Find which child component is under the mouse
-                    var p = mapToItem(image, mouse.x, mouse.y);
-                    let visualItem = image.childAt(p.x, p.y);
-                    if (visualItem != null && visualItem.name != null) {
-                        image.hovered = visualItem.name;
-                    } else {
-                        image.hovered = ""
-                    }
-                }
-                onClicked: {
-                    mouse.accepted = false;
-                }
-                onWheel: {
-                    // currently deactivated because it causes flickering
-                    if (mapPrivates.zoomingAllowed && !map.lockZoom) {
-                        var p = mapToItem(flickableArea, wheel.x, wheel.y);
-                        map.zoomAt(p.x, p.y,
-                                   wheel.angleDelta.y > 0 ? 1.1 : 1/1.1)
-                    }
-                    wheel.accepted = true
-                }
+        onPositionChanged: {
+            // Find which child component is under the mouse
+            var p = mapToItem(image, mouse.x, mouse.y);
+            let visualItem = image.childAt(p.x, p.y);
+            if (visualItem != null && visualItem.name != null) {
+                image.hovered = visualItem.name;
+            } else {
+                image.hovered = ""
             }
+        }
+        onClicked: {
+            mouse.accepted = false;
+        }
+        onWheel: {
+            if (mapPrivates.zoomingAllowed && !map.lockZoom) {
+                var p = mapToItem(flickableArea, wheel.x, wheel.y);
+                map.zoomAt(p.x, p.y,
+                           wheel.angleDelta.y > 0 ? 1.1 : 1/1.1)
+            }
+            wheel.accepted = true
         }
     }
 }

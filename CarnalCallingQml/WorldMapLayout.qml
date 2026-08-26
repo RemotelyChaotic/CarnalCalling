@@ -97,8 +97,8 @@ Rectangle {
         anchors.bottom: textBox.top
         x: DominantHand.Left === dominantHand ? 0 : parent.width - width
 
-        width: (parent.width - parent.spacing * 2) / 4
-        height: (parent.height - textBox.height - layout.spacing) / 2
+        width: 48
+        height: (parent.height - textBox.height - layout.spacing / 2)
         color: "transparent"
 
         PlayerNotification {

@@ -145,13 +145,21 @@ Rectangle {
                 return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
             }
 
-            vec2 getDynamicCloudCoord(vec2 pIn, vec2 offset, float speed)
+            vec2 getCloudRandomOffset(vec2 tileIndex, float layerSeed)
             {
-                return pIn + offset + vec2(timeOffset * speed, 0.0);
+                float rx = rand(tileIndex + vec2(17.13, 53.71) + layerSeed);
+                float ry = rand(tileIndex + vec2(91.37, 11.29) + layerSeed);
+
+                // Random offset within roughly half a tile in either direction.
+                return (vec2(rx, ry) - 0.5) * cloudResolution;
             }
 
-            float getExplorationAlphaOfCloud(vec2 cloudAnchorCoord)
+            float getExplorationAlphaOfCloud(vec2 cloudAnchorCoord, vec2 cloudAnchorCoordPx)
             {
+                // calculate player vision radius
+                float dToPlayer = distance(cloudAnchorCoordPx, vec2(playerX, playerY));
+                float alphaVision = smoothstep(radius, radius + feather + cloudResolution.x, dToPlayer);
+
                 vec2 tile = cloudAnchorCoord * screenResolution / explorationResolution;
                 vec2 tileIndex = floor(tile);
                 vec2 frac = fract(tile);
@@ -160,39 +168,117 @@ Rectangle {
                 vec2 uv1 = (tileIndex + vec2(1.5, 0.5)) / texSize;
                 float a0 = texture2D(explorationTexture, uv0).a;
                 float a1 = texture2D(explorationTexture, uv1).a;
-                return mix(a0, a1, frac.x);
+                float exploredAlpha = mix(a0, a1, frac.x);
+                return max(exploredAlpha, 1.0 - alphaVision);
             }
 
             vec4 renderCloudLayer(vec2 p,
                                   vec2 offset,
                                   float speed,
-                                  out float exploredAlpha)
+                                  float layerSeed)
             {
-                // get cloud texture UV and color
-                // To move the clouds we just offset the coordinate with time
-                vec2 dynCloudCoord = getDynamicCloudCoord(p, offset, speed);
-                vec2 uvCloudTex = fract(dynCloudCoord / cloudResolution);
-                vec4 cloudColor = texture2D(cloudTexture, uvCloudTex);
+                vec2 worldCoord = p + offset;
 
-                // get current cloud bb in screen space uv
-                vec2 cloudTLCoord = (p - uvCloudTex * cloudResolution) / screenResolution;
-                vec2 cloudBRCoord = (p + (vec2(1.0,1.0)-uvCloudTex) * cloudResolution) / screenResolution;
-                vec2 cloudAnchorCoord = vec2(
-                    (cloudTLCoord.x + cloudBRCoord.x) * 0.5,
-                    //(cloudTLCoord.y + cloudBRCoord.y) * 0.5,
-                    cloudBRCoord.y
-                );
+                // Find approximately which ORIGINAL world tile is currently
+                // responsible for this pixel.
+                //
+                // Since the cloud moves left as time increases, a pixel at p
+                // is seeing a cloud whose original position was further right.
+                vec2 lookupCoord =
+                    worldCoord + vec2(timeOffset * speed, 0.0);
 
-                // Get exploration alpha of a cloud anchored at cloudAnchorCoord. Interpolated
-                // between neighbouring tiles.
-                exploredAlpha = getExplorationAlphaOfCloud(cloudAnchorCoord);
+                vec2 baseTileIndex =
+                    floor(lookupCoord / cloudResolution);
 
-                //float visibility = 1.0 - smoothstep(0.2, 0.8, exploredAlpha);
-                float visibility = pow(1.0 - exploredAlpha, 3.0);
-                cloudColor.a *= visibility;
+                vec4 result = vec4(0.0);
 
-                //return vec4(vec3(exploredAlpha), 1.0);
-                return cloudColor;
+                /*
+                 * A cloud can overlap the tile above/below it because of its
+                 * random Y offset, and can also cross horizontal tile boundaries
+                 * because of its movement.
+                 *
+                 * Check a 3x3 neighborhood of cloud instances.
+                 */
+                for (int iy = -1; iy <= 1; ++iy)
+                {
+                    for (int ix = -1; ix <= 1; ++ix)
+                    {
+                        vec2 tileIndex =
+                            baseTileIndex +
+                            vec2(float(ix), float(iy));
+
+                        // Stable random position belonging to this world tile.
+                        vec2 randomOffset =
+                            getCloudRandomOffset(tileIndex, layerSeed);
+
+                        // Position of the cloud at time = 0.
+                        vec2 cloudOrigin =
+                            tileIndex * cloudResolution +
+                            randomOffset;
+
+                        // Move the cloud RIGHT-TO-LEFT.
+                        cloudOrigin.x -= timeOffset * speed;
+
+                        // Position relative to this cloud.
+                        vec2 localCoord =
+                            worldCoord - cloudOrigin;
+
+                        // Convert to texture coordinates.
+                        //
+                        // IMPORTANT: no fract() here.
+                        vec2 uvCloudTex =
+                            localCoord / cloudResolution;
+
+                        // Ignore pixels outside this cloud instance.
+                        if (uvCloudTex.x >= 0.0 &&
+                            uvCloudTex.x <= 1.0 &&
+                            uvCloudTex.y >= 0.0 &&
+                            uvCloudTex.y <= 1.0)
+                        {
+                            vec4 cloudColor =
+                                texture2D(cloudTexture, uvCloudTex);
+
+                            // The actual world-space bounding box of this cloud.
+                            vec2 cloudTLCoord =
+                                cloudOrigin / screenResolution;
+
+                            vec2 cloudBRCoord =
+                                (cloudOrigin + cloudResolution)
+                                / screenResolution;
+
+                            vec2 cloudAnchorCoord = vec2(
+                                (cloudTLCoord.x + cloudBRCoord.x) * 0.5,
+                                cloudBRCoord.y
+                            );
+                            vec2 cloudAnchorCoordPx = vec2(
+                                (cloudOrigin.x + cloudResolution.x * 0.5),
+                                cloudOrigin.y + cloudResolution.y
+                            );
+
+                            float cloudExploredAlpha =
+                                getExplorationAlphaOfCloud(
+                                    cloudAnchorCoord, cloudAnchorCoordPx);
+
+                            float visibility =
+                                pow(1.0 - cloudExploredAlpha, 3.0);
+
+                            cloudColor.a *= visibility;
+
+                            // Composite this cloud.
+                            result.rgb =
+                                mix(result.rgb,
+                                    cloudColor.rgb,
+                                    cloudColor.a);
+
+                            result.a =
+                                1.0 -
+                                (1.0 - result.a) *
+                                (1.0 - cloudColor.a);
+                        }
+                    }
+                }
+
+                return result;
             }
 
             void main()
@@ -200,28 +286,24 @@ Rectangle {
                 // current point in screen space coordinates
                 vec2 p = qt_TexCoord0 * screenResolution;
                 float d = distance(p, vec2(playerX, playerY));
-                float alpha = smoothstep(radius, radius + feather, d);
+                float alphaVision = smoothstep(radius, radius + feather, d);
 
                 // calculate cloud layers
-                float explored0 = 1.0;
-                float explored1 = 1.0;
-                float explored2 = 1.0;
-
                 vec4 cloud0 = renderCloudLayer(
                     p,
                     vec2(0.0, 0.0),
                     0.5,
-                    explored0);
+                    0.0);
                 vec4 cloud1 = renderCloudLayer(
                     p,
                     vec2(cloudResolution.x * 0.5, 37.0),
                     0.35,
-                    explored1);
+                    100.0);
                 vec4 cloud2 = renderCloudLayer(
                     p,
                     vec2(cloudResolution.x * 0.25, -18.0),
                     0.7,
-                    explored2);
+                    200.0);
 
                 vec4 clouds = cloud0;
                 clouds.rgb = mix(clouds.rgb, cloud1.rgb, cloud1.a);
@@ -230,15 +312,14 @@ Rectangle {
                 clouds.a = 1.0 - (1.0 - clouds.a) * (1.0 - cloud2.a);
 
                 //Debug: paint the exploratioin map
-                vec4 explorationData = texture2D(explorationTexture, qt_TexCoord0);
-                float exploredAlphaDebug = step(0.5, explorationData.a * alpha);
+                //vec4 explorationData = texture2D(explorationTexture, qt_TexCoord0);
+                //float exploredAlphaDebug = step(0.5, explorationData.a * alphaVision);
 
-                //float explored = explored0 * explored1 * explored2 * alpha;
                 vec4 fog = vec4(/*exploredAlphaDebug*255.0*/0.0, 0.0, 0.0,
-                                alpha * fogOpacity * qt_Opacity);
+                                alphaVision * fogOpacity * qt_Opacity);
                 gl_FragColor = mix(fog,
                                     mix(fog, clouds, clouds.a),
-                                    alpha);
+                                    alphaVision);
             }
         "
     }

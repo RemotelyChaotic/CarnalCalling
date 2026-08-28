@@ -24,6 +24,10 @@ Rectangle {
     PlayerMap {
         id: map
         anchors.fill: parent
+
+        onTravelFinished: {
+            eventReceiver.sendEventResponse("mapEvent", nextScene);
+        }
     }
 
     PlayerMediaPlayer {

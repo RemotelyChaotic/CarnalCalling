@@ -14,6 +14,8 @@ Rectangle {
     id: map
     color: "transparent"
 
+    signal travelFinished(string nextScene)
+
     property int placeWidth: 50
     property int placeHeight: 50
     property int travelDuration: 3000
@@ -94,6 +96,15 @@ Rectangle {
 
         mapPrivates.plannedTravel = null;
         mapPrivates.zoomingAllowed = true;
+        fadeoutAnim.start();
+    }
+
+    function switchScene()
+    {
+        let foundPlayerPlace = mapPrivates.mapData.places.find((element) => element.id === mapPrivates.currentPlace);
+        if (null != foundPlayerPlace) {
+            travelFinished(foundPlayerPlace.scene);
+        }
     }
 
     function zoomAt(mxFlickable, myFlickable, factor)
@@ -170,6 +181,54 @@ Rectangle {
             var diffMs = newDateMs - lastDateMs;
             lastDateMs = newDateMs;
         }
+    }
+
+    // smooth fadeout
+    SequentialAnimation {
+        id: fadeoutAnim
+        loops: 1
+        running: false
+
+        // Fixed viewport position
+        property real zoomCenterX: 0
+        property real zoomCenterY: 0
+        // Content point underneath the center, in unscaled coordinates
+        property real zoomImageX: 0
+        property real zoomImageY: 0
+        onRunningChanged: {
+            if (running) {
+                zoomCenterX = flickableArea.width / 2;
+                zoomCenterY = flickableArea.height / 2;
+                zoomImageX =
+                    (flickableArea.contentX + zoomCenterX)
+                    / flickableArea.zoom;
+                zoomImageY =
+                    (flickableArea.contentY + zoomCenterY)
+                    / flickableArea.zoom;
+                zoomProgress = 0
+            }
+        }
+
+        property int zoomProgress: 0
+        onZoomProgressChanged: {
+            var step = 1.05;
+            zoomAt(
+                zoomCenterX,
+                zoomCenterY,
+                step
+            );
+            // Correct the position after zoomAt().
+            //
+            // zoomAt() calls returnToBounds(), so if the requested
+            // position gets clamped, explicitly put the captured
+            // image point back under the center.
+            flickableArea.contentX =
+                    zoomImageX * flickableArea.zoom - zoomCenterX;
+            flickableArea.contentY =
+                    zoomImageY * flickableArea.zoom - zoomCenterY;
+        }
+        NumberAnimation { target: fadeoutAnim; property: "zoomProgress"; to: 40; duration: 1000 }
+        ScriptAction { script: switchScene(); }
     }
 
     // smooth pan
@@ -689,6 +748,7 @@ Rectangle {
                     onStatusChanged: {
                         if (status === Image.Ready) {
                             Qt.callLater(function() {
+                                flickableArea.zoom = 0.5;
                                 flickableArea.contentX =
                                         (flickableArea.contentWidth - flickableArea.width) / 2;
                                 flickableArea.contentY =

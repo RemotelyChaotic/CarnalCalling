@@ -5,7 +5,8 @@ let wMap = mapLocations["WorldMap"];
 let dataToSend = { "resource": "WorldMap", "data": wMap, "current": 0 };
 
 function mapEventHandler(evtName, evtData) {
-
+    // Debug
+    textBox.showText(evtData, -1, true);
 }
 
 background.setBackgroundTexture("CloudsTileable");

@@ -39,6 +39,36 @@
             ]
         },
         {
+            "sName": "CCPlayerControls.qml",
+            "sPath": "pfs:CarnalCallingQml/CCPlayerControls.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CCPlayerNotification.qml",
+            "sPath": "pfs:CarnalCallingQml/CCPlayerNotification.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CCPlayerTextBox.qml",
+            "sPath": "pfs:CarnalCallingQml/CCPlayerTextBox.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "CardData.json",
             "sPath": "pfs:Database/CardData.json",
             "sResourceBundle": "",
@@ -85,6 +115,16 @@
             "sSource": "",
             "sSubType": "js",
             "type": 4,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "HexButton.qml",
+            "sPath": "pfs:CarnalCallingQml/HexButton.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
             "vsResourceTags": [
             ]
         },

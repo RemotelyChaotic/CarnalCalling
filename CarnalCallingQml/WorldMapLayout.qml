@@ -17,9 +17,11 @@ Rectangle {
 
     readonly property bool isMobile: Settings.platform === "Android"
     readonly property int dominantHand: Settings.dominantHand
-    readonly property int iconWidth: isMobile ? 32 : 64
-    readonly property int iconHeight: isMobile ? 32 : 64
+    readonly property int iconWidth: isMobile ? 32 : 48
+    readonly property int iconHeight: isMobile ? 32 : 48
     property bool isLandscape: { return width > height; }
+
+    property Project currentlyLoadedProject: root.currentlyLoadedProject
 
     PlayerMap {
         id: map
@@ -95,62 +97,68 @@ Rectangle {
         }
     }
 
-    Rectangle {
+    CCPlayerNotification {
         id: notificationRect
 
-        anchors.bottom: textBox.top
-        x: DominantHand.Left === dominantHand ? 0 : parent.width - width
+        y: 48
+        x: DominantHand.Left === dominantHand ? parent.spacing * 2 + 48 : parent.width - width - parent.spacing * 2
 
-        width: 48
-        height: (parent.height - textBox.height - layout.spacing / 2)
-        color: "transparent"
+        width: 48 * 1.75
+        height: sceneControl.y - y + 48
 
-        PlayerNotification {
-            id: notification
-            anchors.fill: parent
-            userName: "notification"
+        hexWidth: 48
+        hexHeight: 48
+
+        userName: "notification"
+
+        onTransitionRequested: {
+            //scene
         }
     }
 
-    PlayerTextBox {
+    CCPlayerTextBox {
         id: textBox;
 
-        anchors.left: parent.left
-        anchors.bottom: parent.bottom
-
-        width: parent.width
+        x: parent.spacing * 2
+        y: parent.height - height
+        width: parent.width - parent.spacing * 4
         height: parent.height / 3 - parent.spacing / 2
         iconWidth: layout.iconWidth
         iconHeight: layout.iconHeight
+        hexWidth: 48
+        hexHeight: 48
 
         userName: "textBox"
         mainTextBox: true
-        displayMode: PlayerTextBox.TextBoxMode.TextBox
         hideLogAfterInactivity: true
+
+        Behavior on y {
+            NumberAnimation { duration: 500; easing.type: Easing.OutBack}
+        }
 
         states: [
             State {
                 name: "VISIBLE"
-                PropertyChanges { target: textBox; height: textBox.parent.height / 3 - textBox.parent.spacing / 2; }
+                PropertyChanges { target: textBox; y: parent.height - height; }
             },
             State {
                 name: "HIDDEN"
-                PropertyChanges { target: textBox; height: 16; }
+                PropertyChanges { target: textBox; y: parent.height - sceneControl.height + layout.spacing + 2; }
             }
         ]
     }
 
-    PlayerControls {
+    CCPlayerControls {
         id: sceneControl
 
         x: textBox.x
         y: textBox.y - height / 2
-        width: textBox.width - parent.spacing
-        height: 32
+        width: textBox.width
+        height: 48*1.5
 
-        buttonHeight: 32
+        buttonHeight: 48
         buttonWidth: 48
-        spacing: parent.spacing
+        spacing: 0
 
         onSetUiVisible: {
             iconRect.opacity = visible ? 1.0 : 0.0;
@@ -159,59 +167,22 @@ Rectangle {
             textBox.opacity = visible ? 1.0 : 0.0;
         }
 
-        Button {
+        HexButton {
             id: travel
-            height: sceneControl.height
-            Layout.preferredWidth: 48
-            Layout.alignment: Qt.AlignVCenter
+            Layout.preferredHeight: sceneControl.buttonHeight
+            Layout.preferredWidth: sceneControl.buttonWidth
+            Layout.alignment: Qt.AlignBottom
 
-            focusPolicy: Qt.NoFocus
             enabled: textBox.opacity > 0
-
             text: Settings.keyBinding("Tools")
-            contentItem: Text {
-                anchors.fill: parent
-                horizontalAlignment: Text.AlignRight
-                verticalAlignment: Text.AlignBottom
-                rightPadding: 5
-                bottomPadding: 5
 
-                text: parent.text
-                font.family: Settings.font
-                font.pixelSize: 8
-                color: "white"
-            }
+            shortcut: Settings.keyBinding("Tools")
+            toolTipText: qsTr("Head to location")
+            imageSource:
+                "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "UnknownSvg";
 
-            ToolTip.delay: 1000
-            ToolTip.timeout: 5000
-            ToolTip.visible: hovered
-            ToolTip.text: qsTr("Head to location")
-
-            Image {
-                anchors.centerIn: parent
-                width: (parent.width < parent.height ? parent.width : parent.height) - 10
-                height: (parent.width < parent.height ? parent.width : parent.height) - 10
-                fillMode: Image.PreserveAspectFit
-                source: "image://DataBaseImageProivider/" + root.currentlyLoadedProject.id + "/UnknownSvg";
-            }
-
-            onHoveredChanged: {
-                if (hovered)
-                {
-                    soundEffects.hoverSound.play();
-                }
-            }
-            onClicked: {
-                soundEffects.clickSound.play();
+            onTriggeredButton: {
                 map.headToSelected();
-            }
-
-            Shortcut {
-                sequence: Settings.keyBinding("Tools")
-                context: Qt.ApplicationShortcut
-                onActivated: {
-                    textBox.logShown = !textBox.logShown
-                }
             }
         }
     }

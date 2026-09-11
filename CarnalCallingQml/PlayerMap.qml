@@ -218,7 +218,6 @@ Rectangle {
                 step
             );
             // Correct the position after zoomAt().
-            //
             // zoomAt() calls returnToBounds(), so if the requested
             // position gets clamped, explicitly put the captured
             // image point back under the center.

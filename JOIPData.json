@@ -179,6 +179,16 @@
             ]
         },
         {
+            "sName": "StyleParams.qml",
+            "sPath": "pfs:CarnalCallingQml/StyleParams.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "Types.js",
             "sPath": "pfs:Scripts/Types.js",
             "sResourceBundle": "",

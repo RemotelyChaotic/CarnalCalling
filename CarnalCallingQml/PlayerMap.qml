@@ -192,6 +192,7 @@ Rectangle {
         id: fadeoutAnim
         loops: 1
         running: false
+        paused: running ? map.paused : false
 
         // Fixed viewport position
         property real zoomCenterX: 0
@@ -239,6 +240,7 @@ Rectangle {
         id: panAnim
         loops: 1
         running: false
+        paused: running ? map.paused : false
         NumberAnimation { id: cXAnim; target: flickableArea; property: "contentX"; to: 0; duration: 500 }
         NumberAnimation { id: cYAnim; target: flickableArea; property: "contentY"; to: 0; duration: 500 }
     }
@@ -552,11 +554,16 @@ Rectangle {
 
                     dashOffset: mapPathRect.animationForward ? 0 : 15
                     NumberAnimation on dashOffset {
+                        id: pathAnim
                         from: mapPathRect.animationForward ? 15 : 0
                         to: mapPathRect.animationForward ? 0 : 15 // Must match the sum of your dashPattern [10, 5]
                         duration: 1000
                         loops: Animation.Infinite
-                        running: null != mapPrivates.plannedTravel ? mapPrivates.plannedTravel.connections.includes(mapPathRect.objId) : false
+                        paused: running ? map.paused : false
+                        running:
+                            null != mapPrivates.plannedTravel ?
+                                mapPrivates.plannedTravel.connections.includes(mapPathRect.objId) :
+                                false
                     }
 
                     startX: mapPathRect.stops.length > 0 ? mapPathRect.stops[0].x * mapPathRect.width : 0
@@ -660,6 +667,7 @@ Rectangle {
                             duration: map.travelDuration
                             loops: 1
                             running: false
+                            paused: running ? map.paused : false
 
                             property int targetPlace : -1
 
@@ -834,6 +842,25 @@ Rectangle {
                            wheel.angleDelta.y > 0 ? 1.1 : 1/1.1)
             }
             wheel.accepted = true
+        }
+    }
+
+    // handle interrupt
+    property bool paused: false
+    Connections {
+        target: ScriptRunner
+        onRunningChanged: {
+            if (!bRunning)
+            {
+                updateTimer.stop();
+                map.paused = true;
+            }
+            else
+            {
+                updateTimer.lastDateMs = new Date().getTime();
+                updateTimer.start();
+                map.paused = false;
+            }
         }
     }
 }

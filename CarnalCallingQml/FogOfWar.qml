@@ -1,4 +1,5 @@
 import QtQuick 2.14
+import JOIP.core 1.5
 
 Rectangle {
     id: fogEffect
@@ -113,6 +114,22 @@ Rectangle {
                 lastDateMs = newDateMs;
                 fogEffectShader.timeOffset += diffMs/interval;
 
+            }
+        }
+
+        // handle interrupt
+        Connections {
+            target: ScriptRunner
+            onRunningChanged: {
+                if (!bRunning)
+                {
+                    updateTimer.stop();
+                }
+                else
+                {
+                    updateTimer.lastDateMs = new Date().getTime();
+                    updateTimer.start();
+                }
             }
         }
 

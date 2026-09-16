@@ -24,11 +24,11 @@ Rectangle {
         pauseButtonLoader.paused = !pauseButtonLoader.paused;
         if (pauseButtonLoader.paused)
         {
-            ScriptRunner.resumeExecution();
+            ScriptRunner.pauseExecution();
         }
         else
         {
-            ScriptRunner.pauseExecution();
+            ScriptRunner.resumeExecution();
         }
     }
 

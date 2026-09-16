@@ -16,8 +16,8 @@ Rectangle {
 
     property Project currentlyLoadedProject: root.currentlyLoadedProject
 
-    property int hexWidth: 48
-    property int hexHeight: 48
+    property int hexWidth: StyleParams.hexWidth
+    property int hexHeight: StyleParams.hexHeight
     signal transitionRequested(string scene)
 
     function showNotification(sId, sTitle, sButtonText, iTimeS, sOnButton, sOnTimeout)
@@ -53,9 +53,9 @@ Rectangle {
                     layer.samples: 4 // (anti-aliasing)
 
                     ShapePath {
-                        fillColor: "black"// "#282828"
-                        strokeColor: "#282828"// "black"
-                        strokeWidth: 2
+                        fillColor: StyleParams.fillColorHexInactive
+                        strokeColor: StyleParams.strokeColorHexInactive
+                        strokeWidth: StyleParams.strokeColorHexInactiveWidth
                         capStyle: ShapePath.RoundCap
                         joinStyle: ShapePath.RoundJoin
                         startX: width * 0.25
@@ -90,7 +90,7 @@ Rectangle {
         display: AbstractButton.IconOnly
 
         toolTipText: qsTr("Options")
-        imageSource: "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "UnknownSvg";
+        imageSource: hovered ? StyleParams.optionsHoverButton : StyleParams.optionsButton
 
         onTriggeredButton: {
             notificationRect.transitionRequested("options");
@@ -106,7 +106,7 @@ Rectangle {
         display: AbstractButton.IconOnly
 
         toolTipText: qsTr("Card Collection")
-        imageSource: "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "UnknownSvg";
+        imageSource: hovered ? StyleParams.cardsHoverButton : StyleParams.cardsButton
 
         onTriggeredButton: {
             notificationRect.transitionRequested("cards");
@@ -122,7 +122,7 @@ Rectangle {
         display: AbstractButton.IconOnly
 
         toolTipText: qsTr("Decks")
-        imageSource: "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "UnknownSvg";
+        imageSource: hovered ? StyleParams.decksHoverButton : StyleParams.decksButton
 
         onTriggeredButton: {
             notificationRect.transitionRequested("decks");
@@ -145,7 +145,8 @@ Rectangle {
         }
 
         text: qsTr("Options")
-        textColor: "white"
+        textColor: StyleParams.textColorMenu
+        pointSize: StyleParams.menuTextPonintSize
     }
     TextItemFormated {
         id: textCards
@@ -164,7 +165,8 @@ Rectangle {
         }
 
         text: qsTr("Card Collection")
-        textColor: "white"
+        textColor: StyleParams.textColorMenu
+        pointSize: StyleParams.menuTextPonintSize
     }
     TextItemFormated {
         id: textDecks
@@ -183,6 +185,7 @@ Rectangle {
         }
 
         text: qsTr("Decks")
-        textColor: "white"
+        textColor: StyleParams.textColorMenu
+        pointSize: StyleParams.menuTextPonintSize
     }
 }

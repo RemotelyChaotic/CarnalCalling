@@ -1,4 +1,5 @@
 module CarnalCallingQml
+singleton StyleParams 1.0 StyleParams.qml
 CCPlayerControls 1.0 CCPlayerControls.qml
 CCPlayerNotification 1.0 CCPlayerNotification.qml
 CCPlayerTextBox 1.0 CCPlayerTextBox.qml

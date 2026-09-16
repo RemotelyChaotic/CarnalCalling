@@ -14,11 +14,6 @@ Rectangle {
     color: "transparent"
 
     property int spacing: 5
-
-    readonly property bool isMobile: Settings.platform === "Android"
-    readonly property int dominantHand: Settings.dominantHand
-    readonly property int iconWidth: isMobile ? 32 : 48
-    readonly property int iconHeight: isMobile ? 32 : 48
     property bool isLandscape: { return width > height; }
 
     property Project currentlyLoadedProject: root.currentlyLoadedProject
@@ -52,7 +47,7 @@ Rectangle {
     Rectangle {
         id: iconRect
         anchors.top: parent.top
-        x: DominantHand.Left === dominantHand ? 0 : parent.width - width
+        x: DominantHand.Left === StyleParams.dominantHand ? 0 : parent.width - width
 
         width: (parent.width - parent.spacing * 2) / 4
         height: parent.height - textBox.height;
@@ -62,8 +57,8 @@ Rectangle {
             id: icon
             width: parent.width
             height: parent.height
-            iconWidth: layout.iconWidth
-            iconHeight: layout.iconHeight
+            iconWidth: StyleParams.iconWidth
+            iconHeight: StyleParams.iconHeight
 
             anchors.right: parent.right
             anchors.bottom: parent.bottom
@@ -74,7 +69,7 @@ Rectangle {
     Rectangle {
         id: timerRect
         anchors.top: parent.top
-        x: DominantHand.Left === dominantHand ? parent.width - width : 0
+        x: DominantHand.Left === StyleParams.dominantHand ? parent.width - width : 0
 
         width: (parent.width - parent.spacing * 2) / 4
         height: parent.height - textBox.height;
@@ -83,8 +78,8 @@ Rectangle {
         Rectangle {
             anchors.top: parent.top
             anchors.left: parent.left
-            width: !isMobile ? parent.width : parent.width
-            height: !isMobile ? parent.height / 2 : width
+            width: !StyleParams.isMobile ? parent.width : parent.width
+            height: !StyleParams.isMobile ? parent.height / 2 : width
             color: "transparent"
 
             PlayerTimer {
@@ -100,14 +95,14 @@ Rectangle {
     CCPlayerNotification {
         id: notificationRect
 
-        y: 48
-        x: DominantHand.Left === dominantHand ? parent.spacing * 2 + 48 : parent.width - width - parent.spacing * 2
+        y: StyleParams.hexWidth
+        x: DominantHand.Left === StyleParams.dominantHand ? parent.spacing * 2 + 48 : parent.width - width - parent.spacing * 2
 
-        width: 48 * 1.75
+        width: StyleParams.hexWidth * 1.75
         height: sceneControl.y - y + 48
 
-        hexWidth: 48
-        hexHeight: 48
+        hexWidth: StyleParams.hexWidth
+        hexHeight: StyleParams.hexHeight
 
         userName: "notification"
 
@@ -123,10 +118,10 @@ Rectangle {
         y: parent.height - height
         width: parent.width - parent.spacing * 4
         height: parent.height / 3 - parent.spacing / 2
-        iconWidth: layout.iconWidth
-        iconHeight: layout.iconHeight
-        hexWidth: 48
-        hexHeight: 48
+        iconWidth: StyleParams.iconWidth
+        iconHeight: StyleParams.iconHeight
+        hexWidth: StyleParams.hexWidth
+        hexHeight: StyleParams.hexHeight
 
         userName: "textBox"
         mainTextBox: true
@@ -154,11 +149,10 @@ Rectangle {
         x: textBox.x
         y: textBox.y - height / 2
         width: textBox.width
-        height: 48*1.5
+        height: StyleParams.hexHeight * 1.5
 
-        buttonHeight: 48
-        buttonWidth: 48
-        spacing: 0
+        buttonWidth: StyleParams.hexWidth
+        buttonHeight: StyleParams.hexHeight
 
         onSetUiVisible: {
             iconRect.opacity = visible ? 1.0 : 0.0;
@@ -178,8 +172,7 @@ Rectangle {
 
             shortcut: Settings.keyBinding("Tools")
             toolTipText: qsTr("Head to location")
-            imageSource:
-                "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "UnknownSvg";
+            imageSource: hovered ? StyleParams.travelButton : StyleParams.travelHoverButton
 
             onTriggeredButton: {
                 map.headToSelected();
@@ -199,6 +192,7 @@ Rectangle {
     }
 
     Component.onCompleted: {
+        StyleParams.currentProjectId = currentlyLoadedProject.id;
         eventReceiver.registerEventHandler("openMap", handleOpenMap);
     }
 }

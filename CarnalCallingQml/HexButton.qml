@@ -22,9 +22,9 @@ Button {
         layer.samples: 4 // (anti-aliasing)
 
         ShapePath {
-            fillColor: "#282828"
-            strokeColor: "black"
-            strokeWidth: 2
+            fillColor: StyleParams.fillColorHexActive
+            strokeColor: StyleParams.strokeColorHexActive
+            strokeWidth: StyleParams.strokeColorHexActiveWidth
             capStyle: ShapePath.RoundCap
             joinStyle: ShapePath.RoundJoin
             startX: width * 0.25
@@ -49,7 +49,7 @@ Button {
         text: parent.text
         font.family: Settings.font
         font.pixelSize: 8
-        color: "white"
+        color: StyleParams.textColorMenu
     }
 
     ToolTip.delay: 1000

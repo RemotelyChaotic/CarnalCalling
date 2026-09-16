@@ -7,9 +7,8 @@ Rectangle {
     id: sceneControl
     color: "transparent"
 
-    property int buttonHeight: 48
-    property int buttonWidth: 48
-    property int spacing: 10
+    property int buttonWidth: StyleParams.hexWidth
+    property int buttonHeight: StyleParams.hexHeight
 
     default property alias content: customContent.children
 
@@ -53,7 +52,7 @@ Rectangle {
         layoutDirection: DominantHand.Left === dominantHand ? Qt.LeftToRight :
                                                               Qt.RightToLeft
 
-        property int dominantHand: Settings.dominantHand
+        property int dominantHand: StyleParams.dominantHand
 
         function indexOfItem(targetItem) {
             for (var i = 0; i < children.length; i++) {
@@ -72,7 +71,7 @@ Rectangle {
             property string shortcut: Settings.keyBinding("Exit")
             property string toolTipText: qsTr("Exit tease")
             property string imageSource:
-                Settings.styleFolderQml() + (item.hovered ? "/ButtonExitHover.svg" : "/ButtonExit.svg")
+                item.hovered ? StyleParams.exitHoverButton : StyleParams.exitButton
 
             Layout.preferredHeight: sceneControl.buttonHeight
             Layout.preferredWidth: sceneControl.buttonWidth
@@ -98,9 +97,8 @@ Rectangle {
             property string shortcut: Settings.keyBinding("Pause")
             property string toolTipText: qsTr("Pause or resume execution")
             property string imageSource:
-                Settings.styleFolderQml() +
-                    (paused ? (item.hovered ? "/ButtonPlayHover.svg" : "/ButtonPlay.svg") :
-                              (item.hovered ? "/ButtonPauseHover.svg" : "/ButtonPause.svg"))
+                paused ? (item.hovered ? StyleParams.playHoverButton : StyleParams.playButton) :
+                         (item.hovered ? StyleParams.pauseHoverButton : StyleParams.pauseButton)
 
             Layout.preferredHeight: sceneControl.buttonHeight
             Layout.preferredWidth: sceneControl.buttonWidth
@@ -125,9 +123,8 @@ Rectangle {
             property string shortcut: Settings.keyBinding("ToggleUI")
             property string toolTipText: qsTr("Show or hide UI")
             property string imageSource:
-                Settings.styleFolderQml() +
-                        (visibleUi ? (item.hovered ? "/ButtonVisibleHover.svg" : "/ButtonVisible.svg") :
-                                     (item.hovered ? "/ButtonInvisibleHover.svg" : "/ButtonInvisible.svg"))
+                visibleUi ? (item.hovered ? StyleParams.visibleHoverButton : StyleParams.visibleButton) :
+                            (item.hovered ? StyleParams.inVisibleHoverButton : StyleParams.inVisibleButton)
 
             Layout.preferredHeight: sceneControl.buttonHeight
             Layout.preferredWidth: sceneControl.buttonWidth
@@ -152,7 +149,7 @@ Rectangle {
             property string shortcut: Settings.keyBinding("Devices")
             property string toolTipText: qsTr("Show device list")
             property string imageSource:
-                Settings.styleFolderQml() + (item.hovered ? "/ButtonPlugHover.png" : "/ButtonPlug.png")
+                item.hovered ? StyleParams.devicesHoverButton : StyleParams.devicesButton
 
             Layout.preferredHeight: sceneControl.buttonHeight
             Layout.preferredWidth: sceneControl.buttonWidth

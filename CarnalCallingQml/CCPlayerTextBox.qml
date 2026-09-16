@@ -11,8 +11,8 @@ Rectangle {
     id: textBoxWrapper
     color: "transparent"
 
-    property int hexWidth: 48
-    property int hexHeight: 48
+    property int hexWidth: StyleParams.hexWidth
+    property int hexHeight: StyleParams.hexHeight
 
     property alias userName: textBoxWrapped.userName
     property alias mainTextBox: textBoxWrapped.mainTextBox
@@ -46,7 +46,7 @@ Rectangle {
         textBoxWrapped.showText(sText, onlyInList);
     }
 
-    property int dominantHand: Settings.dominantHand
+    property int dominantHand: StyleParams.dominantHand
     property int noDebugOffset: !root.debug ?
                                     (DominantHand.Left === dominantHand ? -hexWidth*1/4 : hexWidth*3/4) :
                                     (DominantHand.Left === dominantHand ? -hexWidth*4/4 : 0)
@@ -79,9 +79,9 @@ Rectangle {
                 layer.samples: 4 // (anti-aliasing)
 
                 ShapePath {
-                    fillColor: "black"// "#282828"
-                    strokeColor: "#282828"// "black"
-                    strokeWidth: 2
+                    fillColor: StyleParams.fillColorHexInactive
+                    strokeColor: StyleParams.strokeColorHexInactive
+                    strokeWidth: StyleParams.strokeColorHexInactiveWidth
                     capStyle: ShapePath.RoundCap
                     joinStyle: ShapePath.RoundJoin
                     startX: width * 0.25

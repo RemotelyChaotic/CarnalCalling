@@ -16,19 +16,23 @@ Rectangle {
 
     signal travelFinished(string nextScene)
 
-    property int placeWidth: 50
-    property int placeHeight: 50
-    property int travelDuration: 3000
+    property int placeWidth: StyleParams.placeWidth
+    property int placeHeight: StyleParams.placeHeight
+    property int travelDuration: StyleParams.travelDuration
 
-    property string colorCurrentPlace: "#ff00ff"
-    property string colorTravel: "#ff00ff"
-    property string primaryColorSelection: "#ff00ff"
-    property string secondaryColorSelection: "#660066"
-    property string tertiaryColorSelection: "#880088"
+    property string menuTextPonintSize: StyleParams.menuTextPonintSize
+    property string textColor: StyleParams.textColorMenu
+    property string colorPlayerBorder: StyleParams.colorPlayerBorder
+    property string colorPlaceBg: StyleParams.colorPlaceBg
+    property string colorCurrentPlace: StyleParams.colorCurrentPlace
+    property string colorTravel: StyleParams.colorTravel
+    property string primaryColorSelection: StyleParams.primaryColorSelection
+    property string secondaryColorSelection: StyleParams.secondaryColorSelection
+    property string tertiaryColorSelection: StyleParams.tertiaryColorSelection
 
-    property string unknownMap: "UnknownSvg"
-    property string unknownIcon: "UnknownSvg"
-    property string fogTexture: "Clouds"
+    property string unknownMap: StyleParams.unknownMap
+    property string unknownIcon: StyleParams.unknownIcon
+    property string fogTexture: StyleParams.fogTexture
     property int fogTextureWidth: 524
     property int fogTextureHeight: 265
 
@@ -252,7 +256,7 @@ Rectangle {
             color: "transparent"
 
             border.width: 6 / flickableArea.zoom
-            border.color: "#ff00ff"
+            border.color: map.colorPlayerBorder
 
             radius: width / 2
 
@@ -340,8 +344,8 @@ Rectangle {
                 y: mapIconRect.height - height / 2
                 width: iconText.width + 30
                 height: iconText.height + 10
-                color: "black"
-                radius: 10
+                color: map.colorPlaceBg
+                radius: height / 2
 
                 border.width: 4 / flickableArea.zoom
                 border.color: objId === mapPrivates.currentPlace ? map.colorCurrentPlace : "transparent"
@@ -350,8 +354,9 @@ Rectangle {
                     id: iconText
                     anchors.centerIn: parent
                     text: mapIconRect.name
-                    pointSize: 8 / flickableArea.zoom
+                    pointSize: map.menuTextPonintSize / flickableArea.zoom
                     maximumWidth: mapIconRect.width / flickableArea.zoom + 50
+                    textColor: map.textColor
                 }
             }
             IconResourceDelegate {

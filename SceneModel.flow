@@ -4,7 +4,7 @@
             "in_id": "{b1994520-b8d3-4413-b809-e724a212af70}",
             "in_index": 0,
             "in_type": "transition",
-            "out_id": "{b9522207-cf81-456b-8fe3-c3a064a4f0ee}",
+            "out_id": "{f4890724-66b9-47eb-a7b3-b31892bd5a7e}",
             "out_index": 0,
             "out_type": "transition"
         },
@@ -13,6 +13,30 @@
             "in_index": 0,
             "in_type": "transition",
             "out_id": "{b1994520-b8d3-4413-b809-e724a212af70}",
+            "out_index": 0,
+            "out_type": "transition"
+        },
+        {
+            "in_id": "{f4890724-66b9-47eb-a7b3-b31892bd5a7e}",
+            "in_index": 3,
+            "in_type": "transition",
+            "out_id": "{b9522207-cf81-456b-8fe3-c3a064a4f0ee}",
+            "out_index": 0,
+            "out_type": "transition"
+        },
+        {
+            "in_id": "{f4890724-66b9-47eb-a7b3-b31892bd5a7e}",
+            "in_index": 0,
+            "in_type": "transition",
+            "out_id": "{c5c885a2-c2da-4133-9363-824d22c86e04}",
+            "out_index": 0,
+            "out_type": "transition"
+        },
+        {
+            "in_id": "{f4890724-66b9-47eb-a7b3-b31892bd5a7e}",
+            "in_index": 1,
+            "in_type": "transition",
+            "out_id": "{afe9b939-7a2c-43e9-9e24-140094ef9456}",
             "out_index": 0,
             "out_type": "transition"
         }
@@ -24,8 +48,8 @@
                 "name": "Entry Point"
             },
             "position": {
-                "x": -233.75,
-                "y": -65
+                "x": -998.9083999999998,
+                "y": -42.60512000000001
             }
         },
         {
@@ -35,7 +59,7 @@
                 "name": "Scene",
                 "sLayout": "",
                 "sName": "WorldMap",
-                "sScript": "",
+                "sScript": "WorldMap.js",
                 "sTitle": "",
                 "sceneMode": 1
             },
@@ -52,6 +76,48 @@
             "position": {
                 "x": 592.566,
                 "y": -49.59400000000001
+            }
+        },
+        {
+            "id": "{f4890724-66b9-47eb-a7b3-b31892bd5a7e}",
+            "model": {
+                "name": "Path Merger"
+            },
+            "position": {
+                "x": -324.72575999999987,
+                "y": -70.91711999999995
+            }
+        },
+        {
+            "id": "{afe9b939-7a2c-43e9-9e24-140094ef9456}",
+            "model": {
+                "bCanStartHere": false,
+                "name": "Scene",
+                "sLayout": "",
+                "sName": "Decks",
+                "sScript": "",
+                "sTitle": "",
+                "sceneMode": 0
+            },
+            "position": {
+                "x": -1013.5497599999998,
+                "y": -356.9702399999999
+            }
+        },
+        {
+            "id": "{c5c885a2-c2da-4133-9363-824d22c86e04}",
+            "model": {
+                "bCanStartHere": false,
+                "name": "Scene",
+                "sLayout": "",
+                "sName": "Cards",
+                "sScript": "",
+                "sTitle": "",
+                "sceneMode": 0
+            },
+            "position": {
+                "x": -1015.8566399999996,
+                "y": -602.1734399999997
             }
         }
     ]

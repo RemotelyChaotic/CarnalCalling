@@ -79,6 +79,16 @@
             ]
         },
         {
+            "sName": "Cards.js",
+            "sPath": "pfs:Scripts/Cards.js",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "js",
+            "type": 4,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "ChangelingCard",
             "sPath": "pfs:Images/CardGame/Changeling/ChangelingCard.png",
             "sResourceBundle": "",
@@ -210,6 +220,16 @@
             ]
         },
         {
+            "sName": "Decks.js",
+            "sPath": "pfs:Scripts/Decks.js",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "js",
+            "type": 4,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "FogOfWar.qml",
             "sPath": "pfs:CarnalCallingQml/FogOfWar.qml",
             "sResourceBundle": "",
@@ -276,6 +296,16 @@
             "sSource": "",
             "sSubType": "json",
             "type": 5,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "PacksAndDecksLayout.qml",
+            "sPath": "pfs:CarnalCallingQml/PacksAndDecksLayout.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
             "vsResourceTags": [
             ]
         },
@@ -380,6 +410,28 @@
             "sName": "WorldMap",
             "sSceneLayout": "WorldMapLayout.qml",
             "sScript": "WorldMap.js",
+            "sTitleCard": "",
+            "sceneMode": 1,
+            "vsResourceRefs": [
+            ]
+        },
+        {
+            "bCanStartHere": false,
+            "iId": 1,
+            "sName": "Decks",
+            "sSceneLayout": "PacksAndDecksLayout.qml",
+            "sScript": "Decks.js",
+            "sTitleCard": "",
+            "sceneMode": 1,
+            "vsResourceRefs": [
+            ]
+        },
+        {
+            "bCanStartHere": false,
+            "iId": 2,
+            "sName": "Cards",
+            "sSceneLayout": "PacksAndDecksLayout.qml",
+            "sScript": "Cards.js",
             "sTitleCard": "",
             "sceneMode": 1,
             "vsResourceRefs": [

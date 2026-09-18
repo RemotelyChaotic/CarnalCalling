@@ -12,14 +12,19 @@ Rectangle {
 
     default property alias content: customContent.children
 
+    property alias exitButton: exitButtonLoader
+    property alias pauseButton: pauseButtonLoader
+    property alias hideButton: hideButtonLoader
+    property alias devicesButton: devicesButtonLoader
+
     signal setUiVisible(bool visible)
 
-    function quit()
+    property var quit: function()
     {
         root.quit();
     }
 
-    function pausePlayScene()
+    property var pausePlayScene: function()
     {
         pauseButtonLoader.paused = !pauseButtonLoader.paused;
         if (pauseButtonLoader.paused)

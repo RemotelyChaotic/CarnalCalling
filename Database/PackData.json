@@ -1,0 +1,46 @@
+{
+  "Packs": [
+    {
+      "setId" : "chr_0",
+      "title": "Queen Chrysalis",
+      "description": "<img src=\"image://DataBaseImageProivider/{id}/UnknownSvg\" width="16" height="16" /> Awesome.",
+      "style": 0,
+      "layout": "DefaultPack.qml",
+      "image": "Test",
+      "faction": "Changeling",
+      "cost": {
+        "currency": "love",
+        "amount": 10
+      },
+      "dropCount": 5,
+      "packtypes": {
+        "Common":  { "slots": [4,1,0,0], "prob": 150 },
+        "Rare": { "slots": [3,1,1,1], "prob": 50 },
+        "Mythic": { "slots": [1,2,1,1], "prob": 5 },
+      },
+      "rates": {
+        "Common": {"prob": 500, "max": 5},
+        "Uncommon": {"prob": 150, "max": 3},
+        "Rare": {"prob": 50, "max": 3},
+        "Mythic": {"prob": 5, "max": 3},
+      },
+      "cards": {
+        "_Comment_": "50 Commons, 20 Uncommons, 10 Rares, and 10 Mythics",
+        "Common": [
+          {"setId": "chr_0", "id": 0 }
+        ],
+        "Uncommon": [
+          {"setId": "chr_0", "id": 0 }
+        ],
+        "Rare": [
+          {"setId": "chr_0", "id": 0 }
+        ],
+        "Mythic": [
+          {"setId": "chr_0", "id": 0 }
+        ],
+      },
+      "tags": [
+      ]
+    }
+  ]
+}

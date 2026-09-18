@@ -34,7 +34,7 @@ Rectangle {
         id: hexColumn
         anchors.bottom: parent.bottom
         x: parent.width - width
-        height: Math.round(parent.height / (parent.hexHeight * 1.75)) * parent.hexHeight * 1.75
+        height: Math.round(parent.height / (parent.hexHeight)) * parent.hexHeight
         width: parent.hexWidth * 1.75
 
         layoutDirection: Qt.LeftToRight
@@ -80,54 +80,6 @@ Rectangle {
         userName: "notification"
     }
 
-    HexButton {
-        id: optionsButton
-        x: parent.hexWidth *3/4
-        y: hexColumn.y
-        width: parent.hexWidth
-        height: parent.hexHeight
-
-        display: AbstractButton.IconOnly
-
-        toolTipText: qsTr("Options")
-        imageSource: hovered ? StyleParams.optionsHoverButton : StyleParams.optionsButton
-
-        onTriggeredButton: {
-            notificationRect.transitionRequested("options");
-        }
-    }
-    HexButton {
-        id: cardsButton
-        x: 0
-        y: hexColumn.y + parent.hexHeight / 2
-        width: parent.hexWidth
-        height: parent.hexHeight
-
-        display: AbstractButton.IconOnly
-
-        toolTipText: qsTr("Card Collection")
-        imageSource: hovered ? StyleParams.cardsHoverButton : StyleParams.cardsButton
-
-        onTriggeredButton: {
-            notificationRect.transitionRequested("cards");
-        }
-    }
-    HexButton {
-        id: decksButton
-        x: parent.hexWidth *3/4
-        y: hexColumn.y + parent.hexHeight
-        width: parent.hexWidth
-        height: parent.hexHeight
-
-        display: AbstractButton.IconOnly
-
-        toolTipText: qsTr("Decks")
-        imageSource: hovered ? StyleParams.decksHoverButton : StyleParams.decksButton
-
-        onTriggeredButton: {
-            notificationRect.transitionRequested("decks");
-        }
-    }
     TextItemFormated {
         id: textOptions
         x: optionsButton.hovered ? 0 - width - 6 : optionsButton.x
@@ -187,5 +139,53 @@ Rectangle {
         text: qsTr("Decks")
         textColor: StyleParams.textColorMenu
         pointSize: StyleParams.menuTextPonintSize
+    }
+    HexButton {
+        id: optionsButton
+        x: parent.hexWidth *3/4
+        y: hexColumn.y
+        width: parent.hexWidth
+        height: parent.hexHeight
+
+        display: AbstractButton.IconOnly
+
+        toolTipText: qsTr("Options")
+        imageSource: hovered ? StyleParams.optionsHoverButton : StyleParams.optionsButton
+
+        onTriggeredButton: {
+            notificationRect.transitionRequested("options");
+        }
+    }
+    HexButton {
+        id: cardsButton
+        x: 0
+        y: hexColumn.y + parent.hexHeight / 2
+        width: parent.hexWidth
+        height: parent.hexHeight
+
+        display: AbstractButton.IconOnly
+
+        toolTipText: qsTr("Card Collection")
+        imageSource: hovered ? StyleParams.cardsHoverButton : StyleParams.cardsButton
+
+        onTriggeredButton: {
+            notificationRect.transitionRequested("cards");
+        }
+    }
+    HexButton {
+        id: decksButton
+        x: parent.hexWidth *3/4
+        y: hexColumn.y + parent.hexHeight
+        width: parent.hexWidth
+        height: parent.hexHeight
+
+        display: AbstractButton.IconOnly
+
+        toolTipText: qsTr("Decks")
+        imageSource: hovered ? StyleParams.decksHoverButton : StyleParams.decksButton
+
+        onTriggeredButton: {
+            notificationRect.transitionRequested("decks");
+        }
     }
 }

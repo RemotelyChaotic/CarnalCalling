@@ -1,0 +1,157 @@
+Pony Duel Sex Game
+
+Goal: Get the oponent to climax
+Play: You Always play your deck
+
+------------------------------------------------------------------
+- Stat types:
+
+  - Affection "Combo": Increases with social "Combo" Cards.
+    - More arousal the higher the affection (depends on Pony Maybe?)
+    - Decays after a while
+
+  - Arousal: "Health"
+  
+  - Edge: "Health-Bars"
+
+  - Male:
+    Erect status "Threshold/Shield": 
+      - Before broken (errect), action cards targeting genitals are less effective
+      - Immune to Affection "combo" while active
+      
+  - Female:
+    Wetness status "Threshold/Shield": 
+     - Before broken (wet), action cards targeting genitals are way less effective
+     - Affection "Combo" cards lewer it
+
+  - Clothes: Resist (or increase) arousal depending on slot
+
+------------------------------------------------------------------
+- Card Colors (Pony Type)
+  - Changeling?
+  - Earth Pony
+  - Pegasus
+  - Unicorn
+  - Bat Pony
+  - Kirin?
+
+Shadow characters to unlock.
+
+------------------------------------------------------------------
+⚔️ = offensive slots
+🛡️ = defensive slots
+❤️ = arousal
+
+Board:
+❤️#         Hand P1          Deck Discard
+    🛡️| Ass | Pussy/Dick | Tits / Nipples | Mouth |
+    ⚔️| Ass | Pussy/Dick | Tits / Nipples | Mouth |
+    ⚔️| Ass | Pussy/Dick | Tits / Nipples | Mouth |
+    🛡️| Ass | Pussy/Dick | Tits / Nipples | Mouth |
+❤️#         Hand P2          Deck Discard
+-----------------------------------------------------------------
+- Card Types
+  - Social: 
+    - Increase affection "Combo" and draw Cards
+    - Not on board, but discarded
+  - Action (Edge or Tease): 
+    - Position on Board: Body Part
+    - Target: Self or Oponent
+    - "Do Damage"
+    - Effects
+  - Clothes:
+    - Position on Board: Body Part
+    - Defense? or just kinks
+    - Effects on self or other player
+  - Unplayable cards?:
+    - Block hand or field?
+	
+Normal Card:
+_____________________   LEGEND:
+||TY |          |TIM||  - TY: Type
+||SLT|___Title__|BPM||  - SLT: Board slot 
+||                Ed||  - Title: Card name
+||                  ||  - TIM: Time on actions
+||       IMG        ||  - BPM: Beats per minute
+||                  ||  - Ed: Edge requirement, maybe more? Post C, Threshhold, Equipment, etc.
+||                  ||  - IMG: Art
+||__________________||  - COM: Combo
+||                  ||  - DRW: Card draw after resolving -> On move from field
+||- Effect Keywords ||  - DMG: +Horny: Increase in dmg / horni - RRY: Rarity
+||- No flavour text ||  - M: Male symbol, F: Female Symbol, Both?
+||- e.g:            ||  - DMG: +Horny: Increase in dmg / horni
+||  - Rub head      ||
+||  - x equals Hrny ||
+||    in seconds    ||
+||___            ___||
+||M F|          |DRW||
+||___|___RRY____|COM||
+                 DMG
+
+Full Art Card:
+_____________________
+||                  ||
+||   |___Title__|   ||
+||                  ||
+||                  ||
+||       IMG        ||
+||                  ||
+||                  ||
+||                  ||
+||___            ___||
+||TY |          |TIM||
+||SLT|__________|BPM||
+|| |              Ed||
+|| |               |||
+|| |- Effect       |||
+|| |  (transparent)|||
+|| |              _|||
+||M F|          |DRW||
+||___|___RRY____|COM||
+                 DMG
+
+AI:
++-----------------------------+  0.0 (Top of Card)
+
+| [Cost: Top Right (90%, 5%)]  |
+|      CARD NAME (10%, 5%)    |
++-----------------------------+  0.10
+
+|                             |
+|      ARTVIEWPORT REGION     |  <- Take advantage of the extra length 
+|      (Allocated: 10% to 55%)|     by giving art a 1:1.2 vertical rect.
+|                             |
++-----------------------------+  0.55
+
+|                             |
+|      DYNAMIC TEXT BOX       |  <- Huge scrolling or multi-line area
+|      (Allocated: 55% to 90%)|     for complex game mechanics.
+|                             |
++-----------------------------+  0.90
+
+| [ATK: (15%, 95%)] [DEF: 95%]|  0.100 (Bottom of Card)
++-----------------------------+
+
+-----------------------------------------------------------------
+1 Game = Date:
+
+Start: 4 Cards
+Max: 9 Cards
+Per-Turn: 0 Cards -> Only draw with draw effects (usually social Cards) or by letting the other Regenerate some arousal.
+Erect/Wet status: 100HP -> 0
+                  0HP -> 100% / broken
+Start-Health: 100HP -> 0 
+              0HP   -> 1 Edge
+  - After n Edges -> finale
+Cards: 20 Per Deck Minimum -> Shuffle on finished
+
+Finale -> short tease sequence / story
+
+-----------------------------------------------------------------
+Love for packs, 
+Battle pass or lootboxes paid for with cummies.
+Can buy clothes with bits.
+Unique items for card upgrades (quest?).
+
+Global effects for ponies?
+Card modifiers like baletro?

@@ -2,20 +2,25 @@
   "Cards": [
     {
       "id" : 0,
+      "setId" : "chr_0",
       "title": "Test Card",
-      "description": "Play and do nothing.",
-      "edition": -1,
+      "description": "<img src=\"image://DataBaseImageProivider/{id}/UnknownSvg\" width="16" height="16" /> Play and do nothing.",
+      "style": 0,
       "layout": "DefaultCard.qml",
       "image": "Test",
-      "rarity": "Common",
-      "race": "Earth",
+      "faction": "Changeling",
       "cardType": "Action",
-      "gendering": -1,
+      "slot": "None",
       "time": 10,
-      "damage": 0,
+      "bpm": 0,
+      "edge": 0,
+      "combo": 0,
       "draw": 1,
+      "damage": 0,
+      "gendering": -1,
+      "rarity": "Common",
       "tags": [
-        "debug"
+        "card:changeling"
       ],
       "effects": [
         {

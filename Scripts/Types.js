@@ -11,19 +11,26 @@ function EnumValue(name) {
 
 const RarityType = Object.freeze({
     Common:     EnumValue("Common"),
-    Rare:       EnumValue("Rare")
+    Uncommon:   EnumValue("Uncommon"),
+    Rare:       EnumValue("Rare"),
+    Mythic:     EnumValue("Mythic")
 });
 
-const RaceType = Object.freeze({
+const FactionType = Object.freeze({
     Earth:      EnumValue("Earth"),
     Unicorn:    EnumValue("Unicorn"),
     Pegasus:    EnumValue("Pegasus"),
     Alicorn:    EnumValue("Alicorn"),
     Changeling: EnumValue("Changeling"),
+    Thestral:   EnumValue("Thestral"),
+    Kirin:      EnumValue("Kirin")
 });
 
 const CardType = Object.freeze({
-    Action:     EnumValue("Action")
+    Social:     EnumValue("Social"),
+    Action:     EnumValue("Action"),
+    Clothes:    EnumValue("Clothes"),
+    Blocker:    EnumValue("Blocker")
 });
 
 const GenderType = Object.freeze({
@@ -33,4 +40,13 @@ const GenderType = Object.freeze({
     Herm:       2,
 });
 
-export {EnumValue, RarityType, RaceType, CardType, GenderType, MapTypes}
+const SlotType = Object.freeze({
+    None:       EnumValue("None"),
+    Mouth:      EnumValue("Mouth"),
+    Nipple:     EnumValue("Nipple"),
+    Tits:       EnumValue("Tits"),
+    Genitals:   EnumValue("Genitals"),
+    Ass:        EnumValue("Ass")
+});
+
+export {EnumValue, RarityType, RaceType, CardType, GenderType, SlotType, MapTypes}

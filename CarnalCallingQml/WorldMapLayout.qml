@@ -107,7 +107,17 @@ Rectangle {
         userName: "notification"
 
         onTransitionRequested: {
-            //scene
+            switch(scene) {
+            case "options":
+                // todo: show options
+                break;
+            case "cards":
+                eventReceiver.sendEventResponse("mapEvent", "Cards");
+                break;
+            case "decks":
+                eventReceiver.sendEventResponse("mapEvent", "Decks");
+                break;
+            }
         }
     }
 

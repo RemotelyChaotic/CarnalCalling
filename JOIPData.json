@@ -79,6 +79,117 @@
             ]
         },
         {
+            "sName": "ChangelingCard",
+            "sPath": "pfs:Images/CardGame/Changeling/ChangelingCard.png",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "png",
+            "type": 0,
+            "vsResourceTags": [
+                "card:changeling",
+                "style:0",
+                "type:back"
+            ]
+        },
+        {
+            "sName": "ChangelingCardFrontBG",
+            "sPath": "pfs:Images/CardGame/Changeling/ChangelingCardFrontBG.png",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "png",
+            "type": 0,
+            "vsResourceTags": [
+                "card:changeling",
+                "layer:0",
+                "style:-1",
+                "type:front"
+            ]
+        },
+        {
+            "sName": "ChangelingCardFrontOverlay1",
+            "sPath": "pfs:Images/CardGame/Changeling/ChangelingCardFrontOverlay1.png",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "png",
+            "type": 0,
+            "vsResourceTags": [
+                "card:changeling",
+                "layer:1",
+                "style:0",
+                "type:front"
+            ]
+        },
+        {
+            "sName": "ChangelingCardFrontOverlay2",
+            "sPath": "pfs:Images/CardGame/Changeling/ChangelingCardFrontOverlay2.png",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "png",
+            "type": 0,
+            "vsResourceTags": [
+                "card:changeling",
+                "layer:2",
+                "style:0",
+                "type:front"
+            ]
+        },
+        {
+            "sName": "ChangelingCommon",
+            "sPath": "pfs:Images/CardGame/Changeling/ChangelingCommon.png",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "png",
+            "type": 0,
+            "vsResourceTags": [
+                "Common",
+                "card:changeling",
+                "style:-1",
+                "type:rarity"
+            ]
+        },
+        {
+            "sName": "ChangelingMythic",
+            "sPath": "pfs:Images/CardGame/Changeling/ChangelingMythic.png",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "png",
+            "type": 0,
+            "vsResourceTags": [
+                "Uncommon",
+                "card:changeling",
+                "style:-1",
+                "type:rarity"
+            ]
+        },
+        {
+            "sName": "ChangelingRare",
+            "sPath": "pfs:Images/CardGame/Changeling/ChangelingRare.png",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "png",
+            "type": 0,
+            "vsResourceTags": [
+                "Rare",
+                "card:changeling",
+                "style:-1",
+                "type:rarity"
+            ]
+        },
+        {
+            "sName": "ChangelingUncommon",
+            "sPath": "pfs:Images/CardGame/Changeling/ChangelingUncommon.png",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "png",
+            "type": 0,
+            "vsResourceTags": [
+                "Mythic",
+                "card:changeling",
+                "style:-1",
+                "type:rarity"
+            ]
+        },
+        {
             "sName": "Clouds",
             "sPath": "pfs:Images/Map/Clouds.png",
             "sResourceBundle": "",
@@ -155,6 +266,16 @@
             "sSource": "",
             "sSubType": "js",
             "type": 4,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "PackData.json",
+            "sPath": "pfs:Database/PackData.json",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "json",
+            "type": 5,
             "vsResourceTags": [
             ]
         },
@@ -267,9 +388,39 @@
     ],
     "vspTags": [
         {
+            "sDescribtion": "",
+            "sName": "Common",
+            "sType": "eImage"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "Mythic",
+            "sType": "eImage"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "Rare",
+            "sType": "eImage"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "Uncommon",
+            "sType": "eImage"
+        },
+        {
             "sDescribtion": "keenkris",
             "sName": "artist:keenkris",
             "sType": "artist"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "back",
+            "sType": "eImage"
+        },
+        {
+            "sDescribtion": "Changeling",
+            "sName": "card:changeling",
+            "sType": "card"
         },
         {
             "sDescribtion": "",
@@ -278,8 +429,48 @@
         },
         {
             "sDescribtion": "",
+            "sName": "layer:0",
+            "sType": "layer"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "layer:1",
+            "sType": "layer"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "layer:2",
+            "sType": "layer"
+        },
+        {
+            "sDescribtion": "",
             "sName": "map",
             "sType": "eImage"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "style:-1",
+            "sType": "style"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "style:0",
+            "sType": "style"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "type:back",
+            "sType": "type"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "type:front",
+            "sType": "type"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "type:rarity",
+            "sType": "type"
         }
     ]
 }

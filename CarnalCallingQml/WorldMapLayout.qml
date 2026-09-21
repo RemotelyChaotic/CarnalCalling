@@ -96,10 +96,12 @@ Rectangle {
         id: notificationRect
 
         y: StyleParams.hexWidth
-        x: DominantHand.Left === StyleParams.dominantHand ? parent.spacing * 2 + 48 : parent.width - width - parent.spacing * 2
+        x: DominantHand.Left === StyleParams.dominantHand ?
+               parent.spacing * 2 + StyleParams.hexWidth :
+               parent.width - width - parent.spacing * 2
 
         width: StyleParams.hexWidth * 1.75
-        height: sceneControl.y - y + 48
+        height: sceneControl.y - y + StyleParams.hexHeight* 4 / 3
 
         hexWidth: StyleParams.hexWidth
         hexHeight: StyleParams.hexHeight
@@ -157,7 +159,7 @@ Rectangle {
         id: sceneControl
 
         x: textBox.x
-        y: textBox.y - height / 2
+        y: textBox.y - height / 3
         width: textBox.width
         height: StyleParams.hexHeight * 1.5
 
@@ -171,11 +173,12 @@ Rectangle {
             textBox.opacity = visible ? 1.0 : 0.0;
         }
 
+
         HexButton {
             id: travel
             Layout.preferredHeight: sceneControl.buttonHeight
             Layout.preferredWidth: sceneControl.buttonWidth
-            Layout.alignment: Qt.AlignBottom
+            Layout.alignment: Qt.AlignTop
 
             enabled: textBox.opacity > 0
             text: Settings.keyBinding("Tools")

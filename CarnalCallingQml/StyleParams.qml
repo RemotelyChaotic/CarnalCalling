@@ -9,10 +9,10 @@ QtObject {
     readonly property bool isMobile: Settings.platform === "Android"
     readonly property int dominantHand: Settings.dominantHand
 
-    readonly property int iconWidth: isMobile ? 32 : 48
-    readonly property int iconHeight: isMobile ? 32 : 48
-    readonly property int hexWidth: isMobile ? 32 : 48
-    readonly property int hexHeight: isMobile ? 32 : 48
+    readonly property real iconWidth: isMobile ? 32 : 48
+    readonly property real iconHeight: iconWidth * 0.8660254
+    readonly property real hexWidth: isMobile ? 32 : 48
+    readonly property real hexHeight: hexWidth * 0.8660254
     readonly property int menuTextPonintSize: 14
 
     readonly property int placeWidth: 50
@@ -35,26 +35,26 @@ QtObject {
     readonly property string secondaryColorSelection: "#660066"
     readonly property string tertiaryColorSelection: "#880088"
 
-    readonly property string optionsButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "UnknownSvg"
-    readonly property string optionsHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "UnknownSvg"
-    readonly property string cardsButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "UnknownSvg"
-    readonly property string cardsHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "UnknownSvg"
-    readonly property string decksButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "UnknownSvg"
-    readonly property string decksHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "UnknownSvg"
+    readonly property string optionsButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonOptions"
+    readonly property string optionsHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonOptionsHover"
+    readonly property string cardsButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonCards"
+    readonly property string cardsHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonCardsHover"
+    readonly property string decksButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonDeck"
+    readonly property string decksHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonDeckHover"
     readonly property string travelButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "UnknownSvg"
     readonly property string travelHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "UnknownSvg"
-    readonly property string pauseButton: Settings.styleFolderQml() + "/ButtonPause.svg"
-    readonly property string pauseHoverButton: Settings.styleFolderQml() + "/ButtonPauseHover.svg"
-    readonly property string playButton: Settings.styleFolderQml() + "/ButtonPlay.svg"
-    readonly property string playHoverButton: Settings.styleFolderQml() + "/ButtonPlayHover.svg"
-    readonly property string visibleButton: Settings.styleFolderQml() + "/ButtonVisible.svg"
-    readonly property string visibleHoverButton: Settings.styleFolderQml() + "/ButtonVisibleHover.svg"
-    readonly property string inVisibleButton: Settings.styleFolderQml() + "/ButtonInvisible.svg"
-    readonly property string inVisibleHoverButton: Settings.styleFolderQml() + "/ButtonInvisibleHover.svg"
-    readonly property string devicesButton: Settings.styleFolderQml() + "/ButtonPlug.png"
-    readonly property string devicesHoverButton: Settings.styleFolderQml() + "/ButtonPlugHover.png"
-    readonly property string exitButton: Settings.styleFolderQml() + "/ButtonExit.svg"
-    readonly property string exitHoverButton: Settings.styleFolderQml() + "/ButtonExitHover.svg"
+    readonly property string pauseButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonPause"
+    readonly property string pauseHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonPauseHover"
+    readonly property string playButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonPlay"
+    readonly property string playHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonPlayHover"
+    readonly property string visibleButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonVisible"
+    readonly property string visibleHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonVisibleHover"
+    readonly property string inVisibleButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonInvisible"
+    readonly property string inVisibleHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonInvisibleHover"
+    readonly property string devicesButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonPlug"
+    readonly property string devicesHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonPlugHover"
+    readonly property string exitButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonExit"
+    readonly property string exitHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonExitHover"
     readonly property string unknownMap: "UnknownSvg"
     readonly property string unknownIcon: "UnknownSvg"
     readonly property string fogTexture: "Clouds"

@@ -39,6 +39,206 @@
             ]
         },
         {
+            "sName": "ButtonAchievement",
+            "sPath": "pfs:Images/Icons/ButtonAchievement.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonCards",
+            "sPath": "pfs:Images/Icons/ButtonCards.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonCardsHover",
+            "sPath": "pfs:Images/Icons/ButtonCardsHover.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonDeck",
+            "sPath": "pfs:Images/Icons/ButtonDeck.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonDeckHover",
+            "sPath": "pfs:Images/Icons/ButtonDeckHover.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonExit",
+            "sPath": "pfs:Images/Icons/ButtonExit.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonExitHover",
+            "sPath": "pfs:Images/Icons/ButtonExitHover.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonInvisible",
+            "sPath": "pfs:Images/Icons/ButtonInvisible.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonInvisibleHover",
+            "sPath": "pfs:Images/Icons/ButtonInvisibleHover.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonOptions",
+            "sPath": "pfs:Images/Icons/ButtonOptions.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonOptionsHover",
+            "sPath": "pfs:Images/Icons/ButtonOptionsHover.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonPause",
+            "sPath": "pfs:Images/Icons/ButtonPause.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonPauseHover",
+            "sPath": "pfs:Images/Icons/ButtonPauseHover.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonPlay",
+            "sPath": "pfs:Images/Icons/ButtonPlay.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonPlayHover",
+            "sPath": "pfs:Images/Icons/ButtonPlayHover.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonPlug",
+            "sPath": "pfs:Images/Icons/ButtonPlug.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonPlugHover",
+            "sPath": "pfs:Images/Icons/ButtonPlugHover.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonVisible",
+            "sPath": "pfs:Images/Icons/ButtonVisible.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonVisibleHover",
+            "sPath": "pfs:Images/Icons/ButtonVisibleHover.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CCNotificationDelegate.qml",
+            "sPath": "pfs:CarnalCallingQml/CCNotificationDelegate.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "CCPlayerControls.qml",
             "sPath": "pfs:CarnalCallingQml/CCPlayerControls.qml",
             "sResourceBundle": "",
@@ -252,6 +452,16 @@
         {
             "sName": "HexButton.qml",
             "sPath": "pfs:CarnalCallingQml/HexButton.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "HexGridRenderer.qml",
+            "sPath": "pfs:CarnalCallingQml/HexGridRenderer.qml",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "qml",

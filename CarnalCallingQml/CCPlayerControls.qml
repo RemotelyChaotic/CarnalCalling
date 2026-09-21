@@ -7,15 +7,14 @@ Rectangle {
     id: sceneControl
     color: "transparent"
 
-    property int buttonWidth: StyleParams.hexWidth
-    property int buttonHeight: StyleParams.hexHeight
+    property real buttonWidth: StyleParams.hexWidth
+    property real buttonHeight: StyleParams.hexHeight
 
     default property alias content: customContent.children
 
     property alias exitButton: exitButtonLoader
     property alias pauseButton: pauseButtonLoader
     property alias hideButton: hideButtonLoader
-    property alias devicesButton: devicesButtonLoader
 
     signal setUiVisible(bool visible)
 
@@ -81,7 +80,11 @@ Rectangle {
             Layout.preferredHeight: sceneControl.buttonHeight
             Layout.preferredWidth: sceneControl.buttonWidth
             Layout.alignment: rowLayout.indexOfItem(exitButtonLoader) % 2 ? Qt.AlignTop : Qt.AlignBottom
-            visible: !root.debug
+            visible: true
+
+            onImageSourceChanged: {
+                item.imageSource = imageSource;
+            }
 
             onLoaded: {
                 item.text = buttonText;
@@ -109,6 +112,10 @@ Rectangle {
             Layout.preferredWidth: sceneControl.buttonWidth
             Layout.alignment: rowLayout.indexOfItem(pauseButtonLoader) % 2 ? Qt.AlignTop : Qt.AlignBottom
 
+            onImageSourceChanged: {
+                item.imageSource = imageSource;
+            }
+
             onLoaded: {
                 item.text = buttonText;
                 item.shortcut = shortcut;
@@ -135,43 +142,16 @@ Rectangle {
             Layout.preferredWidth: sceneControl.buttonWidth
             Layout.alignment: rowLayout.indexOfItem(hideButtonLoader) % 2 ? Qt.AlignTop : Qt.AlignBottom
 
+            onImageSourceChanged: {
+                item.imageSource = imageSource;
+            }
+
             onLoaded: {
                 item.text = buttonText;
                 item.shortcut = shortcut;
                 item.toolTipText = toolTipText;
                 item.imageSource = imageSource;
                 item.triggeredButton.connect(sceneControl.setUiVisibleImpl)
-            }
-        }
-
-        Loader {
-            id: devicesButtonLoader
-            sourceComponent: buttonTemplate
-
-            property bool visibleUi: true
-
-            property string buttonText: Settings.keyBinding("Devices")
-            property string shortcut: Settings.keyBinding("Devices")
-            property string toolTipText: qsTr("Show device list")
-            property string imageSource:
-                item.hovered ? StyleParams.devicesHoverButton : StyleParams.devicesButton
-
-            Layout.preferredHeight: sceneControl.buttonHeight
-            Layout.preferredWidth: sceneControl.buttonWidth
-            Layout.alignment: rowLayout.indexOfItem(devicesButtonLoader) % 2 ? Qt.AlignTop : Qt.AlignBottom
-
-            function openMenu()
-            {
-                var globalCoordinares = item.mapToItem(root, 0, item.height);
-                TeaseDeviceController.openSelectionScreen(globalCoordinares.x, globalCoordinares.y);
-            }
-
-            onLoaded: {
-                item.text = buttonText;
-                item.shortcut = shortcut;
-                item.toolTipText = toolTipText;
-                item.imageSource = imageSource;
-                item.triggeredButton.connect(openMenu)
             }
         }
 

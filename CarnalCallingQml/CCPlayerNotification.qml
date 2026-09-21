@@ -16,8 +16,8 @@ Rectangle {
 
     property Project currentlyLoadedProject: root.currentlyLoadedProject
 
-    property int hexWidth: StyleParams.hexWidth
-    property int hexHeight: StyleParams.hexHeight
+    property real hexWidth: StyleParams.hexWidth
+    property real hexHeight: StyleParams.hexHeight
     signal transitionRequested(string scene)
 
     function showNotification(sId, sTitle, sButtonText, iTimeS, sOnButton, sOnTimeout)
@@ -30,27 +30,37 @@ Rectangle {
         notification.removeNotificaiton(sId);
     }
 
+    /*
+    Rectangle {
+        id: bDEBUG
+        color: "transparent"
+        anchors.bottom: parent.bottom
+        x: hexColumn.x
+        width: hexColumn.width
+        height: hexColumn.height
+    }*/
+
     ColumnLayout {
         id: hexColumn
         anchors.bottom: parent.bottom
         x: parent.width - width
-        height: Math.round(parent.height / (parent.hexHeight)) * parent.hexHeight
-        width: parent.hexWidth * 1.75
+        height: Math.floor(parent.height / parent.hexHeight) * parent.hexHeight
+        width: parent.hexWidth * 1.75 // two hexes
 
         layoutDirection: Qt.LeftToRight
-        spacing: -notificationRect.hexHeight / 2
+        spacing: -Math.round(notificationRect.hexHeight / 2)
+
+        layer.enabled: Settings.playerAntialiasing
+        layer.samples: 4 // (anti-aliasing)
 
         Repeater {
-            model: notificationRect.height / notificationRect.hexHeight*2
+            model: hexColumn.height / notificationRect.hexHeight*2-1
             delegate: Shape {
                     Layout.preferredWidth: notificationRect.hexWidth
                     Layout.preferredHeight: notificationRect.hexHeight
                     Layout.alignment: index % 2 ? Qt.AlignLeft : Qt.AlignRight
 
                     opacity: 0.4
-
-                    layer.enabled: Settings.playerAntialiasing
-                    layer.samples: 4 // (anti-aliasing)
 
                     ShapePath {
                         fillColor: StyleParams.fillColorHexInactive
@@ -59,16 +69,75 @@ Rectangle {
                         capStyle: ShapePath.RoundCap
                         joinStyle: ShapePath.RoundJoin
                         startX: width * 0.25
-                        startY: 0
+                        startY: -0.5
 
-                        PathLine { x: width * 0.75; y: 0 }
+                        PathLine { x: width * 0.75; y: -0.5 }
                         PathLine { x: width;        y: height * 0.5 }
-                        PathLine { x: width * 0.75; y: height }
-                        PathLine { x: width * 0.25; y: height }
+                        PathLine { x: width * 0.75; y: height +0.5 }
+                        PathLine { x: width * 0.25; y: height +0.5 }
                         PathLine { x: 0;            y: height * 0.5 }
-                        PathLine { x: width * 0.25; y: 0 }
+                        PathLine { x: width * 0.25; y: -0.5 }
                 }
             }
+        }
+    }
+
+
+    CCNotificationDelegate {
+        id: optionsButton
+        x: parent.hexWidth * 0.75
+        y: hexColumn.y
+        textBoxOffset: hexWidth - 6
+
+        text: qsTr("Options")
+        toolTipText: qsTr("Options")
+        imageSource: hovered ? StyleParams.optionsHoverButton : StyleParams.optionsButton
+
+        onTriggeredButton: {
+            notificationRect.transitionRequested("options");
+        }
+    }
+    CCNotificationDelegate {
+        id: devicesButton
+        x: 0
+        y: hexColumn.y + parent.hexHeight / 2
+        textBoxOffset: -6
+
+        text: qsTr("Devices")
+        toolTipText: qsTr("Devices")
+        imageSource: hovered ? StyleParams.devicesHoverButton : StyleParams.devicesButton
+
+        onTriggeredButton: {
+            var globalCoordinares = devicesButton.mapToItem(root, 0, devicesButton.height);
+            TeaseDeviceController.openSelectionScreen(globalCoordinares.x, globalCoordinares.y);
+        }
+    }
+    CCNotificationDelegate {
+        id: cardsButton
+        x: parent.hexWidth * 0.75
+        y: hexColumn.y + parent.hexHeight
+        textBoxOffset: hexWidth - 6
+
+        text: qsTr("Card Collection")
+        toolTipText: qsTr("Card Collection")
+        imageSource: hovered ? StyleParams.cardsHoverButton : StyleParams.cardsButton
+
+        onTriggeredButton: {
+            notificationRect.transitionRequested("cards");
+        }
+    }
+    CCNotificationDelegate {
+        id: decksButton
+        x: 0
+        y: hexColumn.y + parent.hexHeight *3/2
+        textBoxOffset: -6
+
+        text: qsTr("Decks")
+        toolTipText: qsTr("Decks")
+        imageSource: hovered ? StyleParams.decksHoverButton : StyleParams.decksButton
+
+        onTriggeredButton: {
+            notificationRect.transitionRequested("decks");
         }
     }
 
@@ -78,114 +147,5 @@ Rectangle {
         width: parent.width
         anchors.centerIn: parent
         userName: "notification"
-    }
-
-    TextItemFormated {
-        id: textOptions
-        x: optionsButton.hovered ? 0 - width - 6 : optionsButton.x
-        y: optionsButton.y
-        height: optionsButton.height
-        maximumWidth: 200
-
-        opacity: optionsButton.hovered ? 1.0 : 0.0
-
-        Behavior on opacity {
-            NumberAnimation { duration: 300; easing.type: Easing.InOutQuad}
-        }
-        Behavior on x {
-            NumberAnimation { duration: 500; easing.type: Easing.OutBack}
-        }
-
-        text: qsTr("Options")
-        textColor: StyleParams.textColorMenu
-        pointSize: StyleParams.menuTextPonintSize
-    }
-    TextItemFormated {
-        id: textCards
-        x: cardsButton.hovered ? 0 - width - 6 : cardsButton.x
-        y: cardsButton.y
-        height: cardsButton.height
-        maximumWidth: 200
-
-        opacity: cardsButton.hovered ? 1.0 : 0.0
-
-        Behavior on opacity {
-            NumberAnimation { duration: 300; easing.type: Easing.InOutQuad}
-        }
-        Behavior on x {
-            NumberAnimation { duration: 500; easing.type: Easing.OutBack}
-        }
-
-        text: qsTr("Card Collection")
-        textColor: StyleParams.textColorMenu
-        pointSize: StyleParams.menuTextPonintSize
-    }
-    TextItemFormated {
-        id: textDecks
-        x: decksButton.hovered ? 0 - width - 6 : decksButton.x
-        y: decksButton.y
-        height: decksButton.height
-        maximumWidth: 200
-
-        opacity: decksButton.hovered ? 1.0 : 0.0
-
-        Behavior on opacity {
-            NumberAnimation { duration: 300; easing.type: Easing.InOutQuad}
-        }
-        Behavior on x {
-            NumberAnimation { duration: 500; easing.type: Easing.OutBack}
-        }
-
-        text: qsTr("Decks")
-        textColor: StyleParams.textColorMenu
-        pointSize: StyleParams.menuTextPonintSize
-    }
-    HexButton {
-        id: optionsButton
-        x: parent.hexWidth *3/4
-        y: hexColumn.y
-        width: parent.hexWidth
-        height: parent.hexHeight
-
-        display: AbstractButton.IconOnly
-
-        toolTipText: qsTr("Options")
-        imageSource: hovered ? StyleParams.optionsHoverButton : StyleParams.optionsButton
-
-        onTriggeredButton: {
-            notificationRect.transitionRequested("options");
-        }
-    }
-    HexButton {
-        id: cardsButton
-        x: 0
-        y: hexColumn.y + parent.hexHeight / 2
-        width: parent.hexWidth
-        height: parent.hexHeight
-
-        display: AbstractButton.IconOnly
-
-        toolTipText: qsTr("Card Collection")
-        imageSource: hovered ? StyleParams.cardsHoverButton : StyleParams.cardsButton
-
-        onTriggeredButton: {
-            notificationRect.transitionRequested("cards");
-        }
-    }
-    HexButton {
-        id: decksButton
-        x: parent.hexWidth *3/4
-        y: hexColumn.y + parent.hexHeight
-        width: parent.hexWidth
-        height: parent.hexHeight
-
-        display: AbstractButton.IconOnly
-
-        toolTipText: qsTr("Decks")
-        imageSource: hovered ? StyleParams.decksHoverButton : StyleParams.decksButton
-
-        onTriggeredButton: {
-            notificationRect.transitionRequested("decks");
-        }
     }
 }

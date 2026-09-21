@@ -17,14 +17,33 @@ Rectangle {
 
     property Project currentlyLoadedProject: root.currentlyLoadedProject
 
+    HexGridRenderer {
+        id: hexBg
+        x: 0
+        y: 0
+        width: parent.width - 100 - notificationRect.width
+        height: parent.height - 100
+
+        color: "transparent"
+
+        hexWidth: StyleParams.hexWidth
+        hexHeight: StyleParams.hexHeight
+        lineWeight: StyleParams.strokeColorHexInactiveWidth/2
+
+        hexFillString: StyleParams.fillColorHexInactive
+        lineFillString: StyleParams.strokeColorHexInactive
+    }
+
     CCPlayerNotification {
         id: notificationRect
 
-        y: StyleParams.hexWidth
-        x: DominantHand.Left === StyleParams.dominantHand ? parent.spacing * 2 + 48 : parent.width - width - parent.spacing * 2
+        y: StyleParams.hexHeight
+        x: DominantHand.Left === StyleParams.dominantHand ?
+               parent.spacing * 2 + StyleParams.hexWidth :
+               parent.width - width - parent.spacing * 2
 
         width: StyleParams.hexWidth * 1.75
-        height: sceneControl.y - y + 48
+        height: sceneControl.y - y + StyleParams.hexHeight* 4 / 3
 
         hexWidth: StyleParams.hexWidth
         hexHeight: StyleParams.hexHeight
@@ -82,7 +101,7 @@ Rectangle {
         id: sceneControl
 
         x: textBox.x
-        y: textBox.y - height / 2
+        y: textBox.y - height / 3
         width: textBox.width
         height: StyleParams.hexHeight * 1.5
 

@@ -11,8 +11,8 @@ Rectangle {
     id: textBoxWrapper
     color: "transparent"
 
-    property int hexWidth: StyleParams.hexWidth
-    property int hexHeight: StyleParams.hexHeight
+    property real hexWidth: StyleParams.hexWidth
+    property real hexHeight: StyleParams.hexHeight
 
     property alias userName: textBoxWrapped.userName
     property alias mainTextBox: textBoxWrapped.mainTextBox
@@ -57,14 +57,14 @@ Rectangle {
     Repeater {
         model: [
             // tr hexes
-            { x: rootTl+factorHexHand*hexWidth+factorHexHand*noDebugOffset, y: hexHeight*1/4, width: hexWidth, height: hexHeight, opacity: 0.5 },
-            { x: rootTl+factorHexHand*hexWidth+factorHexHand*noDebugOffset, y: hexHeight*5/4, width: hexWidth, height: hexHeight, opacity: 0.2 },
-            { x: rootTl+factorHexHand*hexWidth+factorHexHand*noDebugOffset, y: hexHeight*9/4, width: hexWidth, height: hexHeight, opacity: 0.1 },
-            { x: rootTl+factorHexHand*hexWidth*7/4+factorHexHand*noDebugOffset, y: hexHeight*3/4, width: hexWidth, height: hexHeight, opacity: 0.3 },
-            { x: rootTl+factorHexHand*hexWidth*10/4+factorHexHand*noDebugOffset, y: hexHeight*1/4, width: hexWidth, height: hexHeight, opacity: 0.5 },
-            //{ x: rootTl+factorHexHand*hexWidth*13/4+factorHexHand*noDebugOffset, y: hexHeight*3/4, width: hexWidth, height: hexHeight, opacity: 0.3 },
-            { x: rootTl+factorHexHand*hexWidth*16/4+factorHexHand*noDebugOffset, y: hexHeight*1/4, width: hexWidth, height: hexHeight, opacity: 0.3 },
-            { x: rootTl+factorHexHand*hexWidth*19/4+factorHexHand*noDebugOffset, y: -hexHeight*1/4, width: hexWidth, height: hexHeight, opacity: 0.2 }
+            { x: rootTl+factorHexHand*hexWidth+factorHexHand*noDebugOffset, y: 0, width: hexWidth, height: hexHeight, opacity: 0.5 },
+            { x: rootTl+factorHexHand*hexWidth+factorHexHand*noDebugOffset, y: hexHeight*4/4, width: hexWidth, height: hexHeight, opacity: 0.2 },
+            { x: rootTl+factorHexHand*hexWidth+factorHexHand*noDebugOffset, y: hexHeight*8/4, width: hexWidth, height: hexHeight, opacity: 0.1 },
+            { x: rootTl+factorHexHand*hexWidth*7/4+factorHexHand*noDebugOffset, y: hexHeight*2/4, width: hexWidth, height: hexHeight, opacity: 0.3 },
+            { x: rootTl+factorHexHand*hexWidth*10/4+factorHexHand*noDebugOffset, y: 0, width: hexWidth, height: hexHeight, opacity: 0.5 },
+            { x: rootTl+factorHexHand*hexWidth*13/4+factorHexHand*noDebugOffset, y: -hexHeight*2/4, width: hexWidth, height: hexHeight, opacity: 0.3 },
+            { x: rootTl+factorHexHand*hexWidth*16/4+factorHexHand*noDebugOffset, y: 0, width: hexWidth, height: hexHeight, opacity: 0.3 },
+            { x: rootTl+factorHexHand*hexWidth*19/4+factorHexHand*noDebugOffset, y: -hexHeight*2/4, width: hexWidth, height: hexHeight, opacity: 0.1 }
             // bl hexes
         ]
         delegate: Shape {

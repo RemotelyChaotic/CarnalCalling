@@ -33,7 +33,7 @@ Rectangle {
     /*
     Rectangle {
         id: bDEBUG
-        color: "transparent"
+        color: "blue"
         anchors.bottom: parent.bottom
         x: hexColumn.x
         width: hexColumn.width

@@ -7,6 +7,8 @@ Item {
     id: grid
     width: 800
     height: 600
+    property real widthHint: 800
+    property real heightHint: 600
     property string color: "transparent"
 
     property real hexWidth: StyleParams.hexWidth
@@ -16,12 +18,15 @@ Item {
     property color hexFillString: StyleParams.fillColorHexInactive
     property color lineFillString: StyleParams.strokeColorHexInactive
 
+    property bool animateMouseOver: true
+    property bool gradientRendering: false
+
     // Re-use matching metrics for QML container sizing
     readonly property real colStep: hexWidth * 0.75
     readonly property real rowStep: hexHeight
 
-    readonly property int numCols: Math.max(1, Math.floor(width / colStep))
-    readonly property int numRows: Math.max(1, Math.floor(height / rowStep))
+    readonly property int numCols: Math.max(1, Math.floor(widthHint / colStep))
+    readonly property int numRows: Math.max(1, Math.floor(heightHint / rowStep))
 
     readonly property real gridWidth:  numCols * colStep
     readonly property real gridHeight: numRows * rowStep
@@ -63,6 +68,7 @@ Item {
                             grid.lineFillString.g,
                             grid.lineFillString.b,
                             grid.lineFillString.a)
+            property real gradientRendering: grid.gradientRendering ? 1.0 : 0.0
 
             // Default to a coordinate far off-screen (-1000) when not hovering.
             property vector2d hoverPos: Qt.vector2d(-1000.0, -1000.0)
@@ -80,6 +86,7 @@ Item {
                 uniform highp float numCols;
                 uniform lowp vec4 hexColor;
                 uniform lowp vec4 lineColor;
+                uniform lowp float gradientRendering;
                 uniform highp vec2 hoverPos;
 
                 void main()
@@ -87,7 +94,6 @@ Item {
                     // ========================================================
                     // BASIC DIMENSIONS
                     // ========================================================
-
                     highp float W = hexDimension.x;
                     highp float H = hexDimension.y;
 
@@ -99,18 +105,14 @@ Item {
 
                     // Distance between centers vertically.
                     highp float rowStep = H;
-
-
                     // ========================================================
                     // PIXEL POSITION
                     // ========================================================
-
                     highp vec2 p =
                         qt_TexCoord0 * resolution;
 
-
                     // ========================================================
-                    // FIND COLUMN
+                    // FIND COLUMN AND ROW
                     //
                     // Flat-top hex columns:
                     //
@@ -125,39 +127,25 @@ Item {
                     // Odd columns are shifted down by H/2.
                     // ========================================================
 
-                    highp float col =
-                        floor(p.x / colStep + 0.5);
-
-
-                    highp float colOffset =
-                        mod(col, 2.0) * halfH;
-
-
-                    // ========================================================
-                    // FIND ROW
-                    // ========================================================
-
+                    highp float col = floor(p.x / colStep + 0.5);
+                    highp float colOffset = mod(col, 2.0) * halfH;
                     highp float row =
                         floor(
                             (p.y - colOffset) / rowStep
                             + 0.5
                         );
 
-
                     // ========================================================
                     // CURRENT HEX CENTER
                     // ========================================================
 
-                    highp vec2 cellCenter =
+                    highp vec2 originalCellCenter =
                         vec2(
                             col * colStep,
                             row * rowStep + colOffset
                         );
-
-
-                    highp vec2 centerOffset =
-                        p - cellCenter;
-
+                    highp vec2 cellCenter = originalCellCenter;
+                    highp vec2 centerOffset = p - cellCenter;
 
                     // ========================================================
                     // CHECK ADJACENT COLUMNS
@@ -174,31 +162,21 @@ Item {
 
 
                     // ----- Previous column ---------------------------------
-
-                    highp float prevCol =
-                        col - 1.0;
-
-                    highp float prevOffset =
-                        mod(prevCol, 2.0) * halfH;
-
+                    highp float prevCol = col - 1.0;
+                    highp float prevOffset = mod(prevCol, 2.0) * halfH;
                     highp float prevRow =
                         floor(
                             (p.y - prevOffset) / rowStep
                             + 0.5
                         );
-
                     highp vec2 prevCenter =
                         vec2(
                             prevCol * colStep,
                             prevRow * rowStep + prevOffset
                         );
 
-                    highp vec2 prevDelta =
-                        p - prevCenter;
-
-                    highp float prevDistance =
-                        dot(prevDelta, prevDelta);
-
+                    highp vec2 prevDelta = p - prevCenter;
+                    highp float prevDistance = dot(prevDelta, prevDelta);
 
                     if (prevDistance < bestDistance)
                     {
@@ -211,33 +189,22 @@ Item {
                         bestDistance = prevDistance;
                     }
 
-
                     // ----- Next column -------------------------------------
-
-                    highp float nextCol =
-                        col + 1.0;
-
-                    highp float nextOffset =
-                        mod(nextCol, 2.0) * halfH;
-
+                    highp float nextCol = col + 1.0;
+                    highp float nextOffset = mod(nextCol, 2.0) * halfH;
                     highp float nextRow =
                         floor(
                             (p.y - nextOffset) / rowStep
                             + 0.5
                         );
-
                     highp vec2 nextCenter =
                         vec2(
                             nextCol * colStep,
                             nextRow * rowStep + nextOffset
                         );
 
-                    highp vec2 nextDelta =
-                        p - nextCenter;
-
-                    highp float nextDistance =
-                        dot(nextDelta, nextDelta);
-
+                    highp vec2 nextDelta = p - nextCenter;
+                    highp float nextDistance = dot(nextDelta, nextDelta);
 
                     if (nextDistance < bestDistance)
                     {
@@ -249,7 +216,6 @@ Item {
 
                         bestDistance = nextDistance;
                     }
-
 
                     // ========================================================
                     // MOUSE / HOVER HEX
@@ -276,11 +242,6 @@ Item {
                             mouseRow * rowStep
                                 + mouseColOffset
                         );
-
-
-                    // ========================================================
-                    // HOVER
-                    // ========================================================
 
                     bool isHovered =
                         distance(
@@ -315,32 +276,20 @@ Item {
                     // This evaluates to H/2 at every edge.
                     // ========================================================
 
-                    highp vec2 q =
-                        abs(centerOffset);
-
+                    highp vec2 q = abs(centerOffset);
                     highp float dist =
                         max(
                             q.y,
                             q.x * 0.86602540378
                                 + q.y * 0.5
                         );
-
-
-                    // IMPORTANT:
-                    //
-                    // The boundary value is H/2, NOT W/2.
-                    //
-                    highp float radiusBound =
-                        halfH;
-
+                    highp float radiusBound = halfH;
 
                     // ========================================================
                     // BORDER
                     // ========================================================
 
-                    highp float antialiasRange =
-                        1.0;
-
+                    highp float antialiasRange = 1.0;
                     highp float targetLineWeight =
                         isHovered
                             ? 0.0
@@ -358,7 +307,6 @@ Item {
                             dist
                         );
 
-
                     lowp vec4 mixedColor =
                         mix(
                             hexColor,
@@ -366,6 +314,21 @@ Item {
                             edge
                         );
 
+                    if (gradientRendering > 0.0)
+                    {
+                        highp vec2 gridCenter =
+                            vec2(
+                                (numCols - 1.0) * colStep * 0.5,
+                                (numRows - 1.0) * rowStep * 0.5
+                            );
+                        highp vec2 normalizedPos =
+                            (originalCellCenter - gridCenter) / gridCenter;
+                        highp float distanceFromCenter =
+                            length(normalizedPos);
+                        //mixedColor.a *= clamp(distanceFromCenter, 0.0, 1.0);
+                        //mixedColor.a *= smoothstep(0.0, 1.0, distanceFromCenter);
+                        mixedColor.a = 1.0 - clamp(distanceFromCenter * distanceFromCenter, 0.0, 1.0);
+                    }
 
                     // ========================================================
                     // GRID CLIPPING
@@ -380,7 +343,6 @@ Item {
                         row >= 0.0 &&
                         row < numRows;
 
-
                     // Also discard pixels outside the ShaderEffect itself.
                     bool insideRect =
                         p.x >= 0.0 &&
@@ -390,12 +352,10 @@ Item {
                         cellCenter.x > 0.0 &&
                         cellCenter.y > 0.0;
 
-
                     if (!validCell || !insideRect)
                     {
                         mixedColor = vec4(0.0);
                     }
-
 
                     gl_FragColor =
                         mixedColor * qt_Opacity;
@@ -409,7 +369,9 @@ Item {
 
             // Feed real-time coordinates into the shader uniform vector
             onPositionChanged: {
-                hexShader.hoverPos = Qt.vector2d(mouse.x, mouse.y);
+                if (grid.animateMouseOver) {
+                    hexShader.hoverPos = Qt.vector2d(mouse.x, mouse.y);
+                }
             }
 
             // Reset the tracker when the mouse exits the window area

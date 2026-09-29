@@ -13,6 +13,7 @@ Rectangle {
 
     property real hexWidth: StyleParams.hexWidth
     property real hexHeight: StyleParams.hexHeight
+    property real minHeightHidden: 0
 
     property alias userName: textBoxWrapped.userName
     property alias mainTextBox: textBoxWrapped.mainTextBox
@@ -53,8 +54,36 @@ Rectangle {
     property int rootTl: DominantHand.Left === dominantHand ? 0 : width
     property int factorHexHand: DominantHand.Left === dominantHand ? 1 : -1
 
+    HexGridRenderer {
+        id: hexBg
+        anchors.right: parent.right
+        width: gridWidth - hexWidth / 2
+        height: gridHeight
+        property real preCalculatedCols: Math.max(1, Math.floor(parent.width / colStep));
+        widthHint: preCalculatedCols %2 == 0 ?
+                       parent.width :
+                       (preCalculatedCols+1)*hexWidth
+        heightHint: parent.height
+
+        color: "transparent"
+
+        animateMouseOver: false // disable mouse animation to improve performance
+        gradientRendering: true
+        visible: parent.state === "VISIBLE"
+
+        hexWidth: textBoxWrapper.hexWidth
+        hexHeight: textBoxWrapper.hexHeight
+        lineWeight: StyleParams.strokeColorHexInactiveWidth/2
+
+        hexFillString: StyleParams.fillColorHexInactive
+        lineFillString: StyleParams.strokeColorHexInactive
+        opacity: 0.5
+    }
+
     // instanced Hex drawing for performance
     Repeater {
+        layer.enabled: Settings.playerAntialiasing
+        layer.samples: 4 // (anti-aliasing)
         model: [
             // tr hexes
             { x: rootTl+factorHexHand*hexWidth+factorHexHand*noDebugOffset, y: 0, width: hexWidth, height: hexHeight, opacity: 0.5 },
@@ -65,6 +94,7 @@ Rectangle {
             { x: rootTl+factorHexHand*hexWidth*13/4+factorHexHand*noDebugOffset, y: -hexHeight*2/4, width: hexWidth, height: hexHeight, opacity: 0.3 },
             { x: rootTl+factorHexHand*hexWidth*16/4+factorHexHand*noDebugOffset, y: 0, width: hexWidth, height: hexHeight, opacity: 0.3 },
             { x: rootTl+factorHexHand*hexWidth*19/4+factorHexHand*noDebugOffset, y: -hexHeight*2/4, width: hexWidth, height: hexHeight, opacity: 0.1 }
+
             // bl hexes
         ]
         delegate: Shape {
@@ -75,9 +105,6 @@ Rectangle {
 
                 opacity: modelData.opacity
 
-                layer.enabled: Settings.playerAntialiasing
-                layer.samples: 4 // (anti-aliasing)
-
                 ShapePath {
                     fillColor: StyleParams.fillColorHexInactive
                     strokeColor: StyleParams.strokeColorHexInactive
@@ -87,16 +114,30 @@ Rectangle {
                     startX: width * 0.25
                     startY: 0
 
-                    PathLine { x: width * 0.75; y: 0 }
+                    PathLine { x: width * 0.75; y: -0.5 }
                     PathLine { x: width;        y: height * 0.5 }
-                    PathLine { x: width * 0.75; y: height }
-                    PathLine { x: width * 0.25; y: height }
+                    PathLine { x: width * 0.75; y: height +0.5 }
+                    PathLine { x: width * 0.25; y: height +0.5 }
                     PathLine { x: 0;            y: height * 0.5 }
-                    PathLine { x: width * 0.25; y: 0 }
+                    PathLine { x: width * 0.25; y: -0.5 }
             }
         }
     }
 
+    states: [
+        State {
+            name: "VISIBLE"
+            PropertyChanges { target: textBoxWrapper; y: textBoxWrapper.parent.height - textBoxWrapper.height; }
+        },
+        State {
+            name: "HIDDEN"
+            PropertyChanges { target: textBoxWrapper; y: textBoxWrapper.parent.height - minHeightHidden; }
+        }
+    ]
+
+    Behavior on y {
+        NumberAnimation { duration: 500; easing.type: Easing.OutBack}
+    }
     Behavior on opacity {
         NumberAnimation { duration: 500; easing.type: Easing.InOutQuad }
     }

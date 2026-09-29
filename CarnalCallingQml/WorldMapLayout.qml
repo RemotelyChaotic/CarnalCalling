@@ -95,13 +95,13 @@ Rectangle {
     CCPlayerNotification {
         id: notificationRect
 
-        y: StyleParams.hexWidth
+        y: StyleParams.hexHeight
         x: DominantHand.Left === StyleParams.dominantHand ?
                parent.spacing * 2 + StyleParams.hexWidth :
                parent.width - width - parent.spacing * 2
 
         width: StyleParams.hexWidth * 1.75
-        height: sceneControl.y - y + StyleParams.hexHeight* 4 / 3
+        height: sceneControl.y + sceneControl.height - y
 
         hexWidth: StyleParams.hexWidth
         hexHeight: StyleParams.hexHeight
@@ -134,25 +134,11 @@ Rectangle {
         iconHeight: StyleParams.iconHeight
         hexWidth: StyleParams.hexWidth
         hexHeight: StyleParams.hexHeight
+        minHeightHidden: sceneControl.height
 
         userName: "textBox"
         mainTextBox: true
         hideLogAfterInactivity: true
-
-        Behavior on y {
-            NumberAnimation { duration: 500; easing.type: Easing.OutBack}
-        }
-
-        states: [
-            State {
-                name: "VISIBLE"
-                PropertyChanges { target: textBox; y: parent.height - height; }
-            },
-            State {
-                name: "HIDDEN"
-                PropertyChanges { target: textBox; y: parent.height - sceneControl.height + layout.spacing + 2; }
-            }
-        ]
     }
 
     CCPlayerControls {

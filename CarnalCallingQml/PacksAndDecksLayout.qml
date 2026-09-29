@@ -19,10 +19,12 @@ Rectangle {
 
     HexGridRenderer {
         id: hexBg
-        x: 0
-        y: 0
-        width: parent.width - 100 - notificationRect.width
-        height: parent.height - 100
+        x: 10
+        y: 10
+        width: gridWidth - hexWidth / 2
+        height: gridHeight
+        widthHint: parent.width - 100 - notificationRect.width
+        heightHint: parent.height - 100
 
         color: "transparent"
 
@@ -32,6 +34,9 @@ Rectangle {
 
         hexFillString: StyleParams.fillColorHexInactive
         lineFillString: StyleParams.strokeColorHexInactive
+
+        animateMouseOver: true
+        gradientRendering: false
     }
 
     CCPlayerNotification {
@@ -43,7 +48,7 @@ Rectangle {
                parent.width - width - parent.spacing * 2
 
         width: StyleParams.hexWidth * 1.75
-        height: sceneControl.y - y + StyleParams.hexHeight* 4 / 3
+        height: sceneControl.y + sceneControl.height - y
 
         hexWidth: StyleParams.hexWidth
         hexHeight: StyleParams.hexHeight
@@ -76,25 +81,11 @@ Rectangle {
         iconHeight: StyleParams.iconHeight
         hexWidth: StyleParams.hexWidth
         hexHeight: StyleParams.hexHeight
+        minHeightHidden: sceneControl.height
 
         userName: "textBox"
         mainTextBox: true
         hideLogAfterInactivity: true
-
-        Behavior on y {
-            NumberAnimation { duration: 500; easing.type: Easing.OutBack}
-        }
-
-        states: [
-            State {
-                name: "VISIBLE"
-                PropertyChanges { target: textBox; y: parent.height - height; }
-            },
-            State {
-                name: "HIDDEN"
-                PropertyChanges { target: textBox; y: parent.height - sceneControl.height + layout.spacing + 2; }
-            }
-        ]
     }
 
     CCPlayerControls {

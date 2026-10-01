@@ -18,7 +18,13 @@ Rectangle {
 
     property real hexWidth: StyleParams.hexWidth
     property real hexHeight: StyleParams.hexHeight
+    property string glowHexColor: StyleParams.glowHexColor
+    property int glowHexRadius: StyleParams.glowHexRadius
+    property int glowHexSpread: StyleParams.glowHexSpread
+
     signal transitionRequested(string scene)
+
+    readonly property real offsetY: hexColumn.y
 
     function showNotification(sId, sTitle, sButtonText, iTimeS, sOnButton, sOnTimeout)
     {
@@ -42,13 +48,14 @@ Rectangle {
 
     ColumnLayout {
         id: hexColumn
-        anchors.bottom: parent.bottom
+        y: parent.height - height -
+           (StyleParams.dominantHand === DominantHand.Left ? parent.hexHeight/2 : 0)
         x: parent.width - width
         height: Math.floor(parent.height / parent.hexHeight) * parent.hexHeight
         width: parent.hexWidth * 1.75 // two hexes
 
         layoutDirection: Qt.LeftToRight
-        spacing: -Math.round(notificationRect.hexHeight / 2)
+        spacing: -Math.round(notificationRect.hexHeight / 2)-1 // -1 to overlap borders
 
         layer.enabled: Settings.playerAntialiasing
         layer.samples: 4 // (anti-aliasing)
@@ -69,25 +76,88 @@ Rectangle {
                         capStyle: ShapePath.RoundCap
                         joinStyle: ShapePath.RoundJoin
                         startX: width * 0.25
-                        startY: -0.5
+                        startY: 0
 
-                        PathLine { x: width * 0.75; y: -0.5 }
+                        PathLine { x: width * 0.75; y: 0 }
                         PathLine { x: width;        y: height * 0.5 }
-                        PathLine { x: width * 0.75; y: height +0.5 }
-                        PathLine { x: width * 0.25; y: height +0.5 }
+                        PathLine { x: width * 0.75; y: height + 0.5 }
+                        PathLine { x: width * 0.25; y: height + 0.5 }
                         PathLine { x: 0;            y: height * 0.5 }
-                        PathLine { x: width * 0.25; y: -0.5 }
+                        PathLine { x: width * 0.25; y: 0 }
                 }
             }
         }
     }
 
+    // glow
+    Component {
+        id: glowComponent
+
+        Item {
+            width: notificationRect.hexWidth - 2
+            height: notificationRect.hexHeight - 2
+
+            Shape {
+                id: glowShape
+                anchors.fill: parent
+
+                ShapePath {
+                    fillColor: notificationRect.glowHexColor
+                    capStyle: ShapePath.RoundCap
+                    joinStyle: ShapePath.RoundJoin
+                    startX: width * 0.25
+                    startY: 0
+
+                    PathLine { x: width * 0.75; y: 0 }
+                    PathLine { x: width;        y: height * 0.5 }
+                    PathLine { x: width * 0.75; y: height + 0.5 }
+                    PathLine { x: width * 0.25; y: height + 0.5 }
+                    PathLine { x: 0;            y: height * 0.5 }
+                    PathLine { x: width * 0.25; y: 0 }
+                }
+            }
+
+            Glow {
+                anchors.fill: glowShape
+                source: glowShape
+                radius: notificationRect.glowHexRadius
+                samples: 15
+                color: notificationRect.glowHexColor
+                spread: notificationRect.glowHexSpread
+            }
+        }
+    }
+
+    Repeater {
+        model: [
+            optionsButton,
+            devicesButton,
+            cardsButton,
+            decksButton
+        ]
+        delegate: Loader {
+            id: optionsGlow
+            x: modelData.x+1
+            y: modelData.y+1
+            sourceComponent: glowComponent
+
+            opacity: modelData.hovered ? 1.0 : 0.0
+
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 500
+                    easing.type: Easing.OutCubic
+                }
+            }
+        }
+    }
 
     CCNotificationDelegate {
         id: optionsButton
         x: parent.hexWidth * 0.75
         y: hexColumn.y
         textBoxOffset: hexWidth - 6
+        orientation: StyleParams.dominantHand
 
         text: qsTr("Options")
         toolTipText: qsTr("Options")
@@ -101,7 +171,8 @@ Rectangle {
         id: devicesButton
         x: 0
         y: hexColumn.y + parent.hexHeight / 2
-        textBoxOffset: -6
+        textBoxOffset: orientation === DominantHand.Left ? hexWidth*1.5 + 6 : -6
+        orientation: StyleParams.dominantHand
 
         text: qsTr("Devices")
         toolTipText: qsTr("Devices")
@@ -117,6 +188,7 @@ Rectangle {
         x: parent.hexWidth * 0.75
         y: hexColumn.y + parent.hexHeight
         textBoxOffset: hexWidth - 6
+        orientation: StyleParams.dominantHand
 
         text: qsTr("Card Collection")
         toolTipText: qsTr("Card Collection")
@@ -130,7 +202,8 @@ Rectangle {
         id: decksButton
         x: 0
         y: hexColumn.y + parent.hexHeight *3/2
-        textBoxOffset: -6
+        textBoxOffset: orientation === DominantHand.Left ? hexWidth*1.5 + 6 : -6
+        orientation: StyleParams.dominantHand
 
         text: qsTr("Decks")
         toolTipText: qsTr("Decks")

@@ -1,6 +1,8 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
 import QtQuick.Layouts 1.14
+import QtQuick.Shapes 1.14
+import QtGraphicalEffects 1.14
 import JOIP.core 1.5
 
 Rectangle {
@@ -9,6 +11,9 @@ Rectangle {
 
     property real buttonWidth: StyleParams.hexWidth
     property real buttonHeight: StyleParams.hexHeight
+    property string glowHexColor: StyleParams.glowHexColor
+    property int glowHexRadius: StyleParams.glowHexRadius
+    property int glowHexSpread: StyleParams.glowHexSpread
 
     default property alias content: customContent.children
 
@@ -46,6 +51,68 @@ Rectangle {
         id: buttonTemplate
         HexButton {
             id: buttonTemplateButton
+        }
+    }
+    Component {
+        id: glowComponent
+
+        Item {
+            width: sceneControl.buttonWidth - 2
+            height: sceneControl.buttonHeight - 2
+
+            Shape {
+                id: glowShape
+                anchors.fill: parent
+
+                ShapePath {
+                    fillColor: sceneControl.glowHexColor
+                    capStyle: ShapePath.RoundCap
+                    joinStyle: ShapePath.RoundJoin
+                    startX: width * 0.25
+                    startY: 0
+
+                    PathLine { x: width * 0.75; y: 0 }
+                    PathLine { x: width;        y: height * 0.5 }
+                    PathLine { x: width * 0.75; y: height + 0.5 }
+                    PathLine { x: width * 0.25; y: height + 0.5 }
+                    PathLine { x: 0;            y: height * 0.5 }
+                    PathLine { x: width * 0.25; y: 0 }
+                }
+            }
+
+            Glow {
+                anchors.fill: glowShape
+                source: glowShape
+                radius: sceneControl.glowHexRadius
+                samples: 15
+                color: sceneControl.glowHexColor
+                spread: sceneControl.glowHexSpread
+            }
+        }
+    }
+
+    Repeater {
+        id: glowRepeater
+        property var glowModel: [
+            exitButtonLoader.item,
+            pauseButtonLoader.item,
+            hideButtonLoader.item
+        ]
+        model: glowModel
+        delegate: Loader {
+            id: optionsGlow
+            x: modelData.mapToItem(sceneControl, 0, 0).x+1
+            y: modelData.mapToItem(sceneControl, 0, 0).y+1
+            sourceComponent: glowComponent
+
+            opacity: modelData.hovered ? 1.0 : 0.0
+
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 500
+                    easing.type: Easing.OutCubic
+                }
+            }
         }
     }
 
@@ -161,6 +228,21 @@ Rectangle {
             spacing: -sceneControl.buttonWidth / 4
             layoutDirection: DominantHand.Left === Settings.dominantHand ? Qt.LeftToRight :
                                                                            Qt.RightToLeft
+
+            onChildrenChanged: {
+                Qt.callLater(function() {
+                    var model = glowRepeater.glowModel.slice();
+
+                    for (var i = 0; i < children.length; ++i) {
+                        var child = children[i];
+
+                        if (model.indexOf(child) === -1)
+                            model.push(child);
+                    }
+
+                    glowRepeater.glowModel = model;
+                });
+            }
         }
 
         Rectangle {

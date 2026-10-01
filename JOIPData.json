@@ -269,6 +269,16 @@
             ]
         },
         {
+            "sName": "CardCollection.qml",
+            "sPath": "pfs:CarnalCallingQml/CardCollection.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "CardData.json",
             "sPath": "pfs:Database/CardData.json",
             "sResourceBundle": "",
@@ -285,6 +295,16 @@
             "sSource": "",
             "sSubType": "js",
             "type": 4,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardsAndDecksLayout.qml",
+            "sPath": "pfs:CarnalCallingQml/CardsAndDecksLayout.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
             "vsResourceTags": [
             ]
         },
@@ -510,16 +530,6 @@
             ]
         },
         {
-            "sName": "PacksAndDecksLayout.qml",
-            "sPath": "pfs:CarnalCallingQml/PacksAndDecksLayout.qml",
-            "sResourceBundle": "",
-            "sSource": "",
-            "sSubType": "qml",
-            "type": 7,
-            "vsResourceTags": [
-            ]
-        },
-        {
             "sName": "PlayerMap.qml",
             "sPath": "pfs:CarnalCallingQml/PlayerMap.qml",
             "sResourceBundle": "",
@@ -629,7 +639,7 @@
             "bCanStartHere": false,
             "iId": 1,
             "sName": "Decks",
-            "sSceneLayout": "PacksAndDecksLayout.qml",
+            "sSceneLayout": "CardsAndDecksLayout.qml",
             "sScript": "Decks.js",
             "sTitleCard": "",
             "sceneMode": 1,
@@ -640,7 +650,7 @@
             "bCanStartHere": false,
             "iId": 2,
             "sName": "Cards",
-            "sSceneLayout": "PacksAndDecksLayout.qml",
+            "sSceneLayout": "CardsAndDecksLayout.qml",
             "sScript": "Cards.js",
             "sTitleCard": "",
             "sceneMode": 1,

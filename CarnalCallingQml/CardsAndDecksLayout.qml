@@ -17,26 +17,28 @@ Rectangle {
 
     property Project currentlyLoadedProject: root.currentlyLoadedProject
 
-    HexGridRenderer {
-        id: hexBg
-        x: 10
-        y: 10
-        width: gridWidth - hexWidth / 2
-        height: gridHeight
-        widthHint: parent.width - 100 - notificationRect.width
-        heightHint: parent.height - 100
-
-        color: "transparent"
-
-        hexWidth: StyleParams.hexWidth
-        hexHeight: StyleParams.hexHeight
-        lineWeight: StyleParams.strokeColorHexInactiveWidth/2
-
-        hexFillString: StyleParams.fillColorHexInactive
-        lineFillString: StyleParams.strokeColorHexInactive
-
-        animateMouseOver: true
-        gradientRendering: false
+    CardCollection {
+        id: cards
+        x: StyleParams.dominantHand === DominantHand.Left ?
+               notificationRect.x + notificationRect.width - offsetX - StyleParams.hexWidth * 0.25 :
+               offsetX + StyleParams.hexWidth * 0.25
+        y: numCols %2 == 1 ?
+               (StyleParams.dominantHand === DominantHand.Left ?
+                    notificationRect.offsetY + offsetY + StyleParams.hexHeight/2 :
+                    notificationRect.offsetY + offsetY):
+               (StyleParams.dominantHand === DominantHand.Left ?
+                    notificationRect.offsetY + offsetY + StyleParams.hexHeight :
+                    notificationRect.offsetY + offsetY + StyleParams.hexHeight)
+        width: StyleParams.dominantHand === DominantHand.Left ?
+                   parent.width - notificationRect.x - notificationRect.width :
+                   notificationRect.x
+        height: numCols %2 == 1 ?
+                    (StyleParams.dominantHand === DominantHand.Left ?
+                        parent.height - notificationRect.offsetY - StyleParams.hexHeight :
+                        parent.height - notificationRect.offsetY - StyleParams.hexHeight) :
+                    (StyleParams.dominantHand === DominantHand.Left ?
+                         parent.height - notificationRect.offsetY - StyleParams.hexHeight*3/2 :
+                         parent.height - notificationRect.offsetY - StyleParams.hexHeight*3/2)
     }
 
     CCPlayerNotification {
@@ -44,7 +46,7 @@ Rectangle {
 
         y: StyleParams.hexHeight
         x: DominantHand.Left === StyleParams.dominantHand ?
-               parent.spacing * 2 + StyleParams.hexWidth :
+               parent.spacing * 2 :
                parent.width - width - parent.spacing * 2
 
         width: StyleParams.hexWidth * 1.75
@@ -122,11 +124,13 @@ Rectangle {
     {
         let cardData = JSON.parse(sData);
         textBox.state = "HIDDEN";
+        cards.visible = true;
     }
     function handleLoadDecks(sData)
     {
         let deckData = JSON.parse(sData);
         textBox.state = "HIDDEN";
+        cards.visible = false;
     }
 
     Component.onCompleted: {

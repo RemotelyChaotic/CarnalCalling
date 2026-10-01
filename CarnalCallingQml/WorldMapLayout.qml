@@ -97,7 +97,7 @@ Rectangle {
 
         y: StyleParams.hexHeight
         x: DominantHand.Left === StyleParams.dominantHand ?
-               parent.spacing * 2 + StyleParams.hexWidth :
+               parent.spacing * 2 :
                parent.width - width - parent.spacing * 2
 
         width: StyleParams.hexWidth * 1.75

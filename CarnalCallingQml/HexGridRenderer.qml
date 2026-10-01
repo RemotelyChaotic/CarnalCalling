@@ -35,7 +35,7 @@ Item {
     Rectangle {
         id: dDEBUG
         anchors.fill: parent
-        color: "green"
+        color: "yellow"
     }
     */
 

@@ -26,6 +26,9 @@ QtObject {
     readonly property string fillColorHexInactive: "black"
     readonly property string strokeColorHexInactive: "#282828"
     readonly property int strokeColorHexInactiveWidth: 2
+    readonly property string glowHexColor: "#00B4DE"
+    readonly property int glowHexRadius: 15
+    readonly property real glowHexSpread: 0.5
 
     readonly property string colorPlayerBorder: "#ff00ff"
     readonly property string colorCurrentPlace: "#ff00ff"

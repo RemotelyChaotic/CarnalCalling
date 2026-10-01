@@ -51,6 +51,7 @@ Rectangle {
         id: buttonTemplate
         HexButton {
             id: buttonTemplateButton
+            glowColor: sceneControl.glowHexColor
         }
     }
     Component {

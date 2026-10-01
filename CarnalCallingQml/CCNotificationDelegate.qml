@@ -90,6 +90,7 @@ Rectangle {
         height: parent.hexHeight
 
         display: AbstractButton.IconOnly
+        glowColor: delegate.glowHexColor
 
         onTriggeredButton: {
             delegate.triggeredButton();

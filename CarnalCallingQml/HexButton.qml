@@ -2,7 +2,9 @@ import QtQuick 2.14
 import QtQuick.Controls 2.14
 import QtQuick.Layouts 1.14
 import QtQuick.Shapes 1.14
+import QtGraphicalEffects 1.14
 import JOIP.core 1.5
+import CarnalCallingQml 1.0
 
 Button {
     id: buttonTemplateButton
@@ -14,6 +16,8 @@ Button {
     property string shortcut: ""
     property string toolTipText: ""
     property string imageSource: ""
+    property string glowColor: StyleParams.glowHexColor
+
     property Item soundEffects: root.soundEffects
 
     background: Shape {
@@ -57,7 +61,15 @@ Button {
     ToolTip.visible: hovered
     ToolTip.text: toolTipText
 
+    Rectangle {
+        id: glowRectColorSource
+        anchors.fill: parent
+        color: buttonTemplateButton.glowColor
+        visible: false
+    }
+
     Image {
+        id: iconImage
         anchors.centerIn: parent
         width: (parent.width < parent.height ? parent.width : parent.height) - 10
         height: (parent.width < parent.height ? parent.width : parent.height) - 10
@@ -68,6 +80,14 @@ Button {
         mipmap: Settings.playerImageMipMap
 
         source: buttonTemplateButton.imageSource
+        visible: !buttonTemplateButton.down
+    }
+
+    OpacityMask {
+        anchors.fill: glowRectColorSource
+        source: glowRectColorSource
+        maskSource: iconImage
+        visible: buttonTemplateButton.down
     }
 
     onHoveredChanged: {

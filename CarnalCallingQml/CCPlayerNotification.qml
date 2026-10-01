@@ -158,6 +158,7 @@ Rectangle {
         y: hexColumn.y
         textBoxOffset: hexWidth - 6
         orientation: StyleParams.dominantHand
+        glowHexColor: notificationRect.glowHexColor
 
         text: qsTr("Options")
         toolTipText: qsTr("Options")
@@ -173,6 +174,7 @@ Rectangle {
         y: hexColumn.y + parent.hexHeight / 2
         textBoxOffset: orientation === DominantHand.Left ? hexWidth*1.5 + 6 : -6
         orientation: StyleParams.dominantHand
+        glowHexColor: notificationRect.glowHexColor
 
         text: qsTr("Devices")
         toolTipText: qsTr("Devices")
@@ -189,6 +191,7 @@ Rectangle {
         y: hexColumn.y + parent.hexHeight
         textBoxOffset: hexWidth - 6
         orientation: StyleParams.dominantHand
+        glowHexColor: notificationRect.glowHexColor
 
         text: qsTr("Card Collection")
         toolTipText: qsTr("Card Collection")
@@ -204,6 +207,7 @@ Rectangle {
         y: hexColumn.y + parent.hexHeight *3/2
         textBoxOffset: orientation === DominantHand.Left ? hexWidth*1.5 + 6 : -6
         orientation: StyleParams.dominantHand
+        glowHexColor: notificationRect.glowHexColor
 
         text: qsTr("Decks")
         toolTipText: qsTr("Decks")
@@ -216,9 +220,10 @@ Rectangle {
 
     PlayerNotification {
         id: notification
-        height: parent.height
+        x: 0
+        y: decksButton.y + decksButton.height
+        height: parent.height - (decksButton.y + decksButton.height)
         width: parent.width
-        anchors.centerIn: parent
         userName: "notification"
     }
 }

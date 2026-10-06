@@ -3,6 +3,10 @@ import "Types.js"
 let dataToSend = 
     { 
         "ownedCards": [
+            {
+                "id": 0,
+                "setId": "chr_0"
+            }
         ], 
         "ownedDecks": [
             {"name":"Test", "cards": []}

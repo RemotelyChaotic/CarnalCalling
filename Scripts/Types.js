@@ -42,11 +42,15 @@ const GenderType = Object.freeze({
 
 const SlotType = Object.freeze({
     None:       EnumValue("None"),
+    Ass:        EnumValue("Ass"),
+    Chest:      EnumValue("Chest"),
+    Face:       EnumValue("Face"),
+    Genitals:   EnumValue("Genitals"),
+    Hoof:       EnumValue("Hoof"),
+    Horn:       EnumValue("Horn"),
     Mouth:      EnumValue("Mouth"),
     Nipple:     EnumValue("Nipple"),
-    Tits:       EnumValue("Tits"),
-    Genitals:   EnumValue("Genitals"),
-    Ass:        EnumValue("Ass")
+    Wing:       EnumValue("Wing")
 });
 
 export {EnumValue, RarityType, RaceType, CardType, GenderType, SlotType, MapTypes}

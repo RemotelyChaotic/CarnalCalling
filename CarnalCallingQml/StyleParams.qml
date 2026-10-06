@@ -14,6 +14,13 @@ QtObject {
     readonly property real hexWidth: isMobile ? 32 : 48
     readonly property real hexHeight: hexWidth * 0.8660254
     readonly property int menuTextPonintSize: 14
+    readonly property int cardTitleTextPonintSize: 60
+    readonly property int cardDescTextPonintSize: 50
+
+    readonly property real cardWidthOrig: 1080
+    readonly property real cardHeightOrig: 1920
+    readonly property real cardCollectionWidthMin: isMobile ? 72 : 108
+    readonly property real cardCollectionHeightMin: isMobile ? 128 : 192
 
     readonly property int placeWidth: 50
     readonly property int placeHeight: 50

@@ -289,6 +289,236 @@
             ]
         },
         {
+            "sName": "CardDelegate.qml",
+            "sPath": "pfs:CarnalCallingQml/CardDelegate.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconAction",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconAction.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconActionAss",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconActionAss.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconActionChest",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconActionChest.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconActionFace",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconActionFace.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconActionGenitals",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconActionGenitals.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconActionHoof",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconActionHoof.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconActionHorn",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconActionHorn.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconActionMouth",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconActionMouth.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconActionNipple",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconActionNipple.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconActionWing",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconActionWing.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconBlocker",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconBlocker.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconClothes",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconClothes.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconClothesAss",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconClothesAss.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconClothesChest",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconClothesChest.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconClothesFace",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconClothesFace.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconClothesGenitals",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconClothesGenitals.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconClothesHoof",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconClothesHoof.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconClothesHorn",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconClothesHorn.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconClothesMouth",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconClothesMouth.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconClothesNipple",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconClothesNipple.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconClothesWing",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconClothesWing.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconSocal",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconSocal.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "Cards.js",
             "sPath": "pfs:Scripts/Cards.js",
             "sResourceBundle": "",
@@ -385,7 +615,7 @@
             "sSubType": "png",
             "type": 0,
             "vsResourceTags": [
-                "Uncommon",
+                "Mythic",
                 "card:changeling",
                 "style:-1",
                 "type:rarity"
@@ -413,7 +643,7 @@
             "sSubType": "png",
             "type": 0,
             "vsResourceTags": [
-                "Mythic",
+                "Uncommon",
                 "card:changeling",
                 "style:-1",
                 "type:rarity"
@@ -440,12 +670,82 @@
             ]
         },
         {
+            "sName": "ComboIcon",
+            "sPath": "pfs:Images/CardGame/Icons/ComboIcon.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ComboIconNoBorder",
+            "sPath": "pfs:Images/CardGame/Icons/ComboIconNoBorder.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "DataRepository.qml",
+            "sPath": "pfs:CarnalCallingQml/DataRepository.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "Decks.js",
             "sPath": "pfs:Scripts/Decks.js",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "js",
             "type": 4,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "DiscardIcon",
+            "sPath": "pfs:Images/CardGame/Icons/DiscardIcon.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "DiscardIconNoBorder",
+            "sPath": "pfs:Images/CardGame/Icons/DiscardIconNoBorder.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "DrawIcon",
+            "sPath": "pfs:Images/CardGame/Icons/DrawIcon.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "DrawIconNoBorder",
+            "sPath": "pfs:Images/CardGame/Icons/DrawIconNoBorder.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
             "vsResourceTags": [
             ]
         },
@@ -470,6 +770,86 @@
             ]
         },
         {
+            "sName": "GenderIconFemale",
+            "sPath": "pfs:Images/CardGame/Icons/GenderIconFemale.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "GenderIconFemaleNoBorder",
+            "sPath": "pfs:Images/CardGame/Icons/GenderIconFemaleNoBorder.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "GenderIconMale",
+            "sPath": "pfs:Images/CardGame/Icons/GenderIconMale.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "GenderIconMaleNoBorder",
+            "sPath": "pfs:Images/CardGame/Icons/GenderIconMaleNoBorder.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "GenderIconNone",
+            "sPath": "pfs:Images/CardGame/Icons/GenderIconNone.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "GenderIconNoneNoBorder",
+            "sPath": "pfs:Images/CardGame/Icons/GenderIconNoneNoBorder.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "GenderIconShemale",
+            "sPath": "pfs:Images/CardGame/Icons/GenderIconShemale.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "GenderIconShemaleNoBorder",
+            "sPath": "pfs:Images/CardGame/Icons/GenderIconShemaleNoBorder.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "HexButton.qml",
             "sPath": "pfs:CarnalCallingQml/HexButton.qml",
             "sResourceBundle": "",
@@ -486,6 +866,26 @@
             "sSource": "",
             "sSubType": "qml",
             "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "HorniIcon",
+            "sPath": "pfs:Images/CardGame/Icons/HorniIcon.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "HorniIconNoBorder",
+            "sPath": "pfs:Images/CardGame/Icons/HorniIconNoBorder.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
             "vsResourceTags": [
             ]
         },
@@ -516,6 +916,26 @@
             "sSource": "",
             "sSubType": "js",
             "type": 4,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "MetronomeIcon",
+            "sPath": "pfs:Images/CardGame/Icons/MetronomeIcon.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "MetronomeIconNoBorder",
+            "sPath": "pfs:Images/CardGame/Icons/MetronomeIconNoBorder.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
             "vsResourceTags": [
             ]
         },
@@ -556,6 +976,26 @@
             "sSource": "",
             "sSubType": "qml",
             "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "TimeIcon",
+            "sPath": "pfs:Images/CardGame/Icons/TimeIcon.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "TimeIconNoBorder",
+            "sPath": "pfs:Images/CardGame/Icons/TimeIconNoBorder.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
             "vsResourceTags": [
             ]
         },

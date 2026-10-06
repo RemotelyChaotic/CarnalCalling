@@ -39,6 +39,8 @@ Rectangle {
                     (StyleParams.dominantHand === DominantHand.Left ?
                          parent.height - notificationRect.offsetY - StyleParams.hexHeight*3/2 :
                          parent.height - notificationRect.offsetY - StyleParams.hexHeight*3/2)
+
+        repository: repositoryLoader
     }
 
     CCPlayerNotification {
@@ -120,17 +122,22 @@ Rectangle {
         id: eventReceiver;
     }
 
+    DataRepository {
+        id: repositoryLoader
+        currentlyLoadedProject: layout.currentlyLoadedProject
+    }
+
     function handleLoadCards(sData)
     {
         let cardData = JSON.parse(sData);
         textBox.state = "HIDDEN";
-        cards.visible = true;
+        cards.showWith(null != cardData.ownedCards ? cardData.ownedCards : null);
     }
     function handleLoadDecks(sData)
     {
         let deckData = JSON.parse(sData);
         textBox.state = "HIDDEN";
-        cards.visible = false;
+        //cards.visible = false;
     }
 
     Component.onCompleted: {

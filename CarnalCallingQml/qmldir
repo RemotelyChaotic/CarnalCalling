@@ -1,11 +1,13 @@
 module CarnalCallingQml
 singleton StyleParams 1.0 StyleParams.qml
 CardCollection 1.0 CardCollection.qml
+CardDelegate 1.0 CardDelegate.qml
 CardsAndDecksLayout 1.0 CardsAndDecksLayout.qml
 CCNotificationDelegate 1.0 CCNotificationDelegate.qml
 CCPlayerControls 1.0 CCPlayerControls.qml
 CCPlayerNotification 1.0 CCPlayerNotification.qml
 CCPlayerTextBox 1.0 CCPlayerTextBox.qml
+DataRepository 1.0 DataRepository.qml
 DecksAndCards 1.0 DecksAndCards.qml
 FogOfWar 1.0 FogOfWar.qml
 HexButton 1.0 HexButton.qml

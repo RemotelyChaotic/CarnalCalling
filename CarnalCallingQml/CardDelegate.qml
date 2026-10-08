@@ -63,7 +63,7 @@ Rectangle {
         antialiasing: Settings.playerAntialiasing
         mipmap: Settings.playerImageMipMap
 
-        source: null != cardData ? cardData.image : ""
+        source: null != cardData ? "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + cardData.image : ""
 
         onStatusChanged: {
             if (status === Image.Error && cardRoot.unknownImage !== source) {
@@ -125,6 +125,28 @@ Rectangle {
             }
         }
     }
+    Text {
+        x: 50 * zoomFactorX
+        y: parent.height - 20 * zoomFactorY - height
+        width: parent.width / 2
+        height: 30 * zoomFactorY
+
+        text: cardData.artist
+
+        font.family: null != root.currentlyLoadedProject ?
+                         root.currentlyLoadedProject.font : "Arial"
+        font.pixelSize: StyleParams.cardCreditsTextPonintSize * zoomFactorX
+        font.hintingPreference: Font.PreferNoHinting
+
+        horizontalAlignment: Text.AlignLeft
+        elide: Text.ElideNone
+        wrapMode: Text.WordWrap
+        color: StyleParams.textColorMenu
+        textFormat: Text.RichText
+
+        style: Text.Outline
+        styleColor: StyleParams.textOutlineColorMenu
+    }
 
     // Text
     TextItemFormated {
@@ -182,11 +204,117 @@ Rectangle {
         }
     }
     Image {
+        id: statsLayerActionDamage
+        x: parent.width - 245 * zoomFactorX
+        y: 165 * zoomFactorY - height / 2
+        width: 100 * zoomFactorX
+        height: 100 * zoomFactorY
+
+        asynchronous: true
+        smooth: Settings.playerImageSmooth
+        antialiasing: Settings.playerAntialiasing
+        mipmap: Settings.playerImageMipMap
+        source: {
+            if (null == cardData) {
+                return "";
+            }
+            if ("Action" === cardData.cardType && cardData.damage.value > 0)
+            {
+                return "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + "HorniIcon" ;
+            }
+            return "";
+        }
+        visible: null != cardData && "Action" === cardData.cardType && cardData.damage.value > 0
+
+        onStatusChanged: {
+            if (status === Image.Error && cardRoot.unknownImage !== source &&
+                "Action" === cardData.cardType) {
+                source = cardRoot.unknownImage;
+            }
+        }
+
+        Text {
+            x: parent.width
+            y: 0
+            width: (77.5*85) * zoomFactorX
+            height: parent.height
+
+            text: cardData.damage.display
+
+            font.family: null != root.currentlyLoadedProject ?
+                             root.currentlyLoadedProject.font : "Arial"
+            font.pixelSize: StyleParams.cardTitleTextPonintSize * zoomFactorX
+            font.hintingPreference: Font.PreferNoHinting
+
+            horizontalAlignment: Text.AlignLeft
+            elide: Text.ElideNone
+            wrapMode: Text.WordWrap
+            color: StyleParams.textColorMenu
+            textFormat: Text.RichText
+
+            style: Text.Outline
+            styleColor: StyleParams.textOutlineColorMenu
+        }
+    }
+    Image {
+        id: statsLayerActionCombo
+        x: parent.width - 245 * zoomFactorX
+        y: 165 * zoomFactorY - height / 2
+        width: 100 * zoomFactorX
+        height: 100 * zoomFactorY
+
+        asynchronous: true
+        smooth: Settings.playerImageSmooth
+        antialiasing: Settings.playerAntialiasing
+        mipmap: Settings.playerImageMipMap
+        source: {
+            if (null == cardData) {
+                return "";
+            }
+            if ("Social" === cardData.cardType && cardData.combo.value > 0)
+            {
+                return "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + "ComboIcon" ;
+            }
+            return "";
+        }
+        visible: null != cardData && "Social" === cardData.cardType && cardData.combo.value > 0
+
+        onStatusChanged: {
+            if (status === Image.Error && cardRoot.unknownImage !== source &&
+                "Social" === cardData.cardType) {
+                source = cardRoot.unknownImage;
+            }
+        }
+
+        Text {
+            x: parent.width
+            y: 0
+            width: (77.5*85) * zoomFactorX
+            height: parent.height
+
+            text: cardData.combo.display
+
+            font.family: null != root.currentlyLoadedProject ?
+                             root.currentlyLoadedProject.font : "Arial"
+            font.pixelSize: StyleParams.cardTitleTextPonintSize * zoomFactorX
+            font.hintingPreference: Font.PreferNoHinting
+
+            horizontalAlignment: Text.AlignLeft
+            elide: Text.ElideNone
+            wrapMode: Text.WordWrap
+            color: StyleParams.textColorMenu
+            textFormat: Text.RichText
+
+            style: Text.Outline
+            styleColor: StyleParams.textOutlineColorMenu
+        }
+    }
+    Image {
         id: timingInfoLayer
-        x: parent.width - 80 * zoomFactorX - width
-        y: 80 * zoomFactorY
-        width: 165 * zoomFactorX
-        height: 165 * zoomFactorY
+        x: parent.width - 85 * zoomFactorX - width
+        y: parent.height - 85 * zoomFactorY - height
+        width: 155 * zoomFactorX
+        height: 155 * zoomFactorY
 
         asynchronous: true
         smooth: Settings.playerImageSmooth
@@ -197,11 +325,141 @@ Rectangle {
             "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + "TimeIcon" :
                 ""
 
-
         onStatusChanged: {
             if (status === Image.Error && cardRoot.unknownImage !== source) {
                 source = cardRoot.unknownImage;
             }
+        }
+
+        visible: null != cardData && "Action" === cardData.cardType
+
+        Text {
+            anchors.fill: parent
+
+            text: cardData.time.display
+
+            font.family: null != root.currentlyLoadedProject ?
+                             root.currentlyLoadedProject.font : "Arial"
+            font.pixelSize: StyleParams.cardTitleTextPonintSize * zoomFactorX
+            font.hintingPreference: Font.PreferNoHinting
+
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            elide: Text.ElideNone
+            wrapMode: Text.WordWrap
+            color: StyleParams.textColorMenu
+            textFormat: Text.RichText
+
+            style: Text.Outline
+            styleColor: StyleParams.textOutlineColorMenu
+        }
+    }
+    Image {
+        id: statsLayerBpm
+        x: parent.width - 60 * zoomFactorX - width
+        y: parent.height - 330 * zoomFactorY
+        width: 77.5 * zoomFactorX
+        height: 77.5 * zoomFactorY
+
+        asynchronous: true
+        smooth: Settings.playerImageSmooth
+        antialiasing: Settings.playerAntialiasing
+        mipmap: Settings.playerImageMipMap
+        source: {
+            if (null == cardData) {
+                return "";
+            }
+            if ("Action" === cardData.cardType && cardData.bpm.value > 0)
+            {
+                return "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + "MetronomeIcon" ;
+            }
+            return "";
+        }
+        visible: null != cardData && "Action" === cardData.cardType && cardData.bpm.value > 0
+
+        onStatusChanged: {
+            if (status === Image.Error && cardRoot.unknownImage !== source &&
+                "Action" === cardData.cardType) {
+                source = cardRoot.unknownImage;
+            }
+        }
+
+        Text {
+            x: -width
+            y: 0
+            width: 77.5 * zoomFactorX
+            height: parent.height
+
+            text: cardData.bpm.display
+
+            font.family: null != root.currentlyLoadedProject ?
+                             root.currentlyLoadedProject.font : "Arial"
+            font.pixelSize: StyleParams.cardDescTextPonintSize * zoomFactorX
+            font.hintingPreference: Font.PreferNoHinting
+
+            horizontalAlignment: Text.AlignLeft
+            elide: Text.ElideNone
+            wrapMode: Text.WordWrap
+            color: StyleParams.textColorMenu
+            textFormat: Text.RichText
+
+            style: Text.Outline
+            styleColor: StyleParams.textOutlineColorMenu
+        }
+    }
+    Image {
+        id: statsLayerSocial
+        x: parent.width - 245 * zoomFactorX
+        y: parent.height - 165 * zoomFactorY - height / 2
+        width: 100 * zoomFactorX
+        height: 100 * zoomFactorY
+
+        asynchronous: true
+        smooth: Settings.playerImageSmooth
+        antialiasing: Settings.playerAntialiasing
+        mipmap: Settings.playerImageMipMap
+        source: {
+            if (null == cardData) {
+                return "";
+            }
+            if ("Social" === cardData.cardType)
+            {
+                return cardData.draw.value > 0 ?
+                    "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + "DrawIcon" :
+                    "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + "DiscardIcon";
+            }
+            return "";
+        }
+        visible: null != cardData && "Social" === cardData.cardType
+
+        onStatusChanged: {
+            if (status === Image.Error && cardRoot.unknownImage !== source &&
+                "Social" === cardData.cardType) {
+                source = cardRoot.unknownImage;
+            }
+        }
+
+        Text {
+            x: parent.width
+            y: 0
+            width: (77.5*85) * zoomFactorX
+            height: parent.height
+
+            text: cardData.draw.display
+
+            font.family: null != root.currentlyLoadedProject ?
+                             root.currentlyLoadedProject.font : "Arial"
+            font.pixelSize: StyleParams.cardTitleTextPonintSize * zoomFactorX
+            font.hintingPreference: Font.PreferNoHinting
+
+            horizontalAlignment: Text.AlignLeft
+            elide: Text.ElideNone
+            wrapMode: Text.WordWrap
+            color: StyleParams.textColorMenu
+            textFormat: Text.RichText
+
+            style: Text.Outline
+            styleColor: StyleParams.textOutlineColorMenu
         }
     }
     Image {
@@ -224,100 +482,8 @@ Rectangle {
         }
     }
     Image {
-        id: statsLayerSocial
-        x: parent.width - 170 * zoomFactorX - width
-        y: parent.height - 50 * zoomFactorY - height
-        width: 120 * zoomFactorX
-        height: 240 * zoomFactorY
-
-        asynchronous: true
-        smooth: Settings.playerImageSmooth
-        antialiasing: Settings.playerAntialiasing
-        mipmap: Settings.playerImageMipMap
-        source: {
-            if (null == cardData) {
-                return "";
-            }
-            if ("Social" === cardData.cardType)
-            {
-                return cardData.draw > 0 ?
-                    "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + "DrawIcon" :
-                    "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + "DiscardIcon";
-            }
-            return "";
-        }
-        visible: null != cardData && "Social" === cardData.cardType
-
-        onStatusChanged: {
-            if (status === Image.Error && cardRoot.unknownImage !== source &&
-                "Social" === cardData.cardType) {
-                source = cardRoot.unknownImage;
-            }
-        }
-    }
-    Image {
-        id: statsLayerActionDamage
-        x: parent.width - 170 * zoomFactorX - width
-        y: parent.height - 170 * zoomFactorY - height
-        width: 120 * zoomFactorX
-        height: 120 * zoomFactorY
-
-        asynchronous: true
-        smooth: Settings.playerImageSmooth
-        antialiasing: Settings.playerAntialiasing
-        mipmap: Settings.playerImageMipMap
-        source: {
-            if (null == cardData) {
-                return "";
-            }
-            if ("Action" === cardData.cardType && cardData.damage > 0)
-            {
-                return "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + "HorniIcon" ;
-            }
-            return "";
-        }
-        visible: null != cardData && "Action" === cardData.cardType && cardData.damage > 0
-
-        onStatusChanged: {
-            if (status === Image.Error && cardRoot.unknownImage !== source &&
-                "Action" === cardData.cardType) {
-                source = cardRoot.unknownImage;
-            }
-        }
-    }
-    Image {
-        id: statsLayerActionCombo
-        x: parent.width - 170 * zoomFactorX - width
-        y: parent.height - 50 * zoomFactorY - height
-        width: 120 * zoomFactorX
-        height: 120 * zoomFactorY
-
-        asynchronous: true
-        smooth: Settings.playerImageSmooth
-        antialiasing: Settings.playerAntialiasing
-        mipmap: Settings.playerImageMipMap
-        source: {
-            if (null == cardData) {
-                return "";
-            }
-            if ("Action" === cardData.cardType && cardData.combo > 0)
-            {
-                return "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + "ComboIcon" ;
-            }
-            return "";
-        }
-        visible: null != cardData && "Action" === cardData.cardType && cardData.combo > 0
-
-        onStatusChanged: {
-            if (status === Image.Error && cardRoot.unknownImage !== source &&
-                "Action" === cardData.cardType) {
-                source = cardRoot.unknownImage;
-            }
-        }
-    }
-    Image {
         id: rarityLayer
-        y: parent.height - height - 95 * zoomFactorY
+        y: parent.height - height - 10 * zoomFactorY
         height: sourceSize.height * zoomFactorY
         width: sourceSize.width * zoomFactorX
         anchors.horizontalCenter: parent.horizontalCenter

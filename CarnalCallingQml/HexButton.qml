@@ -20,27 +20,8 @@ Button {
 
     property Item soundEffects: root.soundEffects
 
-    background: Shape {
+    background: HexShape {
         anchors.fill: parent
-        layer.enabled: Settings.playerAntialiasing
-        layer.samples: 4 // (anti-aliasing)
-
-        ShapePath {
-            fillColor: StyleParams.fillColorHexActive
-            strokeColor: StyleParams.strokeColorHexActive
-            strokeWidth: StyleParams.strokeColorHexActiveWidth
-            capStyle: ShapePath.RoundCap
-            joinStyle: ShapePath.RoundJoin
-            startX: width * 0.25
-            startY: 0
-
-            PathLine { x: width * 0.75; y: 0 }
-            PathLine { x: width;        y: height * 0.5 }
-            PathLine { x: width * 0.75; y: height }
-            PathLine { x: width * 0.25; y: height }
-            PathLine { x: 0;            y: height * 0.5 }
-            PathLine { x: width * 0.25; y: 0 }
-        }
     }
 
     contentItem: Text {

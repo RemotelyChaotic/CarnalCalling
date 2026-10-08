@@ -1,6 +1,7 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
 import QtQuick.Layouts 1.14
+import QtQuick.Shapes 1.14
 import QtGraphicalEffects 1.14
 import JoipEngine 1.3
 import JOIP.core 1.5
@@ -51,6 +52,7 @@ Rectangle {
                                  "cardData": card,
                                  "cardViewElems": repository.getCardViewElements(card),
                                  "cardLayout": card.layout,
+                                 "cardCount": cardData.count,
                                  "projId": currentlyLoadedProject.id,
                                  "cardFilter": cardFilter,
                                  "orderId": cardData.setId + ";" + cardData.id
@@ -99,8 +101,14 @@ Rectangle {
     GridView {
         id: cardList
         anchors.centerIn: parent
-        width: parent.width
-        height: parent.height
+        width: parent.width - StyleParams.hexWidth*3
+        height: parent.height - StyleParams.hexHeight*3
+        cellWidth: StyleParams.cardCollectionWidthMin+10
+        cellHeight: StyleParams.cardCollectionHeightMin+10
+
+        flow: GridView.FlowLeftToRight
+        layoutDirection: Qt.LeftToRight
+        verticalLayoutDirection: GridView.TopToBottom
 
         signal itemClicked(int index, real x, real y, string setId, int id)
 
@@ -114,10 +122,36 @@ Rectangle {
             if (null != card) {
                 previewDelegate.cardData = card;
                 previewDelegate.cardViewElems = repository.getCardViewElements(card);
-                previewDelegateCardLoaderFront.source = card.layout;
+                previewDelegate.source = card.layout;
             }
 
-            appearAnimation.start();
+            previewDelegate.show();
+        }
+
+        clip: false
+        highlightFollowsCurrentItem: true
+        highlight: Rectangle {
+            color: "transparent"
+            width: cardList.cellWidth
+            height: cardList.cellHeight
+            x: null != cardList.currentItem ? cardList.currentItem.x : 0
+            y: null != cardList.currentItem ? cardList.currentItem.y : 0
+            Rectangle {
+                anchors.centerIn: parent
+                width: parent.width-8
+                height: parent.height-8
+                color: StyleParams.glowHexColor
+                radius: 8
+            }
+
+            layer.enabled: true
+            layer.effect: Glow {
+                radius: StyleParams.glowHexRadius
+                samples: 17
+                spread: StyleParams.glowHexSpread
+                color: StyleParams.glowHexColor
+                transparentBorder: true
+            }
         }
 
         model: SortFilterProxyModel {
@@ -127,7 +161,7 @@ Rectangle {
             filters: RegExpFilter {
                 id: sortFilter
                 roleName: "cardFilter"
-                pattern: ".*"
+                pattern: filterTextArea.text === "" ? ".*" : filterTextArea.text
                 caseSensitivity: Qt.CaseInsensitive
             }
 
@@ -158,9 +192,43 @@ Rectangle {
                             visible: status == Loader.Ready
                         }
 
+                        HexShape {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            y: parent.height - height
+                            width: StyleParams.hexWidth / 2
+                            height: StyleParams.hexHeight / 2
+
+                            fillColor: StyleParams.fillColorHexInactive
+                            strokeColor: StyleParams.strokeColorHexInactive
+                            strokeWidth: StyleParams.strokeColorHexInactiveWidth
+
+                            Text {
+                                anchors.fill: parent
+
+                                text: model.cardCount
+
+                                font.family: null != root.currentlyLoadedProject ?
+                                                 root.currentlyLoadedProject.font : "Arial"
+                                font.pixelSize: StyleParams.cardCreditsTextPonintSize * zoomFactorX
+                                font.hintingPreference: Font.PreferNoHinting
+
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                                elide: Text.ElideNone
+                                wrapMode: Text.WordWrap
+                                color: StyleParams.textColorMenu
+                                textFormat: Text.RichText
+                            }
+                        }
+
                         MouseArea {
                             anchors.fill: parent
                             enabled: !previewDelegate.visible
+                            hoverEnabled: true
+
+                            onEntered: {
+                                cardList.currentIndex = index;
+                            }
 
                             onClicked: {
                                 let pointInLayout = mapToItem(layout, 0.0, 0.0);
@@ -178,6 +246,35 @@ Rectangle {
                         }
                     }
                 }
+            }
+        }
+
+        ScrollBar.vertical: ScrollBar {
+            id: scrollV
+            orientation: Qt.Vertical
+            policy: Qt.ScrollBarAlwaysOn
+
+            parent: cardList.parent
+
+            anchors.top: cardList.top
+            anchors.bottom: cardList.bottom
+            width: StyleParams.hexWidth/3
+            anchors.left:  StyleParams.dominantHand === DominantHand.Left  ? undefined : cardList.left
+            anchors.right: StyleParams.dominantHand === DominantHand.Left  ? cardList.right : undefined
+            anchors.leftMargin:  StyleParams.dominantHand === DominantHand.Left ? 0 : -width-StyleParams.hexWidth/2
+            anchors.rightMargin: StyleParams.dominantHand === DominantHand.Left ? width+StyleParams.hexWidth/2 : 0
+
+            contentItem: Rectangle {
+                implicitWidth: parent.width - StyleParams.strokeColorHexInactiveWidth*2
+                implicitHeight: 100
+                radius: width / 2
+                color: StyleParams.fillColorHexActive
+            }
+            background: Rectangle {
+                implicitWidth: parent.width
+                radius: width / 2
+                color: StyleParams.fillColorHexInactive
+                border.color: StyleParams.strokeColorHexInactive
             }
         }
     }
@@ -200,338 +297,85 @@ Rectangle {
         }
     }
 
-    Rectangle {
+    HexButtonWithToolTip {
+        id: searchButton
+        x: hexBg.x
+        y: hexBg.y
+        width: StyleParams.hexWidth
+        height: StyleParams.hexHeight
+        hexWidth: StyleParams.hexWidth
+        hexHeight: StyleParams.hexHeight
+        orientation: HexButtonWithToolTip.Top
+        textBoxOffset: 6
+
+        text: qsTr("Filter")
+        imageSource: hovered ? StyleParams.searchHoverButton : StyleParams.searchButton
+        glowHexColor: StyleParams.glowHexColor
+    }
+
+    TextArea {
+        id: filterTextArea
+        x: searchButton.x + searchButton.width
+        y: hexBg.y
+        width: StyleParams.hexWidth * 6
+        height: StyleParams.hexHeight
+
+        leftPadding: StyleParams.hexWidth * 0.25
+        rightPadding: StyleParams.hexWidth * 0.25
+        topPadding: 0
+        bottomPadding: 0
+        verticalAlignment: TextEdit.AlignVCenter
+
+        color: StyleParams.textColorMenu
+
+        text: ""
+        placeholderText: qsTr("Enter a filter expression")
+        placeholderTextColor: StyleParams.placeholderTextColorMenu
+        font.pointSize: StyleParams.menuTextPonintSize
+        font.family: null != root.currentlyLoadedProject ?
+                         root.currentlyLoadedProject.font : "Arial"
+        font.hintingPreference: Font.PreferNoHinting
+
+        cursorDelegate: Rectangle {
+            width: StyleParams.cursorWidth
+            color: StyleParams.cursorColor
+        }
+
+        background: Shape {
+            id: textBgShape
+            width: parent.width
+            height: parent.height
+            layer.enabled: Settings.playerAntialiasing
+            layer.samples: 4 // (anti-aliasing)
+
+            property real dy: textBgShape.height / 2
+            property real dx: StyleParams.hexWidth*0.25
+
+            ShapePath {
+                fillColor: StyleParams.fillColorHexActive
+                strokeColor: StyleParams.strokeColorHexActive
+                strokeWidth: StyleParams.strokeColorHexActiveWidth
+                capStyle: ShapePath.RoundCap
+                joinStyle: ShapePath.RoundJoin
+
+                startX: 0
+                startY: textBgShape.dy
+                PathLine { x: textBgShape.dx; y: 0 }
+                PathLine { x: textBgShape.width - textBgShape.dx; y: 0 }
+                PathLine { x: textBgShape.width; y: textBgShape.height / 2 }
+                PathLine { x: textBgShape.width - textBgShape.dx; y: textBgShape.height }
+                PathLine { x: textBgShape.dx; y: textBgShape.height }
+                PathLine { x: 0; y: textBgShape.dy }
+            }
+        }
+    }
+
+    CardPreviewRender {
         id: previewDelegate
         x: 0
         y: 0
         width: 0
         height: 0
-        color: "transparent"
-
-        property real intendedWidth: origW * scale
-        property real intendedHeight: origH * scale
-
-        readonly property real origW: StyleParams.cardWidthOrig
-        readonly property real origH: StyleParams.cardHeightOrig
-        readonly property real availW: parent.width
-        readonly property real availH: parent.height
-        readonly property real scaleW: availW / origW
-        readonly property real scaleH: availH / origH
-        readonly property real scale: Math.min(1.0, scaleW, scaleH)
-        visible: false
-
-        property var cardData: null
-        property var cardViewElems: null
-
-        property var animationFinished: false
-
-        property real cardRotationX: 0
-        property real cardRotationY: 0
-        property real cardRotationZ: 0
-
-        SequentialAnimation {
-            id: appearAnimation
-            loops: 1
-            running: false
-            ScriptAction {
-                script: {
-                    previewDelegate.cardRotationX = 0;
-                    previewDelegate.cardRotationY = 0;
-                    previewDelegate.cardRotationZ = 0;
-                    previewDelegate.visible = true;
-                    previewDelegate.animationFinished = false;
-                }
-            }
-            ParallelAnimation {
-                NumberAnimation { target: previewDelegate; property: "x"; to: layout.width/2-previewDelegate.intendedWidth/2; duration: 300 }
-                NumberAnimation { target: previewDelegate; property: "y"; to: layout.height/2-previewDelegate.intendedHeight/2; duration: 300 }
-                NumberAnimation { target: previewDelegate; property: "width"; to: previewDelegate.intendedWidth; duration: 300 }
-                NumberAnimation { target: previewDelegate; property: "height"; to: previewDelegate.intendedHeight; duration: 300 }
-            }
-            ScriptAction {
-                script: {
-                    cardTextureFront.width = previewDelegate.width;
-                    cardTextureFront.height = previewDelegate.height;
-                    cardTextureBack.width = previewDelegate.width;
-                    cardTextureBack.height = previewDelegate.height;
-                    previewDelegate.animationFinished = true;
-                }
-            }
-        }
-
-        Image {
-            id: previewDelegateCardLoaderBack
-            anchors.fill: parent
-            asynchronous: true
-            smooth: Settings.playerImageSmooth
-            antialiasing: Settings.playerAntialiasing
-            mipmap: Settings.playerImageMipMap
-            source: null != previewDelegate.cardViewElems ? previewDelegate.cardViewElems.back.image : ""
-            // Hide the original item visually. It is still rendered into
-            // ShaderEffectSource below.
-            visible: false
-        }
-
-        Loader {
-            id: previewDelegateCardLoaderFront
-            source: ""
-            anchors.fill: parent
-            asynchronous: true
-            // Hide the original item visually after animation is over.
-            // It is still rendered into ShaderEffectSource below.
-            visible: status == Loader.Ready && !previewDelegate.animationFinished
-
-            onLoaded: {
-                item.currentlyLoadedProjectId = layout.currentlyLoadedProject.id;
-                item.cardData = previewDelegate.cardData;
-                item.cardViewElems = previewDelegate.cardViewElems;
-            }
-        }
-
-        ShaderEffectSource {
-            id: cardTextureFront
-
-            sourceItem: previewDelegateCardLoaderFront.item
-
-            width: previewDelegate.width
-            height: previewDelegate.height
-
-            live: true
-            hideSource: false
-            smooth: true
-
-            visible: false
-        }
-        ShaderEffectSource {
-            id: cardTextureBack
-
-            sourceItem: previewDelegateCardLoaderBack
-
-            width: previewDelegate.width
-            height: previewDelegate.height
-
-            live: true
-            hideSource: true
-            smooth: true
-
-            visible: false
-        }
-
-        ShaderEffect {
-            id: card3d
-
-            anchors.fill: parent
-
-            visible: previewDelegateCardLoaderFront.status === Loader.Ready &&
-                     previewDelegate.animationFinished
-
-            property variant sourceFront: cardTextureFront
-            property variant sourceBack: cardTextureBack
-
-            property real rotationX: previewDelegate.cardRotationX
-            property real rotationY: previewDelegate.cardRotationY
-            property real rotationZ: previewDelegate.cardRotationZ
-
-            property real cardWidth: width
-            property real cardHeight: height
-
-            // Distance of virtual camera from card.
-            // Increase this for weaker perspective.
-            property real cameraDistance: 1500.0
-
-            mesh: GridMesh {
-                resolution: Qt.size(40, 40)
-            }
-
-            cullMode: ShaderEffect.NoCulling
-
-            // ------------------------------------------------------------
-            // Vertex shader
-            // ------------------------------------------------------------
-
-            vertexShader: "
-                precision highp float;
-
-                uniform highp mat4 qt_Matrix;
-
-                uniform highp float rotationX;
-                uniform highp float rotationY;
-                uniform highp float rotationZ;
-
-                uniform highp float cardWidth;
-                uniform highp float cardHeight;
-
-                uniform highp float cameraDistance;
-
-                attribute highp vec4 qt_Vertex;
-                attribute highp vec2 qt_MultiTexCoord0;
-
-                varying highp vec2 qt_TexCoord0;
-                varying highp float qt_Facing;
-
-                void main()
-                {
-                    // ----------------------------------------------------
-                    // Convert QML vertex to coordinates relative to center.
-                    //
-                    // qt_Vertex is in item coordinates.
-                    // ----------------------------------------------------
-
-                    highp float x =
-                        qt_Vertex.x - cardWidth * 0.5;
-
-                    highp float y =
-                        qt_Vertex.y - cardHeight * 0.5;
-
-                    highp float z = 0.0;
-
-                    // ----------------------------------------------------
-                    // Angles
-                    // ----------------------------------------------------
-
-                    highp float rx = radians(rotationX);
-                    highp float ry = radians(rotationY);
-                    highp float rz = radians(rotationZ);
-
-                    highp float sx = sin(rx);
-                    highp float cx = cos(rx);
-
-                    highp float sy = sin(ry);
-                    highp float cy = cos(ry);
-
-                    highp float sz = sin(rz);
-                    highp float cz = cos(rz);
-
-                    // ----------------------------------------------------
-                    // Rotate around X
-                    // ----------------------------------------------------
-
-                    highp float x1 = x;
-
-                    highp float y1 =
-                        y * cx - z * sx;
-
-                    highp float z1 =
-                        y * sx + z * cx;
-
-                    // ----------------------------------------------------
-                    // Rotate around Y
-                    // ----------------------------------------------------
-
-                    highp float x2 =
-                        x1 * cy + z1 * sy;
-
-                    highp float y2 =
-                        y1;
-
-                    highp float z2 =
-                        -x1 * sy + z1 * cy;
-
-                    // ----------------------------------------------------
-                    // Rotate around Z
-                    // ----------------------------------------------------
-
-                    highp float x3 =
-                        x2 * cz - y2 * sz;
-
-                    highp float y3 =
-                        x2 * sz + y2 * cz;
-
-                    highp float z3 =
-                        z2;
-
-                    // ----------------------------------------------------
-                    // Perspective projection.
-                    // ----------------------------------------------------
-
-                    highp float depth =
-                        cameraDistance - z3;
-
-                    highp float projection =
-                        cameraDistance / depth;
-
-                    x3 *= projection;
-                    y3 *= projection;
-
-                    // ----------------------------------------------------
-                    // Back to item coordinates
-                    // ----------------------------------------------------
-
-                    highp float finalX =
-                        x3 + cardWidth * 0.5;
-
-                    highp float finalY =
-                        y3 + cardHeight * 0.5;
-
-                    // ----------------------------------------------------
-                    // Qt scene graph transformation
-                    // ----------------------------------------------------
-
-                    gl_Position =
-                        qt_Matrix *
-                        vec4(finalX, finalY, 0.0, 1.0);
-
-                    qt_TexCoord0 =
-                        qt_MultiTexCoord0;
-
-                    // Z component of the rotated normal.
-                    //
-                    // Positive = front
-                    // Negative = back
-                    // ----------------------------------------------------
-
-                    qt_Facing =
-                        cx * cy;
-                }
-            "
-
-            // ------------------------------------------------------------
-            // Fragment shader
-            // ------------------------------------------------------------
-
-            fragmentShader: "
-                precision highp float;
-
-                uniform sampler2D sourceFront;
-                uniform sampler2D sourceBack;
-
-                varying highp vec2 qt_TexCoord0;
-                varying highp float qt_Facing;
-
-                void main()
-                {
-                    highp vec2 uv =
-                        qt_TexCoord0;
-
-                    if (qt_Facing >= 0.0)
-                    {
-                        gl_FragColor =
-                            texture2D(sourceFront, uv);
-                    }
-                    else
-                    {
-                        // The back is viewed from the opposite side.
-                        uv.x = 1.0 - uv.x;
-
-                        gl_FragColor =
-                            texture2D(sourceBack, uv);
-                    }
-                }
-            "
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            hoverEnabled: true
-            onPositionChanged: {
-               previewDelegate.cardRotationY =  (mouse.x - width / 2) / (width/2) * 20
-               previewDelegate.cardRotationX =  -(mouse.y - height / 2) / (width/2) * 20;
-            }
-            onExited: {
-                previewDelegate.cardRotationX = 0;
-                previewDelegate.cardRotationY = 0;
-                previewDelegate.cardRotationZ = 0;
-            }
-        }
+        currentlyLoadedProject: layout.currentlyLoadedProject.id
     }
 }

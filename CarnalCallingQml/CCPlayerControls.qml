@@ -49,9 +49,10 @@ Rectangle {
 
     Component {
         id: buttonTemplate
-        HexButton {
+        HexButtonWithToolTip {
             id: buttonTemplateButton
-            glowColor: sceneControl.glowHexColor
+            glowHexColor: sceneControl.glowHexColor
+            orientation: HexButtonWithToolTip.Top
         }
     }
     Component {
@@ -139,7 +140,7 @@ Rectangle {
             id: exitButtonLoader
             sourceComponent: buttonTemplate
 
-            property string buttonText: Settings.keyBinding("Exit")
+            property string buttonText: qsTr("Exit tease")
             property string shortcut: Settings.keyBinding("Exit")
             property string toolTipText: qsTr("Exit tease")
             property string imageSource:
@@ -155,6 +156,8 @@ Rectangle {
             }
 
             onLoaded: {
+                item.textBoxOffset = rowLayout.indexOfItem(exitButtonLoader) % 2 ?
+                            6 : 6 + sceneControl.buttonHeight / 2;
                 item.text = buttonText;
                 item.shortcut = shortcut;
                 item.toolTipText = toolTipText;
@@ -169,7 +172,7 @@ Rectangle {
 
             property bool paused: false
 
-            property string buttonText: Settings.keyBinding("Pause")
+            property string buttonText: qsTr("Pause or resume execution")
             property string shortcut: Settings.keyBinding("Pause")
             property string toolTipText: qsTr("Pause or resume execution")
             property string imageSource:
@@ -185,6 +188,8 @@ Rectangle {
             }
 
             onLoaded: {
+                item.textBoxOffset = rowLayout.indexOfItem(pauseButtonLoader) % 2 ?
+                            6 : 6 + sceneControl.buttonHeight / 2;
                 item.text = buttonText;
                 item.shortcut = shortcut;
                 item.toolTipText = toolTipText;
@@ -199,7 +204,7 @@ Rectangle {
 
             property bool visibleUi: true
 
-            property string buttonText: Settings.keyBinding("ToggleUI")
+            property string buttonText: qsTr("Show or hide UI")
             property string shortcut: Settings.keyBinding("ToggleUI")
             property string toolTipText: qsTr("Show or hide UI")
             property string imageSource:
@@ -215,6 +220,8 @@ Rectangle {
             }
 
             onLoaded: {
+                item.textBoxOffset = rowLayout.indexOfItem(hideButtonLoader) % 2 ?
+                            6 : 6 + sceneControl.buttonHeight / 2;
                 item.text = buttonText;
                 item.shortcut = shortcut;
                 item.toolTipText = toolTipText;

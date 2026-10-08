@@ -27,16 +27,14 @@
       "cards": {
         "_Comment_": "50 Commons, 20 Uncommons, 10 Rares, and 10 Mythics",
         "Common": [
-          {"setId": "chr_0", "id": 0 }
+          {"setId": "chr_0", "id": 0 },
+          {"setId": "chr_0", "id": 1 }
         ],
         "Uncommon": [
-          {"setId": "chr_0", "id": 0 }
         ],
         "Rare": [
-          {"setId": "chr_0", "id": 0 }
         ],
         "Mythic": [
-          {"setId": "chr_0", "id": 0 }
         ],
       },
       "tags": [

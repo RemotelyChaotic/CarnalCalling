@@ -97,7 +97,7 @@ Rectangle {
 
             // bl hexes
         ]
-        delegate: Shape {
+        delegate: HexShape {
                 x: modelData.x
                 y: modelData.y
                 width: modelData.width
@@ -105,22 +105,9 @@ Rectangle {
 
                 opacity: modelData.opacity
 
-                ShapePath {
-                    fillColor: StyleParams.fillColorHexInactive
-                    strokeColor: StyleParams.strokeColorHexInactive
-                    strokeWidth: StyleParams.strokeColorHexInactiveWidth
-                    capStyle: ShapePath.RoundCap
-                    joinStyle: ShapePath.RoundJoin
-                    startX: width * 0.25
-                    startY: 0
-
-                    PathLine { x: width * 0.75; y: -0.5 }
-                    PathLine { x: width;        y: height * 0.5 }
-                    PathLine { x: width * 0.75; y: height +0.5 }
-                    PathLine { x: width * 0.25; y: height +0.5 }
-                    PathLine { x: 0;            y: height * 0.5 }
-                    PathLine { x: width * 0.25; y: -0.5 }
-            }
+                fillColor: StyleParams.fillColorHexInactive
+                strokeColor: StyleParams.strokeColorHexInactive
+                strokeWidth: StyleParams.strokeColorHexInactiveWidth
         }
     }
 

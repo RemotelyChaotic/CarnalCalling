@@ -160,14 +160,17 @@ Rectangle {
         }
 
 
-        HexButton {
+        HexButtonWithToolTip {
             id: travel
             Layout.preferredHeight: sceneControl.buttonHeight
             Layout.preferredWidth: sceneControl.buttonWidth
             Layout.alignment: Qt.AlignTop
 
+            orientation: HexButtonWithToolTip.Top
+            textBoxOffset: 6
+
             enabled: textBox.opacity > 0
-            text: Settings.keyBinding("Tools")
+            text: qsTr("Travel")
 
             shortcut: Settings.keyBinding("Tools")
             toolTipText: qsTr("Head to location")

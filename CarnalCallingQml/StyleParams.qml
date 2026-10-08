@@ -16,6 +16,7 @@ QtObject {
     readonly property int menuTextPonintSize: 14
     readonly property int cardTitleTextPonintSize: 60
     readonly property int cardDescTextPonintSize: 50
+    readonly property int cardCreditsTextPonintSize: 40
 
     readonly property real cardWidthOrig: 1080
     readonly property real cardHeightOrig: 1920
@@ -27,6 +28,8 @@ QtObject {
     readonly property int travelDuration: 3000
 
     readonly property string textColorMenu: "white"
+    readonly property string textOutlineColorMenu: "black"
+    readonly property string placeholderTextColorMenu: "grey"
     readonly property string fillColorHexActive: "#282828"
     readonly property string strokeColorHexActive: "black"
     readonly property int strokeColorHexActiveWidth: 2
@@ -36,6 +39,8 @@ QtObject {
     readonly property string glowHexColor: "#00B4DE"
     readonly property int glowHexRadius: 15
     readonly property real glowHexSpread: 0.5
+    readonly property string cursorColor: "#00B4DE"
+    readonly property int cursorWidth: 2
 
     readonly property string colorPlayerBorder: "#ff00ff"
     readonly property string colorCurrentPlace: "#ff00ff"
@@ -65,6 +70,8 @@ QtObject {
     readonly property string devicesHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonPlugHover"
     readonly property string exitButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonExit"
     readonly property string exitHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonExitHover"
+    readonly property string searchButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonSearch"
+    readonly property string searchHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonSearchHover"
     readonly property string unknownMap: "UnknownSvg"
     readonly property string unknownIcon: "UnknownSvg"
     readonly property string fogTexture: "Clouds"

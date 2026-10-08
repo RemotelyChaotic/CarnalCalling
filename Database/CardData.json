@@ -7,18 +7,87 @@
       "description": "<img src=\"image://DataBaseImageProivider/{id}/UnknownSvg\" width=\"{w}\" height=\"{h}\" /> Play and do nothing.",
       "style": 0,
       "layout": "CardDelegate.qml",
+      "background": "Test",
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
       "slot": "Mouth",
-      "time": 10,
-      "bpm": 0,
-      "edge": 0,
-      "combo": 1,
-      "draw": 1,
-      "damage": 1,
+      "time": {
+        "value" : 120,
+        "display" : "120s",
+      },
+      "bpm": {
+        "value" : 30,
+        "display" : "30",
+      },
+      "edge": {
+        "value" : 0,
+        "display" : "0",
+      },
+      "combo": {
+        "value" : 1,
+        "display" : "1",
+      },
+      "draw": {
+        "value" : 0,
+        "display" : "",
+      },
+      "damage": {
+        "value" : 10,
+        "display" : "10",
+      },
       "gendering": 0,
       "rarity": "Common",
+      "artist": "Someone @ 2026",
+      "tags": [
+        "card:changeling"
+      ],
+      "effects": [
+        {
+          "name": "test",
+          "args": []
+        }
+      ]
+    },
+    {
+      "id" : 1,
+      "setId" : "chr_0",
+      "title": "Test Card2",
+      "description": "<img src=\"image://DataBaseImageProivider/{id}/UnknownSvg\" width=\"{w}\" height=\"{h}\" /> Play and do nothing.",
+      "style": 0,
+      "layout": "CardDelegate.qml",
+      "background": "Test",
+      "image": "Test",
+      "faction": "Changeling",
+      "cardType": "Social",
+      "slot": "None",
+      "time": {
+        "value" : 0,
+        "display" : "",
+      },
+      "bpm": {
+        "value" : 0,
+        "display" : "",
+      },
+      "edge": {
+        "value" : 0,
+        "display" : "",
+      },
+      "combo": {
+        "value" : 1,
+        "display" : "1",
+      },
+      "draw": {
+        "value" : 1,
+        "display" : "1",
+      },
+      "damage": {
+        "value" : 0,
+        "display" : "",
+      },
+      "gendering": -1,
+      "rarity": "Uncommon",
+      "artist": "Someone @ 2026",
       "tags": [
         "card:changeling"
       ],

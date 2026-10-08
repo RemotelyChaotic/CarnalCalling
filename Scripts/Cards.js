@@ -5,7 +5,13 @@ let dataToSend =
         "ownedCards": [
             {
                 "id": 0,
-                "setId": "chr_0"
+                "setId": "chr_0",
+                "count": 1
+            },
+            {
+                "id": 1,
+                "setId": "chr_0",
+                "count": 2
             }
         ], 
         "ownedDecks": [

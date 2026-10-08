@@ -24,8 +24,6 @@ Item {
     readonly property string tagStyleRare: "Rare"
     readonly property string tagStyleMythic: "Mythic"
 
-
-
     function getCard(id, setId)
     {
         if (cards[setId] != null) {

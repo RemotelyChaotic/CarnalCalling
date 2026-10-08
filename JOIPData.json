@@ -209,6 +209,26 @@
             ]
         },
         {
+            "sName": "ButtonSearch",
+            "sPath": "pfs:Images/Icons/ButtonSearch.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonSearchHover",
+            "sPath": "pfs:Images/Icons/ButtonSearchHover.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "ButtonVisible",
             "sPath": "pfs:Images/Icons/ButtonVisible.svg",
             "sResourceBundle": "",
@@ -225,16 +245,6 @@
             "sSource": "",
             "sSubType": "svg",
             "type": 0,
-            "vsResourceTags": [
-            ]
-        },
-        {
-            "sName": "CCNotificationDelegate.qml",
-            "sPath": "pfs:CarnalCallingQml/CCNotificationDelegate.qml",
-            "sResourceBundle": "",
-            "sSource": "",
-            "sSubType": "qml",
-            "type": 7,
             "vsResourceTags": [
             ]
         },
@@ -515,6 +525,16 @@
             "sSource": "",
             "sSubType": "svg",
             "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardPreviewRender.qml",
+            "sPath": "pfs:CarnalCallingQml/CardPreviewRender.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
             "vsResourceTags": [
             ]
         },
@@ -860,8 +880,28 @@
             ]
         },
         {
+            "sName": "HexButtonWithToolTip.qml",
+            "sPath": "pfs:CarnalCallingQml/HexButtonWithToolTip.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "HexGridRenderer.qml",
             "sPath": "pfs:CarnalCallingQml/HexGridRenderer.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "HexShape.qml",
+            "sPath": "pfs:CarnalCallingQml/HexShape.qml",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "qml",
@@ -1123,11 +1163,6 @@
             "sDescribtion": "keenkris",
             "sName": "artist:keenkris",
             "sType": "artist"
-        },
-        {
-            "sDescribtion": "",
-            "sName": "back",
-            "sType": "eImage"
         },
         {
             "sDescribtion": "Changeling",

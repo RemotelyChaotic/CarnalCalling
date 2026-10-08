@@ -62,29 +62,16 @@ Rectangle {
 
         Repeater {
             model: hexColumn.height / notificationRect.hexHeight*2-1
-            delegate: Shape {
-                    Layout.preferredWidth: notificationRect.hexWidth
-                    Layout.preferredHeight: notificationRect.hexHeight
-                    Layout.alignment: index % 2 ? Qt.AlignLeft : Qt.AlignRight
+            delegate: HexShape {
+                Layout.preferredWidth: notificationRect.hexWidth
+                Layout.preferredHeight: notificationRect.hexHeight
+                Layout.alignment: index % 2 ? Qt.AlignLeft : Qt.AlignRight
 
-                    opacity: 0.4
+                opacity: 0.4
 
-                    ShapePath {
-                        fillColor: StyleParams.fillColorHexInactive
-                        strokeColor: StyleParams.strokeColorHexInactive
-                        strokeWidth: StyleParams.strokeColorHexInactiveWidth
-                        capStyle: ShapePath.RoundCap
-                        joinStyle: ShapePath.RoundJoin
-                        startX: width * 0.25
-                        startY: 0
-
-                        PathLine { x: width * 0.75; y: 0 }
-                        PathLine { x: width;        y: height * 0.5 }
-                        PathLine { x: width * 0.75; y: height + 0.5 }
-                        PathLine { x: width * 0.25; y: height + 0.5 }
-                        PathLine { x: 0;            y: height * 0.5 }
-                        PathLine { x: width * 0.25; y: 0 }
-                }
+                fillColor: StyleParams.fillColorHexInactive
+                strokeColor: StyleParams.strokeColorHexInactive
+                strokeWidth: StyleParams.strokeColorHexInactiveWidth
             }
         }
     }
@@ -97,24 +84,10 @@ Rectangle {
             width: notificationRect.hexWidth - 2
             height: notificationRect.hexHeight - 2
 
-            Shape {
+            HexShape {
                 id: glowShape
                 anchors.fill: parent
-
-                ShapePath {
-                    fillColor: notificationRect.glowHexColor
-                    capStyle: ShapePath.RoundCap
-                    joinStyle: ShapePath.RoundJoin
-                    startX: width * 0.25
-                    startY: 0
-
-                    PathLine { x: width * 0.75; y: 0 }
-                    PathLine { x: width;        y: height * 0.5 }
-                    PathLine { x: width * 0.75; y: height + 0.5 }
-                    PathLine { x: width * 0.25; y: height + 0.5 }
-                    PathLine { x: 0;            y: height * 0.5 }
-                    PathLine { x: width * 0.25; y: 0 }
-                }
+                fillColor: notificationRect.glowHexColor
             }
 
             Glow {
@@ -152,12 +125,13 @@ Rectangle {
         }
     }
 
-    CCNotificationDelegate {
+    HexButtonWithToolTip {
         id: optionsButton
         x: parent.hexWidth * 0.75
         y: hexColumn.y
         textBoxOffset: hexWidth - 6
-        orientation: StyleParams.dominantHand
+        orientation: StyleParams.dominantHand === DominantHand.Right ?
+                         HexButtonWithToolTip.Left : HexButtonWithToolTip.Right
         glowHexColor: notificationRect.glowHexColor
 
         text: qsTr("Options")
@@ -168,12 +142,13 @@ Rectangle {
             notificationRect.transitionRequested("options");
         }
     }
-    CCNotificationDelegate {
+    HexButtonWithToolTip {
         id: devicesButton
         x: 0
         y: hexColumn.y + parent.hexHeight / 2
         textBoxOffset: orientation === DominantHand.Left ? hexWidth*1.5 + 6 : -6
-        orientation: StyleParams.dominantHand
+        orientation: StyleParams.dominantHand === DominantHand.Right ?
+                         HexButtonWithToolTip.Left : HexButtonWithToolTip.Right
         glowHexColor: notificationRect.glowHexColor
 
         text: qsTr("Devices")
@@ -185,12 +160,13 @@ Rectangle {
             TeaseDeviceController.openSelectionScreen(globalCoordinares.x, globalCoordinares.y);
         }
     }
-    CCNotificationDelegate {
+    HexButtonWithToolTip {
         id: cardsButton
         x: parent.hexWidth * 0.75
         y: hexColumn.y + parent.hexHeight
         textBoxOffset: hexWidth - 6
-        orientation: StyleParams.dominantHand
+        orientation: StyleParams.dominantHand === DominantHand.Right ?
+                         HexButtonWithToolTip.Left : HexButtonWithToolTip.Right
         glowHexColor: notificationRect.glowHexColor
 
         text: qsTr("Card Collection")
@@ -201,12 +177,13 @@ Rectangle {
             notificationRect.transitionRequested("cards");
         }
     }
-    CCNotificationDelegate {
+    HexButtonWithToolTip {
         id: decksButton
         x: 0
         y: hexColumn.y + parent.hexHeight *3/2
         textBoxOffset: orientation === DominantHand.Left ? hexWidth*1.5 + 6 : -6
-        orientation: StyleParams.dominantHand
+        orientation: StyleParams.dominantHand === DominantHand.Right ?
+                         HexButtonWithToolTip.Left : HexButtonWithToolTip.Right
         glowHexColor: notificationRect.glowHexColor
 
         text: qsTr("Decks")

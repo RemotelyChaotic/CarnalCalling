@@ -77,14 +77,11 @@ Rectangle {
         }
     }
 
-    Image {
+    CardDelegateBack {
         id: previewDelegateCardLoaderBack
         anchors.fill: parent
-        asynchronous: true
-        smooth: Settings.playerImageSmooth
-        antialiasing: Settings.playerAntialiasing
-        mipmap: Settings.playerImageMipMap
         source: null != previewDelegate.cardViewElems ? previewDelegate.cardViewElems.back.image : ""
+        currentlyLoadedProjectId: previewDelegate.currentlyLoadedProject
         // Hide the original item visually. It is still rendered into
         // ShaderEffectSource below.
         visible: false

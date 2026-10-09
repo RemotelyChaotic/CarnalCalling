@@ -16,6 +16,7 @@ Rectangle {
     property Project currentlyLoadedProject: root.currentlyLoadedProject
     property DataRepository repository: null
 
+    property bool canToggleOnlyOwned: true
     property real offsetX: hexBg.x
     property real offsetY: hexBg.y
     readonly property alias numRows: hexBg.numRows
@@ -24,22 +25,91 @@ Rectangle {
 
     visible: false
 
-    function showWith(ownedCards)
+    function cardKey(setId, id)
+    {
+        return setId + ";" + id;
+    }
+
+    function showWith(ownedCards, onlyShowOwned = false)
     {
         cardModel.clear();
+        showOnlyOwnedButtonCheckable.checked = onlyShowOwned;
 
-        if (null != ownedCards) {
-            for (const card of ownedCards) {
-                pushCard(card);
+        if (null != repository) {
+            const ownedByKey = new Map();
+            if (ownedCards) {
+                for (const card of ownedCards) {
+                    ownedByKey.set(cardKey(card.setId, card.id), card);
+                }
+            }
+
+            let allPacks = repository.allPacks();
+
+            let vAllCardsSorted = [];
+
+            for (const packId of allPacks) {
+
+                const pack = repository.getPack(packId);
+                const rarityTypes = Object.keys(pack.cards);
+                for (const rarity of rarityTypes) {
+                    if (!rarity.startsWith('_')) {
+                        for (const cardC of pack.cards[rarity]) {
+                            vAllCardsSorted.push(cardC);
+                        }
+                    }
+                }
+            }
+
+            vAllCardsSorted.sort((a, b) => {
+                // Primary: setId (string comparison)
+                const setIdCompare = a.setId.localeCompare(b.setId);
+                if (setIdCompare !== 0) {
+                  return setIdCompare;
+                }
+
+                // Secondary: id (numeric)
+                return a.id - b.id;
+            });
+
+            if (null != ownedCards) {
+                for (const c of vAllCardsSorted) {
+                    const found = ownedByKey.get(cardKey(c.setId, c.id));
+                    if (null != found) {
+                        pushCard(found);
+                    } else {
+                        pushBackground(c);
+                    }
+                }
             }
         }
+
+        addTimer.start();
 
         layout.visible = true;
     }
 
+    function pushBackground(cardData)
+    {
+        if (null != cardData && null != cardData.id &&
+            null != cardData.setId && -1 < cardData.id && "" !== cardData.setId)
+        {
+            let cardView = repository.getCardViewElements(cardData.id, cardData.setId);
+            let cardFilter = cardData.setId + ";" + cardData.id;
+            addTimer.itemsToAdd.push({
+                                 "cardData": null,
+                                 "cardViewElems": cardView,
+                                 "cardLayout": "CardDelegateBack.qml",
+                                 "cardCount": 0,
+                                 "projId": currentlyLoadedProject.id,
+                                 "cardFilter": cardFilter,
+                                 "orderId": cardKey(cardData.setId, cardData.id)
+                            });
+        }
+    }
+
     function pushCard(cardData)
     {
-        if (null != repository && null != cardData && null != cardData.id &&
+        if (null != cardData && null != cardData.id &&
             null != cardData.setId && -1 < cardData.id && "" !== cardData.setId)
         {
             let card = repository.getCard(cardData.id, cardData.setId);
@@ -48,15 +118,35 @@ Rectangle {
                              card.slot + ";" + card.rarity + ";" +
                              genderStrings[card.gendering+1] + ";" +
                              card.tags.join(";");
-            cardModel.append({
+            addTimer.itemsToAdd.push({
                                  "cardData": card,
                                  "cardViewElems": repository.getCardViewElements(card),
                                  "cardLayout": card.layout,
                                  "cardCount": cardData.count,
                                  "projId": currentlyLoadedProject.id,
                                  "cardFilter": cardFilter,
-                                 "orderId": cardData.setId + ";" + cardData.id
+                                 "orderId": cardKey(cardData.setId, cardData.id)
                             });
+        }
+    }
+
+    Timer {
+        id: addTimer
+        interval: 100
+        repeat: true
+        running: false
+
+        property var itemsToAdd: []
+        property int nextItem: 0
+
+        onTriggered: {
+            if (0 < itemsToAdd.length) {
+                cardModel.append(itemsToAdd.splice(0,1)[0]);
+
+                nextItem++
+            } else {
+                stop();
+            }
         }
     }
 
@@ -95,7 +185,7 @@ Rectangle {
 
     ListModel {
         id: cardModel
-        dynamicRoles: true
+        dynamicRoles: false
     }
 
     GridView {
@@ -158,11 +248,19 @@ Rectangle {
             id: cardProxyModel
 
             sourceModel: cardModel
-            filters: RegExpFilter {
-                id: sortFilter
-                roleName: "cardFilter"
-                pattern: filterTextArea.text === "" ? ".*" : filterTextArea.text
-                caseSensitivity: Qt.CaseInsensitive
+            filters: AllOf {
+                filters: [
+                    RegExpFilter {
+                        roleName: "cardFilter"
+                        pattern: filterTextArea.text === "" ? ".*" : filterTextArea.text
+                        caseSensitivity: Qt.CaseInsensitive
+                    },
+                    RegExpFilter {
+                        roleName: "cardLayout"
+                        pattern: showOnlyOwnedButtonCheckable.checked ? "^(?!CardDelegateBack[.]qml$).*" : ".*"
+                        caseSensitivity: Qt.CaseInsensitive
+                    }
+                ]
             }
 
             sorters: StringSorter {
@@ -171,79 +269,127 @@ Rectangle {
             }
         }
 
-        delegate: Component {
+        delegate: Rectangle {
+            id: thisCard
+            width: StyleParams.cardCollectionWidthMin
+            height: StyleParams.cardCollectionHeightMin
+            color: "transparent"
+
             Loader {
-                width: StyleParams.cardCollectionWidthMin
-                height: StyleParams.cardCollectionHeightMin
+                id: cardLoader
+                anchors.fill: parent
+                source: ""
                 asynchronous: true
                 visible: status == Loader.Ready
+            }
 
-                sourceComponent: Component {
-                    Rectangle {
-                        width: StyleParams.cardCollectionWidthMin
-                        height: StyleParams.cardCollectionHeightMin
-                        color: "transparent"
+            HexShape {
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: parent.height - height
+                width: StyleParams.hexWidth / 2
+                height: StyleParams.hexHeight / 2
 
-                        Loader {
-                            id: cardLoader
-                            anchors.fill: parent
-                            source: ""
-                            asynchronous: true
-                            visible: status == Loader.Ready
-                        }
+                fillColor: StyleParams.fillColorHexInactive
+                strokeColor: StyleParams.strokeColorHexInactive
+                strokeWidth: StyleParams.strokeColorHexInactiveWidth
 
-                        HexShape {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            y: parent.height - height
-                            width: StyleParams.hexWidth / 2
-                            height: StyleParams.hexHeight / 2
+                visible: model.cardData != null
 
-                            fillColor: StyleParams.fillColorHexInactive
-                            strokeColor: StyleParams.strokeColorHexInactive
-                            strokeWidth: StyleParams.strokeColorHexInactiveWidth
+                Text {
+                    anchors.fill: parent
 
-                            Text {
-                                anchors.fill: parent
+                    text: model.cardCount
 
-                                text: model.cardCount
+                    property real zoomFactorX: thisCard.width / StyleParams.cardWidthOrig
 
-                                font.family: null != root.currentlyLoadedProject ?
-                                                 root.currentlyLoadedProject.font : "Arial"
-                                font.pixelSize: StyleParams.cardCreditsTextPonintSize * zoomFactorX
-                                font.hintingPreference: Font.PreferNoHinting
+                    font.family: null != root.currentlyLoadedProject ?
+                                     root.currentlyLoadedProject.font : "Arial"
+                    font.pixelSize: StyleParams.cardCreditsTextPonintSize * zoomFactorX
+                    font.hintingPreference: Font.PreferNoHinting
 
-                                horizontalAlignment: Text.AlignHCenter
-                                verticalAlignment: Text.AlignVCenter
-                                elide: Text.ElideNone
-                                wrapMode: Text.WordWrap
-                                color: StyleParams.textColorMenu
-                                textFormat: Text.RichText
-                            }
-                        }
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideNone
+                    wrapMode: Text.WordWrap
+                    color: StyleParams.textColorMenu
+                    textFormat: Text.RichText
+                }
+            }
 
-                        MouseArea {
-                            anchors.fill: parent
-                            enabled: !previewDelegate.visible
-                            hoverEnabled: true
+            MouseArea {
+                anchors.fill: parent
+                enabled: !previewDelegate.visible
+                hoverEnabled: true
 
-                            onEntered: {
-                                cardList.currentIndex = index;
-                            }
+                onEntered: {
+                    cardList.currentIndex = index;
+                }
 
-                            onClicked: {
-                                let pointInLayout = mapToItem(layout, 0.0, 0.0);
-                                cardList.itemClicked(
-                                            index,
-                                            pointInLayout.x,
-                                            pointInLayout.y,
-                                            model.cardData.setId,
-                                            model.cardData.id);
-                            }
-                        }
+                onClicked: {
+                    if (null != model.cardData) {
+                        let pointInLayout = mapToItem(layout, 0.0, 0.0);
+                        cardList.itemClicked(
+                                    index,
+                                    pointInLayout.x,
+                                    pointInLayout.y,
+                                    model.cardData.setId,
+                                    model.cardData.id);
+                    }
+                }
+            }
 
-                        Component.onCompleted: {
-                            cardLoader.source = model.cardLayout
-                        }
+            Connections {
+                target: thisCard
+
+                function onVisibleChanged() {
+                    if (thisCard.visible && cardLoader.status === Loader.Null) {
+                        cardLoader.source = model.cardLayout;
+                    }
+                }
+            }
+
+            Component.onCompleted: {
+                if (visible) {
+                    cardLoader.source = model.cardLayout;
+                }
+            }
+        }
+
+        remove: Transition {
+            SequentialAnimation {
+                ParallelAnimation {
+                    NumberAnimation {
+                        property: "y"
+                        from: cardList.contentY
+                        to: cardList.contentY - 100
+                        duration: 500
+                        easing.type: Easing.OutCubic
+                    }
+
+                    NumberAnimation {
+                        property: "opacity"
+                        from: 1
+                        to: 0
+                        duration: 500
+                    }
+                }
+            }
+        }
+        populate: Transition {
+            SequentialAnimation {
+                ParallelAnimation {
+                    NumberAnimation {
+                        property: "y"
+                        from: cardList.contentY + 100
+                        duration: 500
+                        easing.type: Easing.OutCubic
+                    }
+
+                    NumberAnimation {
+                        property: "opacity"
+                        from: 1
+                        to: 0
+                        duration: 500
                     }
                 }
             }
@@ -368,6 +514,25 @@ Rectangle {
                 PathLine { x: 0; y: textBgShape.dy }
             }
         }
+    }
+
+    HexButtonWithToolTip {
+        id: showOnlyOwnedButtonCheckable
+        x: hexBg.x + filterTextArea.width + searchButton.width
+        y: hexBg.y
+        width: StyleParams.hexWidth
+        height: StyleParams.hexHeight
+        hexWidth: StyleParams.hexWidth
+        hexHeight: StyleParams.hexHeight
+        orientation: HexButtonWithToolTip.Top
+        textBoxOffset: 6
+
+        text: qsTr("Only Show Owned")
+        imageSource: hovered ? StyleParams.onlyShowOwnedHoverButton : StyleParams.onlyShowOwnedButton
+        glowHexColor: StyleParams.glowHexColor
+
+        checkable: true
+        visible: layout.canToggleOnlyOwned
     }
 
     CardPreviewRender {

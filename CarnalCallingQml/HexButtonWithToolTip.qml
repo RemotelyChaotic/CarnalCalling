@@ -30,6 +30,9 @@ Rectangle {
     property alias shortcut: hexButton.shortcut
     property alias toolTipText: hexButton.toolTipText
     property alias imageSource: hexButton.imageSource
+
+    property alias checkable: hexButton.checkable
+    property alias checked: hexButton.checked
     property alias hovered: hexButton.hovered
 
     Glow {

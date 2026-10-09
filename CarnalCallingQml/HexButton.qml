@@ -39,7 +39,7 @@ Button {
 
     ToolTip.delay: 1000
     ToolTip.timeout: 5000
-    ToolTip.visible: hovered
+    ToolTip.visible: hovered && toolTipText !== ""
     ToolTip.text: toolTipText
 
     Rectangle {
@@ -61,14 +61,16 @@ Button {
         mipmap: Settings.playerImageMipMap
 
         source: buttonTemplateButton.imageSource
-        visible: !buttonTemplateButton.down
+        visible: !buttonTemplateButton.down && !buttonTemplateButton.checked
     }
 
     OpacityMask {
-        anchors.fill: glowRectColorSource
+        anchors.centerIn: parent
+        width: buttonTemplateButton.checkable ? iconImage.width : parent.width
+        height: buttonTemplateButton.checkable ? iconImage.height : parent.height
         source: glowRectColorSource
         maskSource: iconImage
-        visible: buttonTemplateButton.down
+        visible: buttonTemplateButton.down || buttonTemplateButton.checked
     }
 
     onHoveredChanged: {

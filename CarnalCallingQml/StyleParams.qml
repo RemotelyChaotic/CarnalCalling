@@ -72,6 +72,8 @@ QtObject {
     readonly property string exitHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonExitHover"
     readonly property string searchButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonSearch"
     readonly property string searchHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonSearchHover"
+    readonly property string onlyShowOwnedButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonOnlyShowOwned"
+    readonly property string onlyShowOwnedHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonOnlyShowOwnedHover"
     readonly property string unknownMap: "UnknownSvg"
     readonly property string unknownIcon: "UnknownSvg"
     readonly property string fogTexture: "Clouds"

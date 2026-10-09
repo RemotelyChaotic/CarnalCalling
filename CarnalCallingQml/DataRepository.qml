@@ -97,6 +97,16 @@ Item {
         return retVal;
     }
 
+    function allPacks()
+    {
+        let retVal = [];
+        for (const p of packs) {
+            retVal.push(p.setId);
+        }
+        retVal.sort();
+        return retVal;
+    }
+
     function getPack(setId)
     {
         const found = packs.find((p) => p.setId === setId);

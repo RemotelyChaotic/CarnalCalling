@@ -1,5 +1,6 @@
 import QtQuick 2.14
 import QtQuick.Shapes 1.14
+import JOIP.core 1.5
 import CarnalCallingQml 1.0
 
 Shape {

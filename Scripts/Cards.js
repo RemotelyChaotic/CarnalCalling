@@ -7,12 +7,12 @@ let dataToSend =
                 "id": 0,
                 "setId": "chr_0",
                 "count": 1
-            },
+            }/*,
             {
                 "id": 1,
                 "setId": "chr_0",
                 "count": 2
-            }
+            }*/
         ], 
         "ownedDecks": [
             {"name":"Test", "cards": []}

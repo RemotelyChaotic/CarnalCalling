@@ -129,6 +129,26 @@
             ]
         },
         {
+            "sName": "ButtonOnlyShowOwned",
+            "sPath": "pfs:Images/Icons/ButtonOnlyShowOwned.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonOnlyShowOwnedHover",
+            "sPath": "pfs:Images/Icons/ButtonOnlyShowOwnedHover.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "ButtonOptions",
             "sPath": "pfs:Images/Icons/ButtonOptions.svg",
             "sResourceBundle": "",
@@ -301,6 +321,16 @@
         {
             "sName": "CardDelegate.qml",
             "sPath": "pfs:CarnalCallingQml/CardDelegate.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardDelegateBack.qml",
+            "sPath": "pfs:CarnalCallingQml/CardDelegateBack.qml",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "qml",

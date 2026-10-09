@@ -2,6 +2,7 @@ module CarnalCallingQml
 singleton StyleParams 1.0 StyleParams.qml
 CardCollection 1.0 CardCollection.qml
 CardDelegate 1.0 CardDelegate.qml
+CardDelegateBack 1.0 CardDelegateBack.qml
 CardPreviewRender 1.0 CardPreviewRender.qml
 CardsAndDecksLayout 1.0 CardsAndDecksLayout.qml
 CCPlayerControls 1.0 CCPlayerControls.qml

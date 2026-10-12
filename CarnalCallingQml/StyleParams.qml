@@ -17,6 +17,7 @@ QtObject {
     readonly property int cardTitleTextPonintSize: 60
     readonly property int cardDescTextPonintSize: 50
     readonly property int cardCreditsTextPonintSize: 40
+    readonly property int cardCountPonintSize: 30
 
     readonly property real cardWidthOrig: 1080
     readonly property real cardHeightOrig: 1920

@@ -137,7 +137,7 @@ AI:
 
 Start: 4 Cards
 Max: 9 Cards
-Per-Turn: 0 Cards -> Only draw with draw effects (usually social Cards) or by letting the other Regenerate some arousal.
+Per-Turn: 0 Cards -> Only draw with draw effects (usually social Cards) or by waiting x seconds.
 Erect/Wet status: 100HP -> 0
                   0HP -> 100% / broken
 Start-Health: 100HP -> 0 

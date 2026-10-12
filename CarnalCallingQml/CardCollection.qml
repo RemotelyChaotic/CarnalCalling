@@ -304,7 +304,7 @@ Rectangle {
 
                     font.family: null != root.currentlyLoadedProject ?
                                      root.currentlyLoadedProject.font : "Arial"
-                    font.pixelSize: StyleParams.cardCreditsTextPonintSize * zoomFactorX
+                    font.pixelSize: StyleParams.cardCountPonintSize
                     font.hintingPreference: Font.PreferNoHinting
 
                     horizontalAlignment: Text.AlignHCenter

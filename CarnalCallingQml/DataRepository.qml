@@ -10,19 +10,106 @@ Item {
     property var cards: null
     property var packs: null
     property var imageData: null
-    property var commonIconImages: null
+    property var iconImages: null
 
     readonly property string tagCard: "card"
     readonly property string tagLayer: "layer"
     readonly property string tagBack: "type:back"
     readonly property string tagFront: "type:front"
-    readonly property string tagRarity: "type:rarity"
+    readonly property string tagIcon: "type:icon"
+    readonly property string tagIconType: "icontype"
     readonly property string tagStyle: "style"
 
-    readonly property string tagStyleCommon: "Common"
-    readonly property string tagStyleUncommon: "Uncommon"
-    readonly property string tagStyleRare: "Rare"
-    readonly property string tagStyleMythic: "Mythic"
+    readonly property var commonIconSets : {
+        "icontype:Social": {
+            "None": {
+                "name": "CardIconSocal",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconSocal",
+                "resource": null
+            }
+        },
+        "icontype:Clothes": {
+            "None": {
+                "name": "CardIconAction",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconAction",
+                "resource": null
+            },
+            "Ass": {
+                "name": "CardIconActionAss",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionAss",
+                "resource": null
+            },
+            "Chest": {
+                "name": "CardIconActionChest",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionChest",
+                "resource": null
+            },
+            "Face": {
+                "name": "CardIconActionFace",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionFace",
+                "resource": null
+            },
+            "Genitals": {
+                "name": "CardIconActionGenitals",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionGenitals",
+                "resource": null
+            },
+            "Hoof": {
+                "name": "CardIconActionHoof",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionHoof",
+                "resource": null
+            },
+            "Horn": {
+                "name": "CardIconActionHorn",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionHorn",
+                "resource": null
+            },
+            "Mouth": {
+                "name": "CardIconActionMouth",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionMouth",
+                "resource": null
+            },
+            "Nipple": {
+                "name": "CardIconActionNipple",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionNipple",
+                "resource": null
+            },
+            "Wing": {
+                "name": "CardIconActionWing",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionWing",
+                "resource": null
+            }
+        },
+        "icontype:Blocker": {
+            "None": {
+                "name": "CardIconBlocker",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconBlocker",
+                "resource": null
+            }
+        },
+        "icontype:gender": {
+            "-1": {
+                "name": "GenderIconNone",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "GenderIconNone",
+                "resource": null
+            },
+            "0": {
+                "name": "GenderIconMale",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "GenderIconMale",
+                "resource": null
+            },
+            "1": {
+                "name": "GenderIconFemale",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "GenderIconFemale",
+                "resource": null
+            },
+            "2": {
+                "name": "GenderIconShemale",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "GenderIconShemale",
+                "resource": null
+            }
+        }
+    }
 
     function getCard(id, setId)
     {
@@ -59,20 +146,6 @@ Item {
                 null != imageData[cardType][tagBack][tagStyle + ":" + locCard.style]) {
                 retVal["back"] = imageData[cardType][tagBack][tagStyle + ":" + locCard.style][0];
             }
-            // rarity
-            if (null != locCard.rarity) {
-                if (null != imageData[cardType] && null != imageData[cardType][tagRarity] &&
-                    null != imageData[cardType][tagRarity][tagStyle + ":" + locCard.style]) {
-
-                    for (let data of imageData[cardType][tagRarity][tagStyle + ":" + locCard.style]) {
-                        if (null != data.resource) {
-                            if (null != data.resource.tags().find((t) => t === locCard.rarity)) {
-                                retVal["rarity"] = data;
-                            }
-                        }
-                    }
-                }
-            }
             // layers:
             if (null != imageData[cardType] && null != imageData[cardType][tagFront] &&
                 null != imageData[cardType][tagFront][tagStyle + ":" + locCard.style]) {
@@ -85,13 +158,7 @@ Item {
             }
         }
 
-        let cType = null != commonIconImages["cardType"][locCard.cardType] ? locCard.cardType : "None";
-        let slotT = null != commonIconImages["cardType"][cType][locCard.slot] ? locCard.slot : "None";
-        let genderingT = null != commonIconImages["gendering"][""+locCard.gendering] ? ""+locCard.gendering : "-1";
-        retVal["icons"] = {
-            "cardType" : commonIconImages["cardType"][cType][slotT],
-            "gendering": commonIconImages["gendering"][genderingT]
-        };
+        retVal["icons"] = iconImages[cardType];
 
         //console.log(JSON.stringify(retVal));
         return retVal;
@@ -130,11 +197,11 @@ Item {
         let cardTypesTags = [];
         let typesTags = [
             tagBack,
-            tagFront,
-            tagRarity
+            tagFront
         ];
         let styleTags = [];
         let layersTags = [];
+        let iconTypeTags = [];
         let vsTags = currentlyLoadedProject.tags();
         for (const sTag of vsTags) {
             if (sTag.startsWith(tagCard + ":")) {
@@ -149,6 +216,9 @@ Item {
             if (sTag.startsWith(tagLayer + ":")) {
                 layersTags.push(sTag);
             }
+            if (sTag.startsWith(tagIconType + ":")) {
+                iconTypeTags.push(sTag);
+            }
         }
 
         // build the image data cache
@@ -158,7 +228,7 @@ Item {
             for (const sType of typesTags) {
                 locImageData[sCType][sType] = {};
                 for (const sStyle of styleTags) {
-                    if (tagBack === sType || tagRarity === sType) {
+                    if (tagBack === sType) {
                         locImageData[sCType][sType][sStyle] = [];
                     }
                     else {
@@ -171,6 +241,22 @@ Item {
             }
         }
 
+        // do this after building the card table
+        typesTags.push(tagIcon);
+
+        // build the icon data cace
+        let locIconData = {};
+        for (const sCType of cardTypesTags) {
+            locIconData[sCType] = {};
+            // procedural data gotten from tags
+            for (const sIType of iconTypeTags) {
+                locIconData[sCType][sIType] = {};
+            }
+            for (const sKey of Object.keys(commonIconSets)) {
+                locIconData[sCType][sKey] = commonIconSets[sKey];
+            }
+        }
+
         let vsResources = currentlyLoadedProject.resources();
         for (const sRes of vsResources) {
             let resurce = currentlyLoadedProject.resource(sRes);
@@ -180,6 +266,7 @@ Item {
             let sType = "";
             let sStyle = "";
             let sLayer = "";
+            let sIconType = "";
             for (const sTag of vsResTags) {
                 if (cardTypesTags.find((t) => t === sTag) != null) {
                     sCardType = sTag;
@@ -195,12 +282,16 @@ Item {
                 if (layersTags.find((t) => t === sTag) != null) {
                     sLayer = sTag;
                 }
+                if (iconTypeTags.find((t) => t === sTag) != null) {
+                    sIconType = sTag;
+                }
             }
 
             //console.log("Before", sCardType, sType, sStyle, sLayer, resurce.name);
+            // Add card template images
             if ("" !== sCardType && "" !== sType  &&
                 ("" !== sStyle || tagStyle + ":-1" === sStyle) &&
-                ("" !== sLayer || tagBack === sType || tagRarity === sType)) {
+                ("" !== sLayer || tagBack === sType)) {
 
                 //console.log("After", sCardType, sType, sStyle, sLayer, resurce.name);
                 let objToPush = {
@@ -209,7 +300,7 @@ Item {
                     "resource": resurce
                 };
 
-                if (tagBack === sType || tagRarity === sType) {
+                if (tagBack === sType) {
                     if (tagStyle + ":-1" !== sStyle) {
                         locImageData[sCardType][sType][sStyle].push(objToPush);
                     } else {
@@ -228,53 +319,36 @@ Item {
                     }
                 }
             }
+
+            // add icon sets
+            if ("" !== sCardType && tagIcon === sType &&
+                "" != sIconType) {
+                let iconTypeTagName = sIconType.split(":")[1];
+
+                let iconCategory = "";
+                for (const sTag of vsResTags) {
+                    if (sTag.startsWith(iconTypeTagName)) {
+                        iconCategory = sTag.split(":")[1];
+                        break;
+                    }
+                }
+
+                if ("" !== iconCategory) {
+                    let objToPush = {
+                        "name": resurce.name,
+                        "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + resurce.name,
+                        "resource": resurce
+                    };
+
+                    locIconData[sCardType][sIconType][iconCategory] = objToPush;
+                }
+            }
         }
 
         imageData = locImageData;
         //console.log(JSON.stringify(imageData))
 
-        commonIconImages = {
-            "cardType" : {
-                "Social": {
-                    "None": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconSocal"
-                },
-                "Action": {
-                    "None": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconAction",
-                    "Ass": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionAss",
-                    "Chest": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionChest",
-                    "Face": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionFace",
-                    "Genitals": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionGenitals",
-                    "Hoof": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionHoof",
-                    "Horn": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionHorn",
-                    "Mouth": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionMouth",
-                    "Nipple": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionNipple",
-                    "Wing": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionWing"
-                },
-                "Clothes": {
-                    "None": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconClothes",
-                    "Ass": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconClothesAss",
-                    "Chest": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconClothesChest",
-                    "Face": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconClothesFace",
-                    "Genitals": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconClothesGenitals",
-                    "Hoof": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconClothesHoof",
-                    "Horn": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconClothesHorn",
-                    "Mouth": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconClothesMouth",
-                    "Nipple": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconClothesNipple",
-                    "Wing": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconClothesWing"
-                },
-                "Blocker": {
-                    "None": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconBlocker"
-                },
-                "None": {
-                    "None": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "UnknownSvg"
-                },
-            },
-            "gendering": {
-                "-1": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "GenderIconNone",
-                "0": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "GenderIconMale",
-                "1": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "GenderIconFemale",
-                "2": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "GenderIconShemale"
-            }
-        }
+        iconImages = locIconData;
+        //console.log(JSON.stringify(iconImages))
     }
 }

@@ -339,13 +339,17 @@
             ]
         },
         {
-            "sName": "CardIconActionTia",
-            "sPath": "pfs:Images/CardGame/Tia/CardIconActionTia.svg",
+            "sName": "CardIconActionAssChangeling",
+            "sPath": "pfs:Images/CardGame/Changeling/CardIconActionAssChangeling.svg",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "svg",
             "type": 0,
             "vsResourceTags": [
+                "Action:Ass",
+                "card:changeling",
+                "icontype:Action",
+                "type:icon"
             ]
         },
         {
@@ -356,6 +360,35 @@
             "sSubType": "svg",
             "type": 0,
             "vsResourceTags": [
+                "card:celestia"
+            ]
+        },
+        {
+            "sName": "CardIconActionChangeling",
+            "sPath": "pfs:Images/CardGame/Changeling/CardIconActionChangeling.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+                "Action:None",
+                "card:changeling",
+                "icontype:Action",
+                "type:icon"
+            ]
+        },
+        {
+            "sName": "CardIconActionChestChangeling",
+            "sPath": "pfs:Images/CardGame/Changeling/CardIconActionChestChangeling.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+                "Action:Chest",
+                "card:changeling",
+                "icontype:Action",
+                "type:icon"
             ]
         },
         {
@@ -366,6 +399,21 @@
             "sSubType": "svg",
             "type": 0,
             "vsResourceTags": [
+                "card:celestia"
+            ]
+        },
+        {
+            "sName": "CardIconActionFaceChangeling",
+            "sPath": "pfs:Images/CardGame/Changeling/CardIconActionFaceChangeling.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+                "Action:Face",
+                "card:changeling",
+                "icontype:Action",
+                "type:icon"
             ]
         },
         {
@@ -376,6 +424,21 @@
             "sSubType": "svg",
             "type": 0,
             "vsResourceTags": [
+                "card:celestia"
+            ]
+        },
+        {
+            "sName": "CardIconActionGenitalsChangeling",
+            "sPath": "pfs:Images/CardGame/Changeling/CardIconActionGenitalsChangeling.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+                "Action:Genitals",
+                "card:changeling",
+                "icontype:Action",
+                "type:icon"
             ]
         },
         {
@@ -386,6 +449,21 @@
             "sSubType": "svg",
             "type": 0,
             "vsResourceTags": [
+                "card:celestia"
+            ]
+        },
+        {
+            "sName": "CardIconActionHoofChangeling",
+            "sPath": "pfs:Images/CardGame/Changeling/CardIconActionHoofChangeling.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+                "Action:Hoof",
+                "card:changeling",
+                "icontype:Action",
+                "type:icon"
             ]
         },
         {
@@ -396,6 +474,21 @@
             "sSubType": "svg",
             "type": 0,
             "vsResourceTags": [
+                "card:celestia"
+            ]
+        },
+        {
+            "sName": "CardIconActionHornChangeling",
+            "sPath": "pfs:Images/CardGame/Changeling/CardIconActionHornChangeling.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+                "Action:Horn",
+                "card:changeling",
+                "icontype:Action",
+                "type:icon"
             ]
         },
         {
@@ -406,6 +499,21 @@
             "sSubType": "svg",
             "type": 0,
             "vsResourceTags": [
+                "card:celestia"
+            ]
+        },
+        {
+            "sName": "CardIconActionMouthChangeling",
+            "sPath": "pfs:Images/CardGame/Changeling/CardIconActionMouthChangeling.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+                "Action:Mouth",
+                "card:changeling",
+                "icontype:Action",
+                "type:icon"
             ]
         },
         {
@@ -416,11 +524,48 @@
             "sSubType": "svg",
             "type": 0,
             "vsResourceTags": [
+                "card:celestia"
+            ]
+        },
+        {
+            "sName": "CardIconActionNippleChangeling",
+            "sPath": "pfs:Images/CardGame/Changeling/CardIconActionNippleChangeling.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+                "Action:Nipple",
+                "card:changeling",
+                "icontype:Action",
+                "type:icon"
             ]
         },
         {
             "sName": "CardIconActionNippleTia",
             "sPath": "pfs:Images/CardGame/Tia/CardIconActionNippleTia.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+                "card:celestia"
+            ]
+        },
+        {
+            "sName": "CardIconActionTia",
+            "sPath": "pfs:Images/CardGame/Tia/CardIconActionTia.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+                "card:celestia"
+            ]
+        },
+        {
+            "sName": "CardIconActionWingChangeling",
+            "sPath": "pfs:Images/CardGame/Changeling/CardIconActionWingChangeling.svg",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "svg",
@@ -436,11 +581,12 @@
             "sSubType": "svg",
             "type": 0,
             "vsResourceTags": [
+                "card:celestia"
             ]
         },
         {
             "sName": "CardIconBlocker",
-            "sPath": "pfs:Images/CardGame/Icons/CardIconBlockerTia.svg",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconBlocker.svg",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "svg",
@@ -651,10 +797,10 @@
             "sSubType": "png",
             "type": 0,
             "vsResourceTags": [
-                "Common",
                 "card:changeling",
-                "style:-1",
-                "type:rarity"
+                "icontype:rarity",
+                "rarity:Common",
+                "type:icon"
             ]
         },
         {
@@ -665,10 +811,10 @@
             "sSubType": "png",
             "type": 0,
             "vsResourceTags": [
-                "Mythic",
                 "card:changeling",
-                "style:-1",
-                "type:rarity"
+                "icontype:rarity",
+                "rarity:Mythic",
+                "type:icon"
             ]
         },
         {
@@ -679,10 +825,10 @@
             "sSubType": "png",
             "type": 0,
             "vsResourceTags": [
-                "Rare",
                 "card:changeling",
-                "style:-1",
-                "type:rarity"
+                "icontype:rarity",
+                "rarity:Rare",
+                "type:icon"
             ]
         },
         {
@@ -693,10 +839,10 @@
             "sSubType": "png",
             "type": 0,
             "vsResourceTags": [
-                "Uncommon",
                 "card:changeling",
-                "style:-1",
-                "type:rarity"
+                "icontype:rarity",
+                "rarity:Uncommon",
+                "type:icon"
             ]
         },
         {
@@ -1171,28 +1317,58 @@
     "vspTags": [
         {
             "sDescribtion": "",
-            "sName": "Common",
-            "sType": "eImage"
+            "sName": "Action:Ass",
+            "sType": "action"
         },
         {
             "sDescribtion": "",
-            "sName": "Mythic",
-            "sType": "eImage"
+            "sName": "Action:Chest",
+            "sType": "action"
         },
         {
             "sDescribtion": "",
-            "sName": "Rare",
-            "sType": "eImage"
+            "sName": "Action:Face",
+            "sType": "action"
         },
         {
             "sDescribtion": "",
-            "sName": "Uncommon",
-            "sType": "eImage"
+            "sName": "Action:Genitals",
+            "sType": "action"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "Action:Hoof",
+            "sType": "action"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "Action:Horn",
+            "sType": "action"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "Action:Mouth",
+            "sType": "action"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "Action:Nipple",
+            "sType": "action"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "Action:None",
+            "sType": "action"
         },
         {
             "sDescribtion": "keenkris",
             "sName": "artist:keenkris",
             "sType": "artist"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "card:celestia",
+            "sType": "card"
         },
         {
             "sDescribtion": "Changeling",
@@ -1203,6 +1379,16 @@
             "sDescribtion": "",
             "sName": "icon",
             "sType": "eImage"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "icontype:Action",
+            "sType": "icontype"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "icontype:rarity",
+            "sType": "icontype"
         },
         {
             "sDescribtion": "",
@@ -1226,6 +1412,26 @@
         },
         {
             "sDescribtion": "",
+            "sName": "rarity:Common",
+            "sType": "rarity"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "rarity:Mythic",
+            "sType": "rarity"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "rarity:Rare",
+            "sType": "rarity"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "rarity:Uncommon",
+            "sType": "rarity"
+        },
+        {
+            "sDescribtion": "",
             "sName": "style:-1",
             "sType": "style"
         },
@@ -1246,7 +1452,7 @@
         },
         {
             "sDescribtion": "",
-            "sName": "type:rarity",
+            "sName": "type:icon",
             "sType": "type"
         }
     ]

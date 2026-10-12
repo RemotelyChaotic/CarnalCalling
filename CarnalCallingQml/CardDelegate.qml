@@ -20,6 +20,8 @@ Rectangle {
     property real zoomFactorX: width / StyleParams.cardWidthOrig
     property real zoomFactorY: height / StyleParams.cardHeightOrig
 
+    readonly property string tagIcontype: "icontype"
+    readonly property string tagIcontypeGender: "icontype:gender"
     readonly property string tagLayer: "layer"
     readonly property string unknownImage:
         "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + StyleParams.unknownIcon;
@@ -195,7 +197,9 @@ Rectangle {
         smooth: Settings.playerImageSmooth
         antialiasing: Settings.playerAntialiasing
         mipmap: Settings.playerImageMipMap
-        source: null != cardViewElems ? cardViewElems.icons.cardType : ""
+        source: null != cardViewElems ?
+                    cardViewElems.icons[cardRoot.tagIcontype + ":" + cardData.cardType][cardData.slot].image :
+                    ""
 
         onStatusChanged: {
             if (status === Image.Error && cardRoot.unknownImage !== source) {
@@ -473,7 +477,7 @@ Rectangle {
         smooth: Settings.playerImageSmooth
         antialiasing: Settings.playerAntialiasing
         mipmap: Settings.playerImageMipMap
-        source: null != cardViewElems ? cardViewElems.icons.gendering : ""
+        source: null != cardViewElems ? cardViewElems.icons[cardRoot.tagIcontypeGender][cardData.gendering].image : ""
 
         onStatusChanged: {
             if (status === Image.Error && cardRoot.unknownImage !== source) {

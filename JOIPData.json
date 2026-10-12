@@ -339,8 +339,8 @@
             ]
         },
         {
-            "sName": "CardIconAction",
-            "sPath": "pfs:Images/CardGame/Icons/CardIconAction.svg",
+            "sName": "CardIconActionTia",
+            "sPath": "pfs:Images/CardGame/Tia/CardIconActionTia.svg",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "svg",
@@ -349,8 +349,8 @@
             ]
         },
         {
-            "sName": "CardIconActionAss",
-            "sPath": "pfs:Images/CardGame/Icons/CardIconActionAss.svg",
+            "sName": "CardIconActionAssTia",
+            "sPath": "pfs:Images/CardGame/Tia/CardIconActionAssTia.svg",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "svg",
@@ -359,8 +359,8 @@
             ]
         },
         {
-            "sName": "CardIconActionChest",
-            "sPath": "pfs:Images/CardGame/Icons/CardIconActionChest.svg",
+            "sName": "CardIconActionChestTia",
+            "sPath": "pfs:Images/CardGame/Tia/CardIconActionChestTia.svg",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "svg",
@@ -369,8 +369,8 @@
             ]
         },
         {
-            "sName": "CardIconActionFace",
-            "sPath": "pfs:Images/CardGame/Icons/CardIconActionFace.svg",
+            "sName": "CardIconActionFaceTia",
+            "sPath": "pfs:Images/CardGame/Tia/CardIconActionFaceTia.svg",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "svg",
@@ -379,8 +379,8 @@
             ]
         },
         {
-            "sName": "CardIconActionGenitals",
-            "sPath": "pfs:Images/CardGame/Icons/CardIconActionGenitals.svg",
+            "sName": "CardIconActionGenitalsTia",
+            "sPath": "pfs:Images/CardGame/Tia/CardIconActionGenitalsTia.svg",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "svg",
@@ -389,8 +389,8 @@
             ]
         },
         {
-            "sName": "CardIconActionHoof",
-            "sPath": "pfs:Images/CardGame/Icons/CardIconActionHoof.svg",
+            "sName": "CardIconActionHoofTia",
+            "sPath": "pfs:Images/CardGame/Tia/CardIconActionHoofTia.svg",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "svg",
@@ -399,8 +399,8 @@
             ]
         },
         {
-            "sName": "CardIconActionHorn",
-            "sPath": "pfs:Images/CardGame/Icons/CardIconActionHorn.svg",
+            "sName": "CardIconActionHornTia",
+            "sPath": "pfs:Images/CardGame/Tia/CardIconActionHornTia.svg",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "svg",
@@ -409,8 +409,8 @@
             ]
         },
         {
-            "sName": "CardIconActionMouth",
-            "sPath": "pfs:Images/CardGame/Icons/CardIconActionMouth.svg",
+            "sName": "CardIconActionMouthTia",
+            "sPath": "pfs:Images/CardGame/Tia/CardIconActionMouthTia.svg",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "svg",
@@ -419,8 +419,8 @@
             ]
         },
         {
-            "sName": "CardIconActionNipple",
-            "sPath": "pfs:Images/CardGame/Icons/CardIconActionNipple.svg",
+            "sName": "CardIconActionNippleTia",
+            "sPath": "pfs:Images/CardGame/Tia/CardIconActionNippleTia.svg",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "svg",
@@ -429,8 +429,8 @@
             ]
         },
         {
-            "sName": "CardIconActionWing",
-            "sPath": "pfs:Images/CardGame/Icons/CardIconActionWing.svg",
+            "sName": "CardIconActionWingTia",
+            "sPath": "pfs:Images/CardGame/Tia/CardIconActionWingTia.svg",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "svg",
@@ -440,7 +440,7 @@
         },
         {
             "sName": "CardIconBlocker",
-            "sPath": "pfs:Images/CardGame/Icons/CardIconBlocker.svg",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconBlockerTia.svg",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "svg",

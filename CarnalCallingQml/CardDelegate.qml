@@ -22,6 +22,7 @@ Rectangle {
 
     readonly property string tagIcontype: "icontype"
     readonly property string tagIcontypeGender: "icontype:gender"
+    readonly property string tagIcontypeRarity: "icontype:rarity"
     readonly property string tagLayer: "layer"
     readonly property string unknownImage:
         "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + StyleParams.unknownIcon;
@@ -496,7 +497,7 @@ Rectangle {
         smooth: Settings.playerImageSmooth
         antialiasing: Settings.playerAntialiasing
         mipmap: Settings.playerImageMipMap
-        source: null != cardViewElems ? cardViewElems.rarity.image : ""
+        source: null != cardViewElems ? cardViewElems.icons[cardRoot.tagIcontypeRarity][cardData.rarity].image : ""
 
         onStatusChanged: {
             if (status === Image.Error && cardRoot.unknownImage !== source) {

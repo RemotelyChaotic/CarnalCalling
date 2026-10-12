@@ -349,6 +349,6 @@ Item {
         //console.log(JSON.stringify(imageData))
 
         iconImages = locIconData;
-        //console.log(JSON.stringify(iconImages))
+        console.log(JSON.stringify(iconImages))
     }
 }

@@ -23,6 +23,7 @@ Rectangle {
     readonly property string tagIcontype: "icontype"
     readonly property string tagIcontypeGender: "icontype:gender"
     readonly property string tagIcontypeRarity: "icontype:rarity"
+    readonly property string tagIcontypeSecondarySlot: "icontype:Secondary"
     readonly property string tagLayer: "layer"
     readonly property string unknownImage:
         "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + StyleParams.unknownIcon;
@@ -205,6 +206,28 @@ Rectangle {
         onStatusChanged: {
             if (status === Image.Error && cardRoot.unknownImage !== source) {
                 source = cardRoot.unknownImage;
+            }
+        }
+
+        Image {
+            id: cardSlotSecondaryLayer
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            width: 150 * zoomFactorX
+            height: 150 * zoomFactorY
+
+            asynchronous: true
+            smooth: Settings.playerImageSmooth
+            antialiasing: Settings.playerAntialiasing
+            mipmap: Settings.playerImageMipMap
+            source: null != cardViewElems ?
+                        cardViewElems.icons[cardRoot.tagIcontypeSecondarySlot][cardData.secondarySlot].image :
+                        ""
+
+            onStatusChanged: {
+                if (status === Image.Error && cardRoot.unknownImage !== source) {
+                    source = cardRoot.unknownImage;
+                }
             }
         }
     }

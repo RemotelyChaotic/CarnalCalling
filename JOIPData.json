@@ -353,6 +353,16 @@
             ]
         },
         {
+            "sName": "CardIconActionAssSecondary",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconActionAssSecondary.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "CardIconActionAssTia",
             "sPath": "pfs:Images/CardGame/Tia/CardIconActionAssTia.svg",
             "sResourceBundle": "",
@@ -392,6 +402,16 @@
             ]
         },
         {
+            "sName": "CardIconActionChestSecondary",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconActionChestSecondary.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "CardIconActionChestTia",
             "sPath": "pfs:Images/CardGame/Tia/CardIconActionChestTia.svg",
             "sResourceBundle": "",
@@ -414,6 +434,16 @@
                 "card:changeling",
                 "icontype:Action",
                 "type:icon"
+            ]
+        },
+        {
+            "sName": "CardIconActionFaceSecondary",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconActionFaceSecondary.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
             ]
         },
         {
@@ -442,6 +472,16 @@
             ]
         },
         {
+            "sName": "CardIconActionGenitalsSecondary",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconActionGenitalsSecondary.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "CardIconActionGenitalsTia",
             "sPath": "pfs:Images/CardGame/Tia/CardIconActionGenitalsTia.svg",
             "sResourceBundle": "",
@@ -464,6 +504,16 @@
                 "card:changeling",
                 "icontype:Action",
                 "type:icon"
+            ]
+        },
+        {
+            "sName": "CardIconActionHoofSecondary",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconActionHoofSecondary.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
             ]
         },
         {
@@ -492,6 +542,16 @@
             ]
         },
         {
+            "sName": "CardIconActionHornSecondary",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconActionHornSecondary.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "CardIconActionHornTia",
             "sPath": "pfs:Images/CardGame/Tia/CardIconActionHornTia.svg",
             "sResourceBundle": "",
@@ -514,6 +574,16 @@
                 "card:changeling",
                 "icontype:Action",
                 "type:icon"
+            ]
+        },
+        {
+            "sName": "CardIconActionMouthSecondary",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconActionMouthSecondary.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
             ]
         },
         {
@@ -542,6 +612,16 @@
             ]
         },
         {
+            "sName": "CardIconActionNippleSecondary",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconActionNippleSecondary.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "CardIconActionNippleTia",
             "sPath": "pfs:Images/CardGame/Tia/CardIconActionNippleTia.svg",
             "sResourceBundle": "",
@@ -550,6 +630,16 @@
             "type": 0,
             "vsResourceTags": [
                 "card:celestia"
+            ]
+        },
+        {
+            "sName": "CardIconActionSecondary",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconActionSecondary.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
             ]
         },
         {
@@ -566,6 +656,16 @@
         {
             "sName": "CardIconActionWingChangeling",
             "sPath": "pfs:Images/CardGame/Changeling/CardIconActionWingChangeling.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "CardIconActionWingSecondary",
+            "sPath": "pfs:Images/CardGame/Icons/CardIconActionWingSecondary.svg",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "svg",

@@ -12,6 +12,7 @@
       "faction": "Changeling",
       "cardType": "Action",
       "slot": "Mouth",
+      "secondarySlot": "Mouth",
       "time": {
         "value" : 120,
         "display" : "120s",
@@ -61,6 +62,7 @@
       "faction": "Changeling",
       "cardType": "Social",
       "slot": "None",
+      "secondarySlot": "None",
       "time": {
         "value" : 0,
         "display" : "",

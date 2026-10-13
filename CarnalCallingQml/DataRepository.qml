@@ -28,6 +28,58 @@ Item {
                 "resource": null
             }
         },
+        "icontype:Secondary": {
+            "None": {
+                "name": "CardIconAction",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionSecondary",
+                "resource": null
+            },
+            "Ass": {
+                "name": "CardIconActionAss",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionAssSecondary",
+                "resource": null
+            },
+            "Chest": {
+                "name": "CardIconActionChest",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionChestSecondary",
+                "resource": null
+            },
+            "Face": {
+                "name": "CardIconActionFace",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionFaceSecondary",
+                "resource": null
+            },
+            "Genitals": {
+                "name": "CardIconActionGenitals",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionGenitalsSecondary",
+                "resource": null
+            },
+            "Hoof": {
+                "name": "CardIconActionHoof",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionHoofSecondary",
+                "resource": null
+            },
+            "Horn": {
+                "name": "CardIconActionHorn",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionHornSecondary",
+                "resource": null
+            },
+            "Mouth": {
+                "name": "CardIconActionMouth",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionMouthSecondary",
+                "resource": null
+            },
+            "Nipple": {
+                "name": "CardIconActionNipple",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionNippleSecondary",
+                "resource": null
+            },
+            "Wing": {
+                "name": "CardIconActionWing",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionWingSecondary",
+                "resource": null
+            }
+        },
         "icontype:Clothes": {
             "None": {
                 "name": "CardIconAction",

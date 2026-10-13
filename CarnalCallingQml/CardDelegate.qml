@@ -381,7 +381,7 @@ Rectangle {
             }
         }
 
-        visible: null != cardData && "Action" === cardData.cardType
+        visible: null != cardData && cardData.time.value > 0
 
         Text {
             anchors.fill: parent
@@ -407,7 +407,7 @@ Rectangle {
     Image {
         id: statsLayerBpm
         x: parent.width - 60 * zoomFactorX - width
-        y: parent.height - 330 * zoomFactorY
+        y: parent.height - 350 * zoomFactorY
         width: 77.5 * zoomFactorX
         height: 77.5 * zoomFactorY
 
@@ -459,10 +459,10 @@ Rectangle {
     }
     Image {
         id: statsLayerSocial
-        x: parent.width - 245 * zoomFactorX
-        y: parent.height - 165 * zoomFactorY - height / 2
-        width: 100 * zoomFactorX
-        height: 100 * zoomFactorY
+        x: parent.width - 60 * zoomFactorX - width
+        y: (350-77.5) * zoomFactorY
+        width: 77.5 * zoomFactorX
+        height: 77.5 * zoomFactorY
 
         asynchronous: true
         smooth: Settings.playerImageSmooth
@@ -490,9 +490,9 @@ Rectangle {
         }
 
         Text {
-            x: parent.width
+            x: -width
             y: 0
-            width: (77.5*85) * zoomFactorX
+            width: 77.5 * zoomFactorX
             height: parent.height
 
             text: cardData.draw.display

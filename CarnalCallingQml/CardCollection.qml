@@ -27,7 +27,7 @@ Rectangle {
 
     function cardKey(setId, id)
     {
-        return setId + ";" + id;
+        return setId + ";" + String(id).padStart(4, '0');
     }
 
     function showWith(ownedCards, onlyShowOwned = false)
@@ -322,7 +322,11 @@ Rectangle {
                 hoverEnabled: true
 
                 onEntered: {
+                    let oldX = cardList.contentX;
+                    let oldY = cardList.contentY
                     cardList.currentIndex = index;
+                    cardList.contentX = oldX;
+                    cardList.contentY = oldY;
                 }
 
                 onClicked: {

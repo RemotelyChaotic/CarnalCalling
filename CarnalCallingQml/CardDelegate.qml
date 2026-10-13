@@ -268,13 +268,13 @@ Rectangle {
             if (null == cardData) {
                 return "";
             }
-            if ("Action" === cardData.cardType && cardData.damage.value > 0)
+            if ("Action" === cardData.cardType)
             {
                 return "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + "HorniIcon" ;
             }
             return "";
         }
-        visible: null != cardData && "Action" === cardData.cardType && cardData.damage.value > 0
+        visible: null != cardData && "Action" === cardData.cardType
 
         onStatusChanged: {
             if (status === Image.Error && cardRoot.unknownImage !== source &&
@@ -307,7 +307,7 @@ Rectangle {
         }
     }
     Image {
-        id: statsLayerActionCombo
+        id: statsLayerSocialCombo
         x: parent.width - 245 * zoomFactorX
         y: 165 * zoomFactorY - height / 2
         width: 100 * zoomFactorX
@@ -321,13 +321,13 @@ Rectangle {
             if (null == cardData) {
                 return "";
             }
-            if ("Social" === cardData.cardType && cardData.combo.value > 0)
+            if ("Social" === cardData.cardType)
             {
                 return "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + "ComboIcon" ;
             }
             return "";
         }
-        visible: null != cardData && "Social" === cardData.cardType && cardData.combo.value > 0
+        visible: null != cardData && "Social" === cardData.cardType
 
         onStatusChanged: {
             if (status === Image.Error && cardRoot.unknownImage !== source &&

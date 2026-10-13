@@ -56,6 +56,28 @@ Rectangle {
     }
 
     Image {
+        id: backgroundImage
+        x: 60 * zoomFactorX
+        y: 60 * zoomFactorY
+        width: parent.width - 2 * x
+        height: 980 * zoomFactorY
+
+        asynchronous: true
+        smooth: Settings.playerImageSmooth
+        antialiasing: Settings.playerAntialiasing
+        mipmap: Settings.playerImageMipMap
+
+        source: null != cardData && "" !== cardData.background ?
+                    "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + cardData.background : ""
+
+        onStatusChanged: {
+            if (status === Image.Error && cardRoot.unknownImage !== source) {
+                source = cardRoot.unknownImage;
+            }
+        }
+    }
+
+    Image {
         id: artImage
         x: 60 * zoomFactorX
         y: 60 * zoomFactorY

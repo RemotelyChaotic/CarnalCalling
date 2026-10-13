@@ -166,7 +166,7 @@ Item {
     function getCard(id, setId)
     {
         if (cards[setId] != null) {
-            const found = cards[setId].find((c) => c.id === id);
+            const found = cards[setId][id];
             //console.log(JSON.stringify(found));
             return found;
         }
@@ -238,9 +238,9 @@ Item {
         let cardsObj = {};
         for (const card of localCards.Cards) {
             if (cardsObj[card.setId] == null) {
-                cardsObj[card.setId] = [];
+                cardsObj[card.setId] = {};
             }
-            cardsObj[card.setId].push(card);
+            cardsObj[card.setId][card.id] = card;
         }
         cards = cardsObj;
         packs = root.evaluate("localStorage.load('packData')").Packs;

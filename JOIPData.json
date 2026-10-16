@@ -1276,12 +1276,52 @@
             ]
         },
         {
+            "sName": "ReshuffleIcon",
+            "sPath": "pfs:Images/CardGame/Icons/ReshuffleIcon.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ReshuffleIconNoBorder",
+            "sPath": "pfs:Images/CardGame/Icons/ReshuffleIconNoBorder.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "SceneModel.flow",
             "sPath": "pfs:SceneModel.flow",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "flow",
             "type": 9,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ScryIcon",
+            "sPath": "pfs:Images/CardGame/Icons/ScryIcon.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ScryIconNoBorder",
+            "sPath": "pfs:Images/CardGame/Icons/ScryIconNoBorder.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
             "vsResourceTags": [
             ]
         },
@@ -1308,6 +1348,26 @@
         {
             "sName": "TimeIconNoBorder",
             "sPath": "pfs:Images/CardGame/Icons/TimeIconNoBorder.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "TutorIcon",
+            "sPath": "pfs:Images/CardGame/Icons/TutorIcon.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "TutorIconNoBorder",
+            "sPath": "pfs:Images/CardGame/Icons/TutorIconNoBorder.svg",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "svg",

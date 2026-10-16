@@ -3,21 +3,20 @@ import "Types.js"
 let dataToSend = 
     { 
         "ownedCards": [
-            {
-                "id": 0,
-                "setId": "chr_0",
-                "count": 1
-            }/*,
-            {
-                "id": 1,
-                "setId": "chr_0",
-                "count": 2
-            }*/
         ], 
         "ownedDecks": [
             {"name":"Test", "cards": []}
         ]
     };
+
+for (let card of localStorage.load("cardData").Cards) {
+    let addedCard = {
+                "id": card.id,
+                "setId": card.setId,
+                "count": Math.floor(Math.random() * 10 + 1)
+            };
+    dataToSend["ownedCards"].push(addedCard);
+}
 
 function cardEventHandler(evtName, evtData) {
     // Debug

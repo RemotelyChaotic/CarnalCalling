@@ -3,6 +3,871 @@
     {
       "id" : 0,
       "setId" : "chr_0",
+      "title": "Flaunt Body",
+      "description": "",
+      "style": 0,
+      "layout": "CardDelegate.qml",
+      "background": "",
+      "image": "Test",
+      "faction": "Changeling",
+      "cardType": "Social",
+      "slot": "None",
+      "secondarySlot": "None",
+      "time": {
+        "value" : 10,
+        "display" : "10s",
+      },
+      "bpm": {
+        "value" : 0,
+        "display" : "",
+      },
+      "edge": {
+        "value" : 0,
+        "display" : "",
+      },
+      "combo": {
+        "value" : 1,
+        "display" : "1",
+      },
+      "draw": {
+        "value" : 1,
+        "display" : "1",
+      },
+      "damage": {
+        "value" : 0,
+        "display" : "",
+      },
+      "gendering": -1,
+      "rarity": "Common",
+      "artist": "RemotelyChaotic @ 2026",
+      "tags": [
+        "card:changeling"
+      ],
+      "effects": [
+        {
+          "name": "draw_method",
+          "targets": ["self"],
+          "args": ["topdeck"]
+        }
+      ]
+    },
+    {
+      "id" : 1,
+      "setId" : "chr_0",
+      "title": "Blow Kiss",
+      "description": "",
+      "style": 0,
+      "layout": "CardDelegate.qml",
+      "background": "",
+      "image": "Test",
+      "faction": "Changeling",
+      "cardType": "Social",
+      "slot": "None",
+      "secondarySlot": "Mouth",
+      "time": {
+        "value" : 5,
+        "display" : "5s",
+      },
+      "bpm": {
+        "value" : 0,
+        "display" : "",
+      },
+      "edge": {
+        "value" : 0,
+        "display" : "",
+      },
+      "combo": {
+        "value" : 1,
+        "display" : "1",
+      },
+      "draw": {
+        "value" : 1,
+        "display" : "1",
+      },
+      "damage": {
+        "value" : 0,
+        "display" : "",
+      },
+      "gendering": -1,
+      "rarity": "Common",
+      "artist": "RemotelyChaotic @ 2026",
+      "tags": [
+        "card:changeling"
+      ],
+      "effects": [
+        {
+          "name": "sound",
+          "targets": ["self"],
+          "args": ["kiss"]
+        },
+        {
+          "name": "draw_method",
+          "targets": ["self"],
+          "args": ["topdeck"]
+        }
+      ]
+    },
+    {
+      "id" : 2,
+      "setId" : "chr_0",
+      "title": "Flirt",
+      "description": "",
+      "style": 0,
+      "layout": "CardDelegate.qml",
+      "background": "",
+      "image": "Test",
+      "faction": "Changeling",
+      "cardType": "Social",
+      "slot": "None",
+      "secondarySlot": "Mouth",
+      "time": {
+        "value" : 15,
+        "display" : "15s",
+      },
+      "bpm": {
+        "value" : 0,
+        "display" : "",
+      },
+      "edge": {
+        "value" : 0,
+        "display" : "",
+      },
+      "combo": {
+        "value" : 2,
+        "display" : "2",
+      },
+      "draw": {
+        "value" : 1,
+        "display" : "1",
+      },
+      "damage": {
+        "value" : 0,
+        "display" : "",
+      },
+      "gendering": -1,
+      "rarity": "Common",
+      "artist": "RemotelyChaotic @ 2026",
+      "tags": [
+        "card:changeling"
+      ],
+      "effects": [
+        {
+          "name": "draw_method",
+          "targets": ["self"],
+          "args": ["topdeck"]
+        },
+        {
+          "name": "message",
+          "targets": ["self"],
+          "args": ["flirt"]
+        }
+      ]
+    },
+    {
+      "id" : 3,
+      "setId" : "chr_0",
+      "title": "Boast",
+      "description": "",
+      "style": 0,
+      "layout": "CardDelegate.qml",
+      "background": "",
+      "image": "Test",
+      "faction": "Changeling",
+      "cardType": "Social",
+      "slot": "None",
+      "secondarySlot": "Mouth",
+      "time": {
+        "value" : 15,
+        "display" : "15s",
+      },
+      "bpm": {
+        "value" : 0,
+        "display" : "",
+      },
+      "edge": {
+        "value" : 0,
+        "display" : "",
+      },
+      "combo": {
+        "value" : 0,
+        "display" : "0",
+      },
+      "draw": {
+        "value" : 2,
+        "display" : "2",
+      },
+      "damage": {
+        "value" : 0,
+        "display" : "",
+      },
+      "gendering": -1,
+      "rarity": "Common",
+      "artist": "RemotelyChaotic @ 2026",
+      "tags": [
+        "card:changeling"
+      ],
+      "effects": [
+        {
+          "name": "draw_method",
+          "targets": ["self"],
+          "args": ["topdeck"]
+        },
+        {
+          "name": "message",
+          "targets": ["self"],
+          "args": ["boast"]
+        }
+      ]
+    },
+    {
+      "id" : 4,
+      "setId" : "chr_0",
+      "title": "Casual Chat",
+      "description": "1 <img src=\"image://DataBaseImageProivider/{id}/DiscardIconNoBorder\" width=\"{w}\" height=\"{h}\" />.",
+      "style": 0,
+      "layout": "CardDelegate.qml",
+      "background": "",
+      "image": "Test",
+      "faction": "Changeling",
+      "cardType": "Social",
+      "slot": "None",
+      "secondarySlot": "Mouth",
+      "time": {
+        "value" : 20,
+        "display" : "20s",
+      },
+      "bpm": {
+        "value" : 0,
+        "display" : "",
+      },
+      "edge": {
+        "value" : 0,
+        "display" : "",
+      },
+      "combo": {
+        "value" : 0,
+        "display" : "0",
+      },
+      "draw": {
+        "value" : -1,
+        "display" : "1",
+      },
+      "damage": {
+        "value" : 0,
+        "display" : "",
+      },
+      "gendering": -1,
+      "rarity": "Common",
+      "artist": "RemotelyChaotic @ 2026",
+      "tags": [
+        "card:changeling"
+      ],
+      "effects": [
+        {
+          "name": "discard_method",
+          "targets": ["self"],
+          "args": ["pick"]
+        },
+        {
+          "name": "message",
+          "targets": ["self"],
+          "args": ["chat"]
+        }
+      ]
+    },
+    {
+      "id" : 5,
+      "setId" : "chr_0",
+      "title": "Risque Gesture",
+      "description": "Flip a coin. If heads, 1 <img src=\"image://DataBaseImageProivider/{id}/DrawIconNoBorder\" width=\"{w}\" height=\"{h}\" />, if tails 1 <img src=\"image://DataBaseImageProivider/{id}/DiscardIconNoBorder\" width=\"{w}\" height=\"{h}\" />.",
+      "style": 0,
+      "layout": "CardDelegate.qml",
+      "background": "",
+      "image": "Test",
+      "faction": "Changeling",
+      "cardType": "Social",
+      "slot": "None",
+      "secondarySlot": "None",
+      "time": {
+        "value" : 10,
+        "display" : "10s",
+      },
+      "bpm": {
+        "value" : 0,
+        "display" : "",
+      },
+      "edge": {
+        "value" : 0,
+        "display" : "",
+      },
+      "combo": {
+        "value" : 1,
+        "display" : "1",
+      },
+      "draw": {
+        "value" : 1,
+        "display" : "?",
+      },
+      "damage": {
+        "value" : 0,
+        "display" : "",
+      },
+      "gendering": -1,
+      "rarity": "Common",
+      "artist": "RemotelyChaotic @ 2026",
+      "tags": [
+        "card:changeling"
+      ],
+      "effects": [
+        {
+          "name": "roll",
+          "targets": ["self"],
+          "args": ["d2"]
+        },
+        {
+          "name": "modify_value",
+          "targets": ["self"],
+          "args": ["draw.value", "(%1 * 2 - 3) * -1"]
+        },
+        {
+          "name": "draw_method",
+          "targets": ["self"],
+          "args": ["topdeck"]
+        },
+        {
+          "name": "discard_method",
+          "targets": ["self"],
+          "args": ["pick"]
+        }
+      ]
+    },
+    {
+      "id" : 6,
+      "setId" : "chr_0",
+      "title": "Sweet Whispers",
+      "description": "",
+      "style": 0,
+      "layout": "CardDelegate.qml",
+      "background": "",
+      "image": "Test",
+      "faction": "Changeling",
+      "cardType": "Social",
+      "slot": "None",
+      "secondarySlot": "Mouth",
+      "time": {
+        "value" : 20,
+        "display" : "20s",
+      },
+      "bpm": {
+        "value" : 0,
+        "display" : "",
+      },
+      "edge": {
+        "value" : 0,
+        "display" : "",
+      },
+      "combo": {
+        "value" : 2,
+        "display" : "2",
+      },
+      "draw": {
+        "value" : 0,
+        "display" : "0",
+      },
+      "damage": {
+        "value" : 0,
+        "display" : "",
+      },
+      "gendering": -1,
+      "rarity": "Common",
+      "artist": "RemotelyChaotic @ 2026",
+      "tags": [
+        "card:changeling"
+      ],
+      "effects": [
+        {
+          "name": "message",
+          "targets": ["self"],
+          "args": ["whisper"]
+        }
+      ]
+    },
+    {
+      "id" : 7,
+      "setId" : "chr_0",
+      "title": "Flash Fangs",
+      "description": "Flip a coin. If heads, 1 <img src=\"image://DataBaseImageProivider/{id}/ComboIconNoBorder\" width=\"{w}\" height=\"{h}\" />, if tails -1 <img src=\"image://DataBaseImageProivider/{id}/ComboIconNoBorder\" width=\"{w}\" height=\"{h}\" />.",
+      "style": 0,
+      "layout": "CardDelegate.qml",
+      "background": "",
+      "image": "Test",
+      "faction": "Changeling",
+      "cardType": "Social",
+      "slot": "None",
+      "secondarySlot": "None",
+      "time": {
+        "value" : 5,
+        "display" : "5s",
+      },
+      "bpm": {
+        "value" : 0,
+        "display" : "",
+      },
+      "edge": {
+        "value" : 0,
+        "display" : "",
+      },
+      "combo": {
+        "value" : 0,
+        "display" : "?",
+      },
+      "draw": {
+        "value" : 1,
+        "display" : "1",
+      },
+      "damage": {
+        "value" : 0,
+        "display" : "",
+      },
+      "gendering": -1,
+      "rarity": "Common",
+      "artist": "RemotelyChaotic @ 2026",
+      "tags": [
+        "card:changeling"
+      ],
+      "effects": [
+        {
+          "name": "roll",
+          "targets": ["self"],
+          "args": ["d2"]
+        },
+        {
+          "name": "modify_value",
+          "targets": ["self"],
+          "args": ["combo.value", "(%1 * 2 - 3) * -1"]
+        },
+        {
+          "name": "sound",
+          "targets": ["self"],
+          "args": ["shing"]
+        },
+        {
+          "name": "draw_method",
+          "targets": ["self"],
+          "args": ["topdeck"]
+        }
+      ]
+    },
+    {
+      "id" : 8,
+      "setId" : "chr_0",
+      "title": "Tell Joke",
+      "description": "Flip two coins. If the first is heads, 1 <img src=\"image://DataBaseImageProivider/{id}/ComboIconNoBorder\" width=\"{w}\" height=\"{h}\" />, if tails -1 <img src=\"image://DataBaseImageProivider/{id}/ComboIconNoBorder\" width=\"{w}\" height=\"{h}\" />. If the second is heads, 1 <img src=\"image://DataBaseImageProivider/{id}/DrawIconNoBorder\" width=\"{w}\" height=\"{h}\" />, if tails 1 <img src=\"image://DataBaseImageProivider/{id}/DiscardIconNoBorder\" width=\"{w}\" height=\"{h}\" />.",
+      "style": 0,
+      "layout": "CardDelegate.qml",
+      "background": "",
+      "image": "Test",
+      "faction": "Changeling",
+      "cardType": "Social",
+      "slot": "None",
+      "secondarySlot": "Mouth",
+      "time": {
+        "value" : 20,
+        "display" : "20s",
+      },
+      "bpm": {
+        "value" : 0,
+        "display" : "",
+      },
+      "edge": {
+        "value" : 0,
+        "display" : "",
+      },
+      "combo": {
+        "value" : 0,
+        "display" : "?",
+      },
+      "draw": {
+        "value" : 1,
+        "display" : "?",
+      },
+      "damage": {
+        "value" : 0,
+        "display" : "",
+      },
+      "gendering": -1,
+      "rarity": "Common",
+      "artist": "RemotelyChaotic @ 2026",
+      "tags": [
+        "card:changeling"
+      ],
+      "effects": [
+        {
+          "name": "roll",
+          "targets": ["self"],
+          "args": ["d2"]
+        },
+        {
+          "name": "roll",
+          "targets": ["self"],
+          "args": ["d2"]
+        },
+        {
+          "name": "modify_value",
+          "targets": ["self"],
+          "args": ["combo.value", "(%1 * 2 - 3) * -1"]
+        },
+        {
+          "name": "modify_value",
+          "targets": ["self"],
+          "args": ["draw.value", "(%2 * 2 - 3) * -1"]
+        },
+        {
+          "name": "draw_method",
+          "targets": ["self"],
+          "args": ["topdeck"]
+        },
+        {
+          "name": "discard_method",
+          "targets": ["self"],
+          "args": ["pick"]
+        },
+        {
+          "name": "message",
+          "targets": ["self"],
+          "args": ["joke"]
+        }
+      ]
+    },
+    {
+      "id" : 9,
+      "setId" : "chr_0",
+      "title": "Think of a Topic",
+      "description": "1 <img src=\"image://DataBaseImageProivider/{id}/TutorIconNoBorder\" width=\"{w}\" height=\"{h}\" /> of type <img src=\"image://DataBaseImageProivider/{id}/CardIconSocal\" width=\"{w}\" height=\"{h}\" /> then shuffle the deck.",
+      "style": 0,
+      "layout": "CardDelegate.qml",
+      "background": "",
+      "image": "Test",
+      "faction": "Changeling",
+      "cardType": "Social",
+      "slot": "None",
+      "secondarySlot": "None",
+      "time": {
+        "value" : 10,
+        "display" : "10s",
+      },
+      "bpm": {
+        "value" : 0,
+        "display" : "",
+      },
+      "edge": {
+        "value" : 0,
+        "display" : "",
+      },
+      "combo": {
+        "value" : 0,
+        "display" : "0",
+      },
+      "draw": {
+        "value" : 1,
+        "display" : "1*",
+      },
+      "damage": {
+        "value" : 0,
+        "display" : "",
+      },
+      "gendering": -1,
+      "rarity": "Common",
+      "artist": "RemotelyChaotic @ 2026",
+      "tags": [
+        "card:changeling", "keyword:tutor"
+      ],
+      "effects": [
+        {
+          "name": "draw_method",
+          "targets": ["self"],
+          "args": ["search", "deck", "cardType==='Social'"]
+        },
+        {
+          "name": "shuffle",
+          "targets": ["self"],
+          "args": [ "deck" ]
+        }
+      ]
+    },
+    {
+      "id" : 10,
+      "setId" : "chr_0",
+      "title": "Plan a Move",
+      "description": "1 <img src=\"image://DataBaseImageProivider/{id}/TutorIconNoBorder\" width=\"{w}\" height=\"{h}\" /> of type <img src=\"image://DataBaseImageProivider/{id}/CardIconActionChangeling\" width=\"{w}\" height=\"{h}\" /> then shuffle the deck.",
+      "style": 0,
+      "layout": "CardDelegate.qml",
+      "background": "",
+      "image": "Test",
+      "faction": "Changeling",
+      "cardType": "Social",
+      "slot": "None",
+      "secondarySlot": "None",
+      "time": {
+        "value" : 10,
+        "display" : "10s",
+      },
+      "bpm": {
+        "value" : 0,
+        "display" : "",
+      },
+      "edge": {
+        "value" : 0,
+        "display" : "",
+      },
+      "combo": {
+        "value" : 0,
+        "display" : "0",
+      },
+      "draw": {
+        "value" : 1,
+        "display" : "1*",
+      },
+      "damage": {
+        "value" : 0,
+        "display" : "",
+      },
+      "gendering": -1,
+      "rarity": "Common",
+      "artist": "RemotelyChaotic @ 2026",
+      "tags": [
+        "card:changeling", "keyword:tutor"
+      ],
+      "effects": [
+        {
+          "name": "draw_method",
+          "targets": ["self"],
+          "args": ["search", "deck", "cardType==='Action'"]
+        },
+        {
+          "name": "shuffle",
+          "targets": ["self"],
+          "args": [ "deck" ]
+        }
+      ]
+    },
+    {
+      "id" : 11,
+      "setId" : "chr_0",
+      "title": "Daydream",
+      "description": "Shuffle the deck then 1 <img src=\"image://DataBaseImageProivider/{id}/DrawIconNoBorder\" width=\"{w}\" height=\"{h}\" />.",
+      "style": 0,
+      "layout": "CardDelegate.qml",
+      "background": "",
+      "image": "Test",
+      "faction": "Changeling",
+      "cardType": "Social",
+      "slot": "None",
+      "secondarySlot": "None",
+      "time": {
+        "value" : 15,
+        "display" : "15s",
+      },
+      "bpm": {
+        "value" : 0,
+        "display" : "",
+      },
+      "edge": {
+        "value" : 0,
+        "display" : "",
+      },
+      "combo": {
+        "value" : 0,
+        "display" : "0",
+      },
+      "draw": {
+        "value" : 1,
+        "display" : "1",
+      },
+      "damage": {
+        "value" : 0,
+        "display" : "",
+      },
+      "gendering": -1,
+      "rarity": "Common",
+      "artist": "RemotelyChaotic @ 2026",
+      "tags": [
+        "card:changeling"
+      ],
+      "effects": [
+        {
+          "name": "shuffle",
+          "targets": ["self"],
+          "args": [ "deck" ]
+        },
+        {
+          "name": "draw_method",
+          "targets": ["self"],
+          "args": ["topdeck"]
+        }
+      ]
+    },
+    {
+      "id" : 12,
+      "setId" : "chr_0",
+      "title": "Act Cutely",
+      "description": "Shuffle the deck.",
+      "style": 0,
+      "layout": "CardDelegate.qml",
+      "background": "",
+      "image": "Test",
+      "faction": "Changeling",
+      "cardType": "Social",
+      "slot": "None",
+      "secondarySlot": "None",
+      "time": {
+        "value" : 15,
+        "display" : "15s",
+      },
+      "bpm": {
+        "value" : 0,
+        "display" : "",
+      },
+      "edge": {
+        "value" : 0,
+        "display" : "",
+      },
+      "combo": {
+        "value" : 1,
+        "display" : "1",
+      },
+      "draw": {
+        "value" : 0,
+        "display" : "0",
+      },
+      "damage": {
+        "value" : 0,
+        "display" : "",
+      },
+      "gendering": -1,
+      "rarity": "Common",
+      "artist": "RemotelyChaotic @ 2026",
+      "tags": [
+        "card:changeling"
+      ],
+      "effects": [
+        {
+          "name": "shuffle",
+          "targets": ["self"],
+          "args": [ "deck" ]
+        }
+      ]
+    },
+    {
+      "id" : 13,
+      "setId" : "chr_0",
+      "title": "Focus",
+      "description": "<img src=\"image://DataBaseImageProivider/{id}/ReshuffleIconNoBorder\" width=\"{w}\" height=\"{h}\" /> of own deck.",
+      "style": 0,
+      "layout": "CardDelegate.qml",
+      "background": "",
+      "image": "Test",
+      "faction": "Changeling",
+      "cardType": "Social",
+      "slot": "None",
+      "secondarySlot": "None",
+      "time": {
+        "value" : 5,
+        "display" : "5s",
+      },
+      "bpm": {
+        "value" : 0,
+        "display" : "",
+      },
+      "edge": {
+        "value" : 0,
+        "display" : "",
+      },
+      "combo": {
+        "value" : 0,
+        "display" : "0",
+      },
+      "draw": {
+        "value" : 0,
+        "display" : "0",
+      },
+      "damage": {
+        "value" : 0,
+        "display" : "",
+      },
+      "gendering": -1,
+      "rarity": "Common",
+      "artist": "RemotelyChaotic @ 2026",
+      "tags": [
+        "card:changeling", "keyword:reshuffle"
+      ],
+      "effects": [
+        {
+          "name": "shuffle",
+          "targets": ["self"],
+          "args": [ "deck", "discard" ]
+        }
+      ]
+    },
+    {
+      "id" : 14,
+      "setId" : "chr_0",
+      "title": "Drop Hints",
+      "description": "3 <img src=\"image://DataBaseImageProivider/{id}/ScryIconNoBorder\" width=\"{w}\" height=\"{h}\" />",
+      "style": 0,
+      "layout": "CardDelegate.qml",
+      "background": "",
+      "image": "Test",
+      "faction": "Changeling",
+      "cardType": "Social",
+      "slot": "None",
+      "secondarySlot": "Mouth",
+      "time": {
+        "value" : 10,
+        "display" : "10s",
+      },
+      "bpm": {
+        "value" : 0,
+        "display" : "",
+      },
+      "edge": {
+        "value" : 0,
+        "display" : "",
+      },
+      "combo": {
+        "value" : 1,
+        "display" : "1",
+      },
+      "draw": {
+        "value" : 0,
+        "display" : "0",
+      },
+      "damage": {
+        "value" : 0,
+        "display" : "",
+      },
+      "gendering": -1,
+      "rarity": "Common",
+      "artist": "RemotelyChaotic @ 2026",
+      "tags": [
+        "card:changeling", "keyword:scry"
+      ],
+      "effects": [
+        {
+          "name": "scry",
+          "targets": ["self"],
+          "args": [ "3" ]
+        },
+        {
+          "name": "message",
+          "targets": ["self"],
+          "args": ["hints"]
+        }
+      ]
+    },
+    {
+      "id" : 101,
+      "setId" : "chr_0",
       "title": "Test Card",
       "description": "<img src=\"image://DataBaseImageProivider/{id}/UnknownSvg\" width=\"{w}\" height=\"{h}\" /> Play and do nothing.",
       "style": 0,
@@ -46,56 +911,58 @@
       "effects": [
         {
           "name": "test",
+          "targets": ["self"],
           "args": []
         }
       ]
     },
     {
-      "id" : 1,
+      "id" : 102,
       "setId" : "chr_0",
-      "title": "Test Card2",
-      "description": "<img src=\"image://DataBaseImageProivider/{id}/UnknownSvg\" width=\"{w}\" height=\"{h}\" /> Play and do nothing.",
+      "title": "Mesmerize",
+      "description": "Shuffle the partner's deck.",
       "style": 0,
       "layout": "CardDelegate.qml",
-      "background": "Test",
+      "background": "",
       "image": "Test",
       "faction": "Changeling",
-      "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "None",
+      "cardType": "Action",
+      "slot": "Face",
+      "secondarySlot": "Face",
       "time": {
-        "value" : 0,
-        "display" : "",
+        "value" : 10,
+        "display" : "10s",
       },
       "bpm": {
-        "value" : 0,
-        "display" : "",
+        "value" : 30,
+        "display" : "30",
       },
       "edge": {
         "value" : 0,
         "display" : "",
       },
       "combo": {
-        "value" : 1,
-        "display" : "1",
+        "value" : 0,
+        "display" : "0",
       },
       "draw": {
-        "value" : 1,
-        "display" : "1",
+        "value" : 0,
+        "display" : "0",
       },
       "damage": {
         "value" : 0,
         "display" : "",
       },
       "gendering": -1,
-      "rarity": "Uncommon",
-      "artist": "Someone @ 2026",
+      "rarity": "Common",
+      "artist": "RemotelyChaotic @ 2026",
       "tags": [
         "card:changeling"
       ],
       "effects": [
         {
-          "name": "test",
+          "name": "shuffle",
+          "targets": ["other"],
           "args": []
         }
       ]

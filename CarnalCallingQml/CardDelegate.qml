@@ -176,7 +176,7 @@ Rectangle {
 
     // Text
     TextItemFormated {
-        id: iconText
+        id: titleText
         anchors.horizontalCenter: parent.horizontalCenter
         y: 110 * zoomFactorX
         height: 152 * zoomFactorX
@@ -191,10 +191,12 @@ Rectangle {
         y: 1040 * zoomFactorY
         height: 650 * zoomFactorY
         width: parent.width - 2 * 100 * zoomFactorX
-        text: null != cardData ? cardData.description
+        // &nbsp; needed so the text layouts correctly, even if an image tag appears first
+        // This is a workaround for a known Qt bug.
+        text: null != cardData ? ("&nbsp;" + cardData.description
             .replace(/\{id\}/g, ""+cardRoot.currentlyLoadedProjectId)
             .replace(/\{w\}/g, ""+(StyleParams.cardDescTextPonintSize*zoomFactorX))
-            .replace(/\{h\}/g, ""+(StyleParams.cardDescTextPonintSize*zoomFactorX)) :
+            .replace(/\{h\}/g, ""+(StyleParams.cardDescTextPonintSize*zoomFactorX))) :
             "";
 
         font.family: null != root.currentlyLoadedProject ?
@@ -202,7 +204,8 @@ Rectangle {
         font.pixelSize: StyleParams.cardDescTextPonintSize * zoomFactorX
         font.hintingPreference: Font.PreferNoHinting
 
-        horizontalAlignment: Text.AlignLeft
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
         elide: Text.ElideNone
         wrapMode: Text.WordWrap
         color: StyleParams.textColorMenu

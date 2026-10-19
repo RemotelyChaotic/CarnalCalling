@@ -15,7 +15,7 @@
       "dropCount": 5,
       "packtypes": {
         "Common":  { "slots": [4,1,0,0], "prob": 150 },
-        "Rare": { "slots": [3,1,1,1], "prob": 50 },
+        "Rare": { "slots": [3,1,1,0], "prob": 50 },
         "Mythic": { "slots": [1,2,1,1], "prob": 5 },
       },
       "rates": {
@@ -42,8 +42,14 @@
           {"setId": "chr_0", "id": 12 },
           {"setId": "chr_0", "id": 13 },
           {"setId": "chr_0", "id": 14 },
-          {"setId": "chr_0", "id": 101 },
-          {"setId": "chr_0", "id": 102 }
+          {"setId": "chr_0", "id": 15 },
+          {"setId": "chr_0", "id": 16 },
+          {"setId": "chr_0", "id": 17 },
+          {"setId": "chr_0", "id": 18 },
+          {"setId": "chr_0", "id": 19 },
+          {"setId": "chr_0", "id": 20 },
+          {"setId": "chr_0", "id": 21 },
+          {"setId": "chr_0", "id": 22 }
         ],
         "Uncommon": [
         ],

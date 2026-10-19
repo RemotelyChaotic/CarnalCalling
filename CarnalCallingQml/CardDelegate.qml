@@ -396,6 +396,7 @@ Rectangle {
             font.pixelSize: StyleParams.cardTitleTextPonintSize * zoomFactorX
             font.hintingPreference: Font.PreferNoHinting
 
+            leftPadding: 10 * zoomFactorX
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             elide: Text.ElideNone

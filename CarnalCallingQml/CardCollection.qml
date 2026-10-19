@@ -218,7 +218,7 @@ Rectangle {
             previewDelegate.show();
         }
 
-        clip: false
+        clip: true
         highlightFollowsCurrentItem: true
         highlight: Rectangle {
             color: "transparent"

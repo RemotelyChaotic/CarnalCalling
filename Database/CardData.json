@@ -13,6 +13,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "None",
+      "cooldown": {
+        "value" : 10,
+        "display" : "10s",
+      },
       "time": {
         "value" : 10,
         "display" : "10s",
@@ -64,6 +68,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "Mouth",
+      "cooldown": {
+        "value" : 5,
+        "display" : "5s",
+      },
       "time": {
         "value" : 5,
         "display" : "5s",
@@ -120,6 +128,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "Mouth",
+      "cooldown": {
+        "value" : 20,
+        "display" : "20s",
+      },
       "time": {
         "value" : 20,
         "display" : "20s",
@@ -176,6 +188,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "Mouth",
+      "cooldown": {
+        "value" : 15,
+        "display" : "15s",
+      },
       "time": {
         "value" : 15,
         "display" : "15s",
@@ -232,6 +248,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "Mouth",
+      "cooldown": {
+        "value" : 20,
+        "display" : "20s",
+      },
       "time": {
         "value" : 20,
         "display" : "20s",
@@ -288,6 +308,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "None",
+      "cooldown": {
+        "value" : 10,
+        "display" : "10s",
+      },
       "time": {
         "value" : 10,
         "display" : "10s",
@@ -354,6 +378,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "Mouth",
+      "cooldown": {
+        "value" : 15,
+        "display" : "15s",
+      },
       "time": {
         "value" : 15,
         "display" : "15s",
@@ -405,6 +433,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "None",
+      "cooldown": {
+        "value" : 5,
+        "display" : "5s",
+      },
       "time": {
         "value" : 5,
         "display" : "5s",
@@ -471,6 +503,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "Mouth",
+      "cooldown": {
+        "value" : 20,
+        "display" : "20s",
+      },
       "time": {
         "value" : 20,
         "display" : "20s",
@@ -552,6 +588,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "None",
+      "cooldown": {
+        "value" : 10,
+        "display" : "10s",
+      },
       "time": {
         "value" : 10,
         "display" : "10s",
@@ -608,6 +648,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "None",
+      "cooldown": {
+        "value" : 10,
+        "display" : "10s",
+      },
       "time": {
         "value" : 10,
         "display" : "10s",
@@ -664,6 +708,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "None",
+      "cooldown": {
+        "value" : 15,
+        "display" : "15s",
+      },
       "time": {
         "value" : 15,
         "display" : "15s",
@@ -720,6 +768,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "None",
+      "cooldown": {
+        "value" : 15,
+        "display" : "15s",
+      },
       "time": {
         "value" : 15,
         "display" : "15s",
@@ -771,6 +823,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "None",
+      "cooldown": {
+        "value" : 5,
+        "display" : "5s",
+      },
       "time": {
         "value" : 5,
         "display" : "5s",
@@ -822,6 +878,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "Mouth",
+      "cooldown": {
+        "value" : 10,
+        "display" : "10s",
+      },
       "time": {
         "value" : 10,
         "display" : "10s",
@@ -878,6 +938,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "None",
+      "cooldown": {
+        "value" : 10,
+        "display" : "10s",
+      },
       "time": {
         "value" : 10,
         "display" : "10s",
@@ -934,6 +998,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "None",
+      "cooldown": {
+        "value" : 20,
+        "display" : "20s",
+      },
       "time": {
         "value" : 20,
         "display" : "20s",
@@ -985,6 +1053,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "None",
+      "cooldown": {
+        "value" : 10,
+        "display" : "5-15s",
+      },
       "time": {
         "value" : 10,
         "display" : "5-15s",
@@ -1027,6 +1099,11 @@
           "args": ["time.value", "10 + (%1 * 2 - 3) * -5"]
         },
         {
+          "name": "modify_value",
+          "targets": ["self"],
+          "args": ["cooldown.value", "10 + (%1 * 2 - 3) * -5"]
+        },
+        {
           "name": "draw_method",
           "targets": ["self"],
           "args": ["topdeck"]
@@ -1046,6 +1123,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "Mouth",
+      "cooldown": {
+        "value" : 10,
+        "display" : "10s",
+      },
       "time": {
         "value" : 10,
         "display" : "10s",
@@ -1112,6 +1193,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "Mouth",
+      "cooldown": {
+        "value" : 10,
+        "display" : "10s",
+      },
       "time": {
         "value" : 10,
         "display" : "10s",
@@ -1173,6 +1258,10 @@
       "cardType": "Social",
       "slot": "None",
       "secondarySlot": "Mouth",
+      "cooldown": {
+        "value" : 10,
+        "display" : "10s",
+      },
       "time": {
         "value" : 10,
         "display" : "10s",
@@ -1224,8 +1313,8 @@
     {
       "id" : 21,
       "setId" : "chr_0",
-      "title": "Test Card",
-      "description": "<img src=\"image://DataBaseImageProivider/{id}/UnknownSvg\" width=\"{w}\" height=\"{h}\" /> Play and do nothing.",
+      "title": "Kiss",
+      "description": "",
       "style": 0,
       "layout": "CardDelegate.qml",
       "background": "Test",
@@ -1234,9 +1323,13 @@
       "cardType": "Action",
       "slot": "Mouth",
       "secondarySlot": "Mouth",
+      "cooldown": {
+        "value" : 10,
+        "display" : "10s",
+      },
       "time": {
-        "value" : 120,
-        "display" : "120s",
+        "value" : 30,
+        "display" : "30s",
       },
       "bpm": {
         "value" : 30,
@@ -1247,8 +1340,8 @@
         "display" : "0",
       },
       "combo": {
-        "value" : 1,
-        "display" : "1",
+        "value" : 0,
+        "display" : "0",
       },
       "draw": {
         "value" : 0,
@@ -1266,9 +1359,9 @@
       ],
       "effects": [
         {
-          "name": "test",
+          "name": "sound",
           "targets": ["self"],
-          "args": []
+          "args": ["kiss"]
         }
       ]
     },
@@ -1285,6 +1378,10 @@
       "cardType": "Action",
       "slot": "Face",
       "secondarySlot": "Face",
+      "cooldown": {
+        "value" : 10,
+        "display" : "10s",
+      },
       "time": {
         "value" : 10,
         "display" : "10s",
@@ -1307,7 +1404,7 @@
       },
       "damage": {
         "value" : 0,
-        "display" : "",
+        "display" : "0",
       },
       "gendering": -1,
       "rarity": "Common",
@@ -1319,7 +1416,7 @@
         {
           "name": "shuffle",
           "targets": ["other"],
-          "args": []
+          "args": [ "deck" ]
         }
       ]
     }

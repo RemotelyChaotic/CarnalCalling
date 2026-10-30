@@ -15,5 +15,6 @@ HexButton 1.0 HexButton.qml
 HexButtonWithToolTip 1.0 HexButtonWithToolTip.qml
 HexShape 1.0 HexShape.qml
 HexGridRenderer 1.0 HexGridRenderer.qml
+PacksView 1.0 PacksView.qml
 PlayerMap 1.0 PlayerMap.qml
 WorldMapLayout 1.0 WorldMapLayout.qml

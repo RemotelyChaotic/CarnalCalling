@@ -1266,6 +1266,16 @@
             ]
         },
         {
+            "sName": "PacksView.qml",
+            "sPath": "pfs:CarnalCallingQml/PacksView.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "PlayerMap.qml",
             "sPath": "pfs:CarnalCallingQml/PlayerMap.qml",
             "sResourceBundle": "",

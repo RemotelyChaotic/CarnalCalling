@@ -23,6 +23,10 @@ QtObject {
     readonly property real cardHeightOrig: 1920
     readonly property real cardCollectionWidthMin: isMobile ? 72 : 108
     readonly property real cardCollectionHeightMin: isMobile ? 128 : 192
+    readonly property real deckCollectionWidthMin: isMobile ? 108 : 162
+    readonly property real deckCollectionHeightMin: isMobile ? 192 : 288
+    readonly property real deckCollectionGenderWidth: isMobile ? 33 : 50
+    readonly property real deckCollectionGenderHeight: isMobile ? 33 : 50
 
     readonly property int placeWidth: 50
     readonly property int placeHeight: 50

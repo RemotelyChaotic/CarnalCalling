@@ -17,6 +17,32 @@ Rectangle {
 
     property Project currentlyLoadedProject: root.currentlyLoadedProject
 
+    DeckCollection {
+        id: decks
+        x: StyleParams.dominantHand === DominantHand.Left ?
+               notificationRect.x + notificationRect.width - offsetX - StyleParams.hexWidth * 0.25 :
+               offsetX + StyleParams.hexWidth * 0.25
+        y: numCols %2 == 1 ?
+               (StyleParams.dominantHand === DominantHand.Left ?
+                    notificationRect.offsetY + offsetY + StyleParams.hexHeight/2 :
+                    notificationRect.offsetY + offsetY):
+               (StyleParams.dominantHand === DominantHand.Left ?
+                    notificationRect.offsetY + offsetY + StyleParams.hexHeight :
+                    notificationRect.offsetY + offsetY + StyleParams.hexHeight)
+        width: StyleParams.dominantHand === DominantHand.Left ?
+                   parent.width - notificationRect.x - notificationRect.width :
+                   notificationRect.x
+        height: numCols %2 == 1 ?
+                    (StyleParams.dominantHand === DominantHand.Left ?
+                        parent.height - notificationRect.offsetY - StyleParams.hexHeight :
+                        parent.height - notificationRect.offsetY - StyleParams.hexHeight) :
+                    (StyleParams.dominantHand === DominantHand.Left ?
+                         parent.height - notificationRect.offsetY - StyleParams.hexHeight*3/2 :
+                         parent.height - notificationRect.offsetY - StyleParams.hexHeight*3/2)
+
+        repository: repositoryLoader
+    }
+
     CardCollection {
         id: cards
         x: StyleParams.dominantHand === DominantHand.Left ?
@@ -131,13 +157,16 @@ Rectangle {
     {
         let cardData = JSON.parse(sData);
         textBox.state = "HIDDEN";
+        decks.visible = false;
         cards.showWith(null != cardData.ownedCards ? cardData.ownedCards : null);
     }
     function handleLoadDecks(sData)
     {
         let deckData = JSON.parse(sData);
         textBox.state = "HIDDEN";
-        //cards.visible = false;
+        decks.showWith(null != deckData.ownedDecks ? deckData.ownedDecks : null);
+        cards.initWith(null != deckData.ownedCards ? deckData.ownedCards : null);
+        cards.visible = false;
     }
 
     Component.onCompleted: {

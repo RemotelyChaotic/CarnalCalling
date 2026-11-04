@@ -9,10 +9,12 @@ CCPlayerControls 1.0 CCPlayerControls.qml
 CCPlayerNotification 1.0 CCPlayerNotification.qml
 CCPlayerTextBox 1.0 CCPlayerTextBox.qml
 DataRepository 1.0 DataRepository.qml
+DeckCollection 1.0 DeckCollection.qml
 DecksAndCards 1.0 DecksAndCards.qml
 FogOfWar 1.0 FogOfWar.qml
 HexButton 1.0 HexButton.qml
 HexButtonWithToolTip 1.0 HexButtonWithToolTip.qml
+HexLineShape 1.0 HexLineShape.qml
 HexShape 1.0 HexShape.qml
 HexGridRenderer 1.0 HexGridRenderer.qml
 PacksView 1.0 PacksView.qml

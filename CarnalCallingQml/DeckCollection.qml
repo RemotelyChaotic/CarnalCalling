@@ -1,0 +1,667 @@
+import QtQuick 2.14
+import QtQuick.Controls 2.14
+import QtQuick.Layouts 1.14
+import QtQuick.Shapes 1.14
+import QtGraphicalEffects 1.14
+import JoipEngine 1.3
+import JOIP.core 1.5
+import JOIP.db 1.1
+import CarnalCallingQml 1.0
+import SortFilterProxyModel 0.2
+
+Rectangle {
+    id: layout
+    color: "transparent"
+
+    property Project currentlyLoadedProject: root.currentlyLoadedProject
+    property DataRepository repository: null
+
+    property bool canToggleOnlyOwned: true
+    property real offsetX: hexBg.x
+    property real offsetY: hexBg.y
+    readonly property alias numRows: hexBg.numRows
+    readonly property alias numCols: hexBg.numCols
+
+    readonly property var genderStrings: [ "None", "Male", "Female", "Herm"]
+    readonly property string tagCard: "card"
+    readonly property string iconActionTag: "icontype:Action"
+    readonly property string iconSocialTag: "icontype:Social"
+    readonly property string iconClothesTag: "icontype:Clothes"
+    readonly property string iconNoneTag: "None"
+
+    visible: false
+
+    function showWith(ownedDecks)
+    {
+        deckModel.clear();
+
+        let nextId = 0;
+        for (let deck of ownedDecks)
+        {
+            let displayCardData = null;
+            if (null != deck.displayCard) {
+                displayCardData = repository.getCard(deck.displayCard.id, deck.displayCard.setId);
+            }
+
+            nextId = deck.id + 1;
+            pushDeck(deck, displayCardData);
+        }
+
+        pushNewDeck(nextId);
+
+        addTimer.start();
+
+        layout.visible = true;
+    }
+
+    function pushDeck(deckData, displayCardData)
+    {
+        if (null != deckData)
+        {
+            let iconAction = "";
+            let iconSocial = "";
+            let iconClothes = "";
+            let displayCardView =
+                displayCardData != null ?
+                    repository.getCardViewElements(displayCardData.id, displayCardData.setId) :
+                    null;
+            if (null != displayCardData) {
+                let cardType =
+                    displayCardData.tags.find((t) => t.startsWith(tagCard + ":"));
+                if (null != cardType) {
+                    let icons = repository.iconImages[cardType];
+                    iconAction = icons[iconActionTag][iconNoneTag].image;
+                    iconSocial = icons[iconSocialTag][iconNoneTag].image;
+                    iconClothes = icons[iconClothesTag][iconNoneTag].image;
+                }
+            }
+
+            let deckFilter = deckData.id + ";" + deckData.name + ";" +
+                             genderStrings[deckData.gendering+1] + ";" +
+                             deckData.tags.join(";");
+
+            addTimer.itemsToAdd.push({
+                                 "id": deckData.id,
+                                 "deckData": deckData,
+                                 "displayCardData": displayCardData,
+                                 "displayCardView": displayCardView,
+                                 "cardLayout": (null != displayCardData ? displayCardData.layout : ""),
+                                 "iconAction": iconAction,
+                                 "iconSocial": iconSocial,
+                                 "iconClothes": iconClothes,
+                                 "projId": currentlyLoadedProject.id,
+                                 "isAddNew": false,
+                                 "bgImage": "image://DataBaseImageProivider/" +
+                                            currentlyLoadedProject.id + "/" +
+                                            "UnknownSvg",
+                                 "deckFilter": deckFilter,
+                                 "orderId": deckData.id
+                            });
+        }
+    }
+
+    function pushNewDeck(nextId)
+    {
+        addTimer.itemsToAdd.push({
+                            "id": nextId,
+                            "deckData": null,
+                            "displayCardData": null,
+                            "displayCardView": null,
+                            "cardLayout": "",
+                            "iconAction": "",
+                            "iconSocial": "",
+                            "iconClothes": "",
+                            "projId": currentlyLoadedProject.id,
+                            "isAddNew": true,
+                            "bgImage": "image://DataBaseImageProivider/" +
+                                       currentlyLoadedProject.id + "/" +
+                                       "IconAdd",
+                            "deckFilter": "",
+                            "orderId": 999999999
+                        });
+    }
+
+    Timer {
+        id: addTimer
+        interval: 100
+        repeat: true
+        running: false
+
+        property var itemsToAdd: []
+        property int nextItem: 0
+
+        onTriggered: {
+            if (0 < itemsToAdd.length) {
+                deckModel.append(itemsToAdd.splice(0,1)[0]);
+
+                nextItem++
+            } else {
+                stop();
+            }
+        }
+    }
+
+    /*
+    Rectangle {
+        id: debugRenderer
+        x: hexBg.x
+        y: hexBg.y
+        width: parent.width - hexBg.x *2
+        height: parent.height - hexBg.y *2
+        color: "transparent"
+        border.color: "blue"
+    }
+    */
+
+    HexGridRenderer {
+        id: hexBg
+        anchors.centerIn: parent
+        width: gridWidth - hexWidth / 2
+        height: gridHeight
+        widthHint: parent.width
+        heightHint: parent.height
+
+        color: "transparent"
+
+        hexWidth: StyleParams.hexWidth
+        hexHeight: StyleParams.hexHeight
+        lineWeight: StyleParams.strokeColorHexInactiveWidth/2
+
+        hexFillString: StyleParams.fillColorHexInactive
+        lineFillString: StyleParams.strokeColorHexInactive
+
+        animateMouseOver: true
+        gradientRendering: false
+    }
+
+    ListModel {
+        id: deckModel
+        dynamicRoles: false
+    }
+
+    GridView {
+        id: deckList
+        anchors.centerIn: parent
+        width: parent.width - StyleParams.hexWidth*3
+        height: parent.height - StyleParams.hexHeight*3
+        cellWidth: StyleParams.deckCollectionWidthMin+10
+        cellHeight: StyleParams.deckCollectionHeightMin+10
+
+        flow: GridView.FlowLeftToRight
+        layoutDirection: Qt.LeftToRight
+        verticalLayoutDirection: GridView.TopToBottom
+
+        signal addNewDeck(int newId)
+        signal openDeck(var deckData)
+
+        onAddNewDeck: {
+            // todo
+        }
+        onOpenDeck: {
+            // todo
+        }
+
+        clip: true
+        highlightFollowsCurrentItem: true
+        highlight: Rectangle {
+            color: "transparent"
+            width: deckList.cellWidth
+            height: deckList.cellHeight
+            x: null != deckList.currentItem ? deckList.currentItem.x : 0
+            y: null != deckList.currentItem ? deckList.currentItem.y : 0
+            Rectangle {
+                anchors.centerIn: parent
+                width: parent.width-8
+                height: parent.height-8
+                color: StyleParams.glowHexColor
+                radius: 8
+            }
+
+            layer.enabled: true
+            layer.effect: Glow {
+                radius: StyleParams.glowHexRadius
+                samples: 17
+                spread: StyleParams.glowHexSpread
+                color: StyleParams.glowHexColor
+                transparentBorder: true
+            }
+        }
+
+        model: SortFilterProxyModel {
+            id: cardProxyModel
+
+            sourceModel: deckModel
+            filters: AllOf {
+                filters: [
+                    RegExpFilter {
+                        roleName: "deckFilter"
+                        pattern: filterTextArea.text === "" ? ".*" : filterTextArea.text
+                        caseSensitivity: Qt.CaseInsensitive
+                    }
+                ]
+            }
+
+            sorters: StringSorter {
+                id: sorter
+                roleName: "orderId"
+            }
+        }
+
+        delegate: Rectangle {
+            id: thisDeck
+            width: StyleParams.deckCollectionWidthMin
+            height: StyleParams.deckCollectionHeightMin
+            color: "transparent"
+
+            property int itemMargin: 10
+
+            Image {
+                y: 10
+                width: parent.width - thisDeck.itemMargin*2
+                height: parent.height - thisDeck.itemMargin*2
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                asynchronous: true
+                smooth: Settings.playerImageSmooth
+                antialiasing: Settings.playerAntialiasing
+                mipmap: Settings.playerImageMipMap
+                source: model.bgImage;
+                fillMode: Image.PreserveAspectFit
+            }
+            Loader {
+                id: cardLoader
+                anchors.fill: parent
+                source: ""
+                asynchronous: true
+                visible: status === Loader.Ready
+
+                onLoaded: {
+                    item.cardData = model.displayCardData;
+                    item.cardViewElems = model.displayCardView;
+                }
+            }
+
+            Rectangle {
+                id: deckBox
+                anchors.fill: parent
+                color: "black"
+                border.color: "green"
+                border.width: 2
+                visible: false
+            }
+            Item {
+                id: maskContainer
+                anchors.fill: parent
+                visible: false
+                Rectangle {
+                    x: 10
+                    y: 10
+                    width: parent.width - 2*thisDeck.itemMargin
+                    height: parent.height/2 - 2*thisDeck.itemMargin
+                    color: "white"
+                }
+            }
+            OpacityMask {
+                anchors.fill: parent
+                source: deckBox
+                maskSource: maskContainer
+                invert: true
+                visible: !model.isAddNew
+            }
+
+            HexLineShape {
+                y: parent.height/2 + thisDeck.itemMargin +
+                   StyleParams.strokeColorHexActiveWidth - height/2
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width-20
+                height: StyleParams.hexHeight
+
+                visible: model.deckData != null
+
+                Text {
+                    anchors.fill: parent
+
+                    text: model.deckData != null ? model.deckData.name : ""
+
+                    font.family: null != root.currentlyLoadedProject ?
+                                     root.currentlyLoadedProject.font : "Arial"
+                    font.pixelSize: StyleParams.menuTextPonintSize
+                    font.hintingPreference: Font.PreferNoHinting
+
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideNone
+                    wrapMode: Text.WordWrap
+                    color: StyleParams.textColorMenu
+                    textFormat: Text.RichText
+                }
+            }
+
+            Image {
+                id: gender
+                x: 0
+                y: parent.height - height
+                width: StyleParams.deckCollectionGenderWidth
+                height: StyleParams.deckCollectionGenderHeight
+
+                asynchronous: true
+                smooth: Settings.playerImageSmooth
+                antialiasing: Settings.playerAntialiasing
+                mipmap: Settings.playerImageMipMap
+
+                source: model.deckData != null ?
+                            repository.commonIconSets["icontype:gender"][""+model.deckData.gendering].image :
+                            ""
+                visible: model.deckData != null
+            }
+
+            HexShape {
+                id: itemCountSideDeck
+                x: parent.width - width - 2
+                y: parent.height - height - 2
+                width: StyleParams.hexWidth
+                height: StyleParams.hexHeight
+
+                fillColor: StyleParams.fillColorHexActive
+                strokeColor: StyleParams.strokeColorHexActive
+                strokeWidth: StyleParams.strokeColorHexActiveWidth
+
+                visible: model.deckData != null
+
+                Image {
+                    anchors.centerIn: parent
+                    width: parent.width - 10
+                    height: parent.height - 10
+
+                    asynchronous: true
+                    smooth: Settings.playerImageSmooth
+                    antialiasing: Settings.playerAntialiasing
+                    mipmap: Settings.playerImageMipMap
+
+                    source: model.iconClothes
+                }
+            }
+            Text {
+                x: itemCountSideDeck.x - width
+                y: itemCountSideDeck.y + height
+                width: itemCountSideDeck.width
+                height: itemCountSideDeck.height / 2
+
+                text: model.deckData != null ? model.deckData.numSocial : 0
+
+                font.italic: true
+                font.family: null != root.currentlyLoadedProject ?
+                                 root.currentlyLoadedProject.font : "Arial"
+                font.pixelSize: StyleParams.cardCountPonintSize
+                font.hintingPreference: Font.PreferNoHinting
+
+                horizontalAlignment: Text.AlignRight
+                verticalAlignment: Text.AlignVCenter
+                elide: Text.ElideNone
+                wrapMode: Text.WordWrap
+                color: StyleParams.textColorMenu
+                textFormat: Text.RichText
+
+                visible: itemCountSideDeck.visible
+            }
+
+            HexShape {
+                id: shapeNumSocial
+                x: itemCountSideDeck.x - width*3/4
+                y: itemCountSideDeck.y - height / 2
+                width: StyleParams.hexWidth
+                height: StyleParams.hexHeight
+
+                fillColor: StyleParams.fillColorHexActive
+                strokeColor: StyleParams.strokeColorHexActive
+                strokeWidth: StyleParams.strokeColorHexActiveWidth
+
+                visible: model.deckData != null
+
+                Image {
+                    anchors.centerIn: parent
+                    width: parent.width - 10
+                    height: parent.height - 10
+
+                    asynchronous: true
+                    smooth: Settings.playerImageSmooth
+                    antialiasing: Settings.playerAntialiasing
+                    mipmap: Settings.playerImageMipMap
+
+                    source: model.iconSocial
+                }
+            }
+            Text {
+                x: shapeNumSocial.x - width
+                y: shapeNumSocial.y
+                width: shapeNumSocial.width
+                height: shapeNumSocial.height / 2
+
+                text: model.deckData != null ? model.deckData.numSocial : 0
+
+                font.italic: true
+                font.family: null != root.currentlyLoadedProject ?
+                                 root.currentlyLoadedProject.font : "Arial"
+                font.pixelSize: StyleParams.cardCountPonintSize
+                font.hintingPreference: Font.PreferNoHinting
+
+                horizontalAlignment: Text.AlignRight
+                verticalAlignment: Text.AlignVCenter
+                elide: Text.ElideNone
+                wrapMode: Text.WordWrap
+                color: StyleParams.textColorMenu
+                textFormat: Text.RichText
+
+                visible: shapeNumSocial.visible
+            }
+
+            HexShape {
+                id: shapeNumAction
+                x: itemCountSideDeck.x
+                y: itemCountSideDeck.y - height
+                width: StyleParams.hexWidth
+                height: StyleParams.hexHeight
+
+                fillColor: StyleParams.fillColorHexActive
+                strokeColor: StyleParams.strokeColorHexActive
+                strokeWidth: StyleParams.strokeColorHexActiveWidth
+
+                visible: model.deckData != null
+
+                Image {
+                    anchors.centerIn: parent
+                    width: parent.width - 10
+                    height: parent.height - 10
+
+                    asynchronous: true
+                    smooth: Settings.playerImageSmooth
+                    antialiasing: Settings.playerAntialiasing
+                    mipmap: Settings.playerImageMipMap
+
+                    source: model.iconAction
+                }
+            }
+            Text {
+                x: shapeNumAction.x - width
+                y: shapeNumAction.y
+                width: shapeNumAction.width
+                height: shapeNumAction.height / 2
+
+                text: model.deckData != null ? model.deckData.numAction : ""+0
+
+                font.italic: true
+                font.family: null != root.currentlyLoadedProject ?
+                                 root.currentlyLoadedProject.font : "Arial"
+                font.pixelSize: StyleParams.cardCountPonintSize
+                font.hintingPreference: Font.PreferNoHinting
+
+                horizontalAlignment: Text.AlignRight
+                verticalAlignment: Text.AlignVCenter
+                elide: Text.ElideNone
+                wrapMode: Text.WordWrap
+                color: StyleParams.textColorMenu
+                textFormat: Text.RichText
+
+                visible: shapeNumAction.visible
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+
+                onEntered: {
+                    let oldX = deckList.contentX;
+                    let oldY = deckList.contentY
+                    deckList.currentIndex = index;
+                    deckList.contentX = oldX;
+                    deckList.contentY = oldY;
+                }
+
+                onClicked: {
+                    if (model.isAddNew) {
+                        deckList.addNewDeck(model.id);
+                    } else {
+                        deckList.openDeck(model.deckData);
+                    }
+                }
+            }
+
+            Connections {
+                target: thisDeck
+
+                function onVisibleChanged() {
+                    if (thisDeck.visible && cardLoader.status === Loader.Null &&
+                        model.cardLayout !== "") {
+
+                        cardLoader.source = model.cardLayout;
+                    }
+                }
+            }
+
+            Component.onCompleted: {
+                if (visible && model.cardLayout !== "") {
+                    cardLoader.source = model.cardLayout;
+                }
+            }
+        }
+
+        remove: Transition {
+            SequentialAnimation {
+                ParallelAnimation {
+                    NumberAnimation {
+                        property: "y"
+                        from: deckList.contentY
+                        to: deckList.contentY - 100
+                        duration: 500
+                        easing.type: Easing.OutCubic
+                    }
+
+                    NumberAnimation {
+                        property: "opacity"
+                        from: 1
+                        to: 0
+                        duration: 500
+                    }
+                }
+            }
+        }
+        populate: Transition {
+            SequentialAnimation {
+                ParallelAnimation {
+                    NumberAnimation {
+                        property: "y"
+                        from: deckList.contentY + 100
+                        duration: 500
+                        easing.type: Easing.OutCubic
+                    }
+
+                    NumberAnimation {
+                        property: "opacity"
+                        from: 1
+                        to: 0
+                        duration: 500
+                    }
+                }
+            }
+        }
+
+        ScrollBar.vertical: ScrollBar {
+            id: scrollV
+            orientation: Qt.Vertical
+            policy: Qt.ScrollBarAlwaysOn
+
+            parent: deckList.parent
+
+            anchors.top: deckList.top
+            anchors.bottom: deckList.bottom
+            width: StyleParams.hexWidth/3
+            anchors.left:  StyleParams.dominantHand === DominantHand.Left  ? undefined : deckList.left
+            anchors.right: StyleParams.dominantHand === DominantHand.Left  ? deckList.right : undefined
+            anchors.leftMargin:  StyleParams.dominantHand === DominantHand.Left ? 0 : -width-StyleParams.hexWidth/2
+            anchors.rightMargin: StyleParams.dominantHand === DominantHand.Left ? width+StyleParams.hexWidth/2 : 0
+
+            contentItem: Rectangle {
+                implicitWidth: parent.width - StyleParams.strokeColorHexInactiveWidth*2
+                implicitHeight: 100
+                radius: width / 2
+                color: StyleParams.fillColorHexActive
+            }
+            background: Rectangle {
+                implicitWidth: parent.width
+                radius: width / 2
+                color: StyleParams.fillColorHexInactive
+                border.color: StyleParams.strokeColorHexInactive
+            }
+        }
+    }
+
+    HexButtonWithToolTip {
+        id: searchButton
+        x: hexBg.x
+        y: hexBg.y
+        width: StyleParams.hexWidth
+        height: StyleParams.hexHeight
+        hexWidth: StyleParams.hexWidth
+        hexHeight: StyleParams.hexHeight
+        orientation: HexButtonWithToolTip.Top
+        textBoxOffset: 6
+
+        text: qsTr("Filter")
+        imageSource: hovered ? StyleParams.searchHoverButton : StyleParams.searchButton
+        glowHexColor: StyleParams.glowHexColor
+    }
+
+    TextArea {
+        id: filterTextArea
+        x: searchButton.x + searchButton.width
+        y: hexBg.y
+        width: StyleParams.hexWidth * 6
+        height: StyleParams.hexHeight
+
+        leftPadding: StyleParams.hexWidth * 0.25
+        rightPadding: StyleParams.hexWidth * 0.25
+        topPadding: 0
+        bottomPadding: 0
+        verticalAlignment: TextEdit.AlignVCenter
+
+        color: StyleParams.textColorMenu
+
+        text: ""
+        placeholderText: qsTr("Enter a filter expression")
+        placeholderTextColor: StyleParams.placeholderTextColorMenu
+        font.pointSize: StyleParams.menuTextPonintSize
+        font.family: null != root.currentlyLoadedProject ?
+                         root.currentlyLoadedProject.font : "Arial"
+        font.hintingPreference: Font.PreferNoHinting
+
+        cursorDelegate: Rectangle {
+            width: StyleParams.cursorWidth
+            color: StyleParams.cursorColor
+        }
+
+        background: HexLineShape {
+            width: parent.width
+            height: parent.height
+        }
+    }
+}

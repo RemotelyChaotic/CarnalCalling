@@ -82,53 +82,53 @@ Item {
         },
         "icontype:Clothes": {
             "None": {
-                "name": "CardIconAction",
-                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconAction",
+                "name": "CardIconClothes",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconClothes",
                 "resource": null
             },
             "Ass": {
-                "name": "CardIconActionAss",
-                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionAss",
+                "name": "CardIconClothesAss",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconClothesAss",
                 "resource": null
             },
             "Chest": {
-                "name": "CardIconActionChest",
-                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionChest",
+                "name": "CardIconClothesChest",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconClothesChest",
                 "resource": null
             },
             "Face": {
-                "name": "CardIconActionFace",
-                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionFace",
+                "name": "CardIconClothesFace",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconClothesFace",
                 "resource": null
             },
             "Genitals": {
-                "name": "CardIconActionGenitals",
-                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionGenitals",
+                "name": "CardIconClothesGenitals",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconClothesGenitals",
                 "resource": null
             },
             "Hoof": {
-                "name": "CardIconActionHoof",
-                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionHoof",
+                "name": "CardIconClothesHoof",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconClothesHoof",
                 "resource": null
             },
             "Horn": {
-                "name": "CardIconActionHorn",
-                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionHorn",
+                "name": "CardIconClothesHorn",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconClothesHorn",
                 "resource": null
             },
             "Mouth": {
-                "name": "CardIconActionMouth",
-                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionMouth",
+                "name": "CardIconClothesMouth",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconClothesMouth",
                 "resource": null
             },
             "Nipple": {
-                "name": "CardIconActionNipple",
-                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionNipple",
+                "name": "CardIconClothesNipple",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconClothesNipple",
                 "resource": null
             },
             "Wing": {
-                "name": "CardIconActionWing",
-                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconActionWing",
+                "name": "CardIconClothesWing",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconClothesWing",
                 "resource": null
             }
         },

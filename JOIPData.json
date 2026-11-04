@@ -1176,6 +1176,16 @@
             ]
         },
         {
+            "sName": "HexLineShape.qml",
+            "sPath": "pfs:CarnalCallingQml/HexLineShape.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "HexShape.qml",
             "sPath": "pfs:CarnalCallingQml/HexShape.qml",
             "sResourceBundle": "",
@@ -1198,6 +1208,56 @@
         {
             "sName": "HorniIconNoBorder",
             "sPath": "pfs:Images/CardGame/Icons/HorniIconNoBorder.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "IconAdd",
+            "sPath": "pfs:Images/Icons/IconAdd.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "IconCum",
+            "sPath": "pfs:Images/Icons/IconCum.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "IconLove",
+            "sPath": "pfs:Images/Icons/IconLove.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "IconMilk",
+            "sPath": "pfs:Images/Icons/IconMilk.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "IconPee",
+            "sPath": "pfs:Images/Icons/IconPee.svg",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "svg",

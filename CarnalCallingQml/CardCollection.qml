@@ -30,7 +30,7 @@ Rectangle {
         return setId + ";" + String(id).padStart(4, '0');
     }
 
-    function showWith(ownedCards, onlyShowOwned = false)
+    function initWith(ownedCards, onlyShowOwned = false)
     {
         cardModel.clear();
         showOnlyOwnedButtonCheckable.checked = onlyShowOwned;
@@ -82,7 +82,19 @@ Rectangle {
                 }
             }
         }
+    }
 
+    function showWith(ownedCards, onlyShowOwned = false)
+    {
+        initWith(ownedCards, onlyShowOwned);
+
+        addTimer.start();
+
+        layout.visible = true;
+    }
+
+    function showWithAlreadyLoaded()
+    {
         addTimer.start();
 
         layout.visible = true;
@@ -491,32 +503,10 @@ Rectangle {
             color: StyleParams.cursorColor
         }
 
-        background: Shape {
+        background: HexLineShape {
             id: textBgShape
             width: parent.width
             height: parent.height
-            layer.enabled: Settings.playerAntialiasing
-            layer.samples: 4 // (anti-aliasing)
-
-            property real dy: textBgShape.height / 2
-            property real dx: StyleParams.hexWidth*0.25
-
-            ShapePath {
-                fillColor: StyleParams.fillColorHexActive
-                strokeColor: StyleParams.strokeColorHexActive
-                strokeWidth: StyleParams.strokeColorHexActiveWidth
-                capStyle: ShapePath.RoundCap
-                joinStyle: ShapePath.RoundJoin
-
-                startX: 0
-                startY: textBgShape.dy
-                PathLine { x: textBgShape.dx; y: 0 }
-                PathLine { x: textBgShape.width - textBgShape.dx; y: 0 }
-                PathLine { x: textBgShape.width; y: textBgShape.height / 2 }
-                PathLine { x: textBgShape.width - textBgShape.dx; y: textBgShape.height }
-                PathLine { x: textBgShape.dx; y: textBgShape.height }
-                PathLine { x: 0; y: textBgShape.dy }
-            }
         }
     }
 

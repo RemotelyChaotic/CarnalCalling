@@ -5,7 +5,17 @@ let dataToSend =
         "ownedCards": [
         ], 
         "ownedDecks": [
-            {"name":"Test", "cards": []}
+            {
+                "id": 0,
+                "name":"Testaaaaaaaa",
+                "deck": [],
+                "sideDeck": [],
+                "displayCard": {"setId": "chr_0", "id": 0},
+                "gendering": -1,
+                "numSocial": 0,
+                "numAction": 0,
+                "tags": []
+            }
         ]
     };
 

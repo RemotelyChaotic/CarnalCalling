@@ -13,6 +13,12 @@
         "amount": 10
       },
       "dropCount": 5,
+      "slots": [
+        { "type": "Common", "canUpgrade": true },
+        { "type": "Uncommon", "canUpgrade": true },
+        { "type": "Rare", "canUpgrade": true },
+        { "type": "Mythic", "canUpgrade": true }
+      ],
       "packtypes": {
         "Common":  { "slots": [4,1,0,0], "prob": 150 },
         "Rare": { "slots": [3,1,1,0], "prob": 50 },

@@ -20,6 +20,7 @@ Shape {
         strokeWidth: StyleParams.strokeColorHexActiveWidth
         capStyle: ShapePath.RoundCap
         joinStyle: ShapePath.RoundJoin
+
         startX: width * 0.25
         startY: 0
 

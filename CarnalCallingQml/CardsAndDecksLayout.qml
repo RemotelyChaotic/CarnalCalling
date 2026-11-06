@@ -17,8 +17,15 @@ Rectangle {
 
     property Project currentlyLoadedProject: root.currentlyLoadedProject
 
-    DeckCollection {
-        id: decks
+    Rectangle {
+        id: gridWrapper
+        color: "transparent"
+
+        property real offsetX: hexBgRenderer.x
+        property real offsetY: hexBgRenderer.y
+        readonly property alias numRows: hexBgRenderer.numRows
+        readonly property alias numCols: hexBgRenderer.numCols
+
         x: StyleParams.dominantHand === DominantHand.Left ?
                notificationRect.x + notificationRect.width - offsetX - StyleParams.hexWidth * 0.25 :
                offsetX + StyleParams.hexWidth * 0.25
@@ -40,33 +47,65 @@ Rectangle {
                          parent.height - notificationRect.offsetY - StyleParams.hexHeight*3/2 :
                          parent.height - notificationRect.offsetY - StyleParams.hexHeight*3/2)
 
-        repository: repositoryLoader
-    }
+        HexGridRenderer {
+            id: hexBgRenderer
+            anchors.centerIn: parent
+            width: gridWidth - hexWidth / 2
+            height: gridHeight
+            widthHint: parent.width
+            heightHint: parent.height
 
-    CardCollection {
-        id: cards
-        x: StyleParams.dominantHand === DominantHand.Left ?
-               notificationRect.x + notificationRect.width - offsetX - StyleParams.hexWidth * 0.25 :
-               offsetX + StyleParams.hexWidth * 0.25
-        y: numCols %2 == 1 ?
-               (StyleParams.dominantHand === DominantHand.Left ?
-                    notificationRect.offsetY + offsetY + StyleParams.hexHeight/2 :
-                    notificationRect.offsetY + offsetY):
-               (StyleParams.dominantHand === DominantHand.Left ?
-                    notificationRect.offsetY + offsetY + StyleParams.hexHeight :
-                    notificationRect.offsetY + offsetY + StyleParams.hexHeight)
-        width: StyleParams.dominantHand === DominantHand.Left ?
-                   parent.width - notificationRect.x - notificationRect.width :
-                   notificationRect.x
-        height: numCols %2 == 1 ?
-                    (StyleParams.dominantHand === DominantHand.Left ?
-                        parent.height - notificationRect.offsetY - StyleParams.hexHeight :
-                        parent.height - notificationRect.offsetY - StyleParams.hexHeight) :
-                    (StyleParams.dominantHand === DominantHand.Left ?
-                         parent.height - notificationRect.offsetY - StyleParams.hexHeight*3/2 :
-                         parent.height - notificationRect.offsetY - StyleParams.hexHeight*3/2)
+            color: "transparent"
 
-        repository: repositoryLoader
+            hexWidth: StyleParams.hexWidth
+            hexHeight: StyleParams.hexHeight
+            lineWeight: StyleParams.strokeColorHexInactiveWidth/2
+
+            hexFillString: StyleParams.fillColorHexInactive
+            lineFillString: StyleParams.strokeColorHexInactive
+
+            animateMouseOver: true
+            gradientRendering: false
+        }
+
+        /*
+        Rectangle {
+            id: debugRenderer
+            x: hexBg.x
+            y: hexBg.y
+            width: parent.width - hexBg.x *2
+            height: parent.height - hexBg.y *2
+            color: "transparent"
+            border.color: "blue"
+        }
+        */
+
+        DeckCollection {
+            id: decks
+            x: 0
+            y: 0
+            width: parent.width
+            height: parent.height
+
+            numRows: gridWrapper.numRows
+            numCols: gridWrapper.numCols
+            hexBg: Qt.point(hexBgRenderer.x, hexBgRenderer.y)
+
+            repository: repositoryLoader
+        }
+        CardCollection {
+            id: cards
+            x: 0
+            y: 0
+            width: parent.width
+            height: parent.height
+
+            numRows: gridWrapper.numRows
+            numCols: gridWrapper.numCols
+            hexBg: Qt.point(hexBgRenderer.x, hexBgRenderer.y)
+
+            repository: repositoryLoader
+        }
     }
 
     CCPlayerNotification {

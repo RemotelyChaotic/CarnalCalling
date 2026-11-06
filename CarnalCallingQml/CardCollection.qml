@@ -16,11 +16,11 @@ Rectangle {
     property Project currentlyLoadedProject: root.currentlyLoadedProject
     property DataRepository repository: null
 
+    property int numRows: 0
+    property int numCols: 0
+    property point hexBg: Qt.point(0,0)
+
     property bool canToggleOnlyOwned: true
-    property real offsetX: hexBg.x
-    property real offsetY: hexBg.y
-    readonly property alias numRows: hexBg.numRows
-    readonly property alias numCols: hexBg.numCols
     readonly property var genderStrings: [ "None", "Male", "Female", "Herm"]
 
     visible: false
@@ -160,39 +160,6 @@ Rectangle {
                 stop();
             }
         }
-    }
-
-    /*
-    Rectangle {
-        id: debugRenderer
-        x: hexBg.x
-        y: hexBg.y
-        width: parent.width - hexBg.x *2
-        height: parent.height - hexBg.y *2
-        color: "transparent"
-        border.color: "blue"
-    }
-    */
-
-    HexGridRenderer {
-        id: hexBg
-        anchors.centerIn: parent
-        width: gridWidth - hexWidth / 2
-        height: gridHeight
-        widthHint: parent.width
-        heightHint: parent.height
-
-        color: "transparent"
-
-        hexWidth: StyleParams.hexWidth
-        hexHeight: StyleParams.hexHeight
-        lineWeight: StyleParams.strokeColorHexInactiveWidth/2
-
-        hexFillString: StyleParams.fillColorHexInactive
-        lineFillString: StyleParams.strokeColorHexInactive
-
-        animateMouseOver: true
-        gradientRendering: false
     }
 
     ListModel {
@@ -479,7 +446,20 @@ Rectangle {
         id: filterTextArea
         x: searchButton.x + searchButton.width
         y: hexBg.y
-        width: StyleParams.hexWidth * 6
+        width: {
+            if (StyleParams.hexWidth * 7 > parent.width) {
+                let hexStride = StyleParams.hexWidth*0.75;
+                let numCols = Math.floor(parent.width / hexStride) - 1;
+
+                // Last column with the same parity as column 1
+                let lastCol = numCols % 2 === 0
+                        ? numCols - 1
+                        : numCols;
+
+                return Math.max(0, (lastCol - 1) * hexStride - StyleParams.hexWidth);
+            }
+            return StyleParams.hexWidth * 5;
+        }
         height: StyleParams.hexHeight
 
         leftPadding: StyleParams.hexWidth * 0.25

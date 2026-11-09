@@ -49,6 +49,18 @@ Rectangle {
 
         pushNewDeck(nextId);
 
+        for (let pack of repository.packs) {
+            let keys = Object.keys(pack.cards);
+            for (let k of keys) {
+                if (!k.startsWith("_") && pack.cards[k].length > 0) {
+                    let setID = pack.cards[k][0].setId;
+                    let cardId = pack.cards[k][0].id;
+                    pushNewPack(pack, cardId, setID);
+                    break;
+                }
+            }
+        }
+
         addTimerDecks.start();
 
         layout.visible = true;
@@ -121,6 +133,23 @@ Rectangle {
                         });
     }
 
+    function pushNewPack(pack, cardId, setID)
+    {
+        let cardView = repository.getCardViewElements(cardId, setID);
+        let deckFilter = pack.setId + ";" + pack.title + ";" +
+                         pack.description + ";" + pack.faction + ";" +
+                         pack.tags.join(";");
+        if (null != cardView) {
+            deckTypesModel.append({
+                                    "pack": pack,
+                                    "packImage": cardView.back.image,
+                                    "projId": currentlyLoadedProject.id,
+                                    "deckFilter": deckFilter,
+                                    "orderId": pack.setId
+                                });
+        }
+    }
+
     Timer {
         id: addTimerDecks
         interval: 100
@@ -143,6 +172,10 @@ Rectangle {
 
     ListModel {
         id: deckModel
+        dynamicRoles: false
+    }
+    ListModel {
+        id: deckTypesModel
         dynamicRoles: false
     }
 
@@ -207,7 +240,7 @@ Rectangle {
             signal openDeck(var deckData)
 
             onAddNewDeck: {
-                // todo
+                stack.push(newDeckSelect);
             }
             onOpenDeck: {
                 // todo
@@ -268,7 +301,7 @@ Rectangle {
                 property int itemMargin: 10
 
                 Image {
-                    y: 10
+                    y: thisDeck.itemMargin
                     width: parent.width - thisDeck.itemMargin*2
                     height: parent.height - thisDeck.itemMargin*2
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -609,6 +642,144 @@ Rectangle {
                 width: StyleParams.hexWidth/3
                 anchors.left:  StyleParams.dominantHand === DominantHand.Left  ? undefined : deckList.left
                 anchors.right: StyleParams.dominantHand === DominantHand.Left  ? deckList.right : undefined
+                anchors.leftMargin:  StyleParams.dominantHand === DominantHand.Left ? 0 : -width-StyleParams.hexWidth/2
+                anchors.rightMargin: StyleParams.dominantHand === DominantHand.Left ? width+StyleParams.hexWidth/2 : 0
+
+                contentItem: Rectangle {
+                    implicitWidth: parent.width - StyleParams.strokeColorHexInactiveWidth*2
+                    implicitHeight: 100
+                    radius: width / 2
+                    color: StyleParams.fillColorHexActive
+                }
+                background: Rectangle {
+                    implicitWidth: parent.width
+                    radius: width / 2
+                    color: StyleParams.fillColorHexInactive
+                    border.color: StyleParams.strokeColorHexInactive
+                }
+            }
+        }
+    }
+
+    Component {
+        id: newDeckSelect
+
+        ListView {
+            id: deckSelectView
+            width: stack.width
+            height: stack.height
+
+            property real cellWidth: StyleParams.deckCollectionWidthMin
+            property real cellHeight: StyleParams.deckCollectionHeightMin
+
+            orientation: ListView.Horizontal
+            verticalLayoutDirection: GridView.TopToBottom
+
+            signal deckClicked(var setIdArr)
+
+            onDeckClicked: {
+                // todo
+            }
+
+            clip: true
+            highlightFollowsCurrentItem: true
+            highlight: Rectangle {
+                color: "transparent"
+                width: deckSelectView.cellWidth
+                height: deckSelectView.cellHeight
+                x: null != deckSelectView.currentItem ? deckSelectView.currentItem.x : 0
+                y: null != deckSelectView.currentItem ? deckSelectView.currentItem.y : 0
+                Rectangle {
+                    anchors.centerIn: parent
+                    width: parent.width-8
+                    height: parent.height-8
+                    color: StyleParams.glowHexColor
+                    radius: 8
+                }
+
+                layer.enabled: true
+                layer.effect: Glow {
+                    radius: StyleParams.glowHexRadius
+                    samples: 17
+                    spread: StyleParams.glowHexSpread
+                    color: StyleParams.glowHexColor
+                    transparentBorder: true
+                }
+            }
+
+            model: SortFilterProxyModel {
+                id: deckTypeProxyModel
+
+                sourceModel: deckTypesModel
+                filters: AllOf {
+                    filters: [
+                        RegExpFilter {
+                            roleName: "deckFilter"
+                            pattern: filterTextArea.text === "" ? ".*" : filterTextArea.text
+                            caseSensitivity: Qt.CaseInsensitive
+                        }
+                    ]
+                }
+
+                sorters: StringSorter {
+                    id: sorter
+                    roleName: "orderId"
+                }
+            }
+
+            delegate: Rectangle {
+                id: thisPackType
+                width: deckSelectView.cellWidth
+                height: deckSelectView.cellHeight
+                color: "transparent"
+
+                property int itemMargin: 10
+
+                Loader {
+                    id: packLoader
+                    y: thisPackType.itemMargin
+                    width: parent.width - thisPackType.itemMargin*2
+                    height: parent.height - thisPackType.itemMargin*2
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    source: model.pack.layout
+                    asynchronous: true
+                    visible: status === Loader.Ready
+
+                    onLoaded: {
+                        item.packData = model.pack;
+                    }
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    hoverEnabled: true
+
+                    onEntered: {
+                        let oldX = deckSelectView.contentX;
+                        let oldY = deckSelectView.contentY
+                        deckSelectView.currentIndex = index;
+                        deckSelectView.contentX = oldX;
+                        deckSelectView.contentY = oldY;
+                    }
+
+                    onClicked: {
+                        // TODO:
+                    }
+                }
+            }
+
+            ScrollBar.vertical: ScrollBar {
+                id: scrollVDeckTypes
+                orientation: Qt.Vertical
+                policy: Qt.ScrollBarAlwaysOn
+
+                parent: deckSelectView.parent
+
+                anchors.top: deckSelectView.top
+                anchors.bottom: deckSelectView.bottom
+                width: StyleParams.hexWidth/3
+                anchors.left:  StyleParams.dominantHand === DominantHand.Left  ? undefined : deckSelectView.left
+                anchors.right: StyleParams.dominantHand === DominantHand.Left  ? deckSelectView.right : undefined
                 anchors.leftMargin:  StyleParams.dominantHand === DominantHand.Left ? 0 : -width-StyleParams.hexWidth/2
                 anchors.rightMargin: StyleParams.dominantHand === DominantHand.Left ? width+StyleParams.hexWidth/2 : 0
 

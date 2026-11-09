@@ -39,6 +39,16 @@
             ]
         },
         {
+            "sName": "BoosterPack3D.qml",
+            "sPath": "pfs:CarnalCallingQml/BoosterPack3D.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "ButtonAchievement",
             "sPath": "pfs:Images/Icons/ButtonAchievement.svg",
             "sResourceBundle": "",
@@ -1322,6 +1332,16 @@
             "sSource": "",
             "sSubType": "json",
             "type": 5,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "PackDelegate.qml",
+            "sPath": "pfs:CarnalCallingQml/PackDelegate.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
             "vsResourceTags": [
             ]
         },

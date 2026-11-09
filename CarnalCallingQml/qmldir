@@ -1,5 +1,6 @@
 module CarnalCallingQml
 singleton StyleParams 1.0 StyleParams.qml
+BoosterPack3D 1.0 BoosterPack3D.qml
 CardCollection 1.0 CardCollection.qml
 CardDelegate 1.0 CardDelegate.qml
 CardDelegateBack 1.0 CardDelegateBack.qml
@@ -17,6 +18,7 @@ HexButtonWithToolTip 1.0 HexButtonWithToolTip.qml
 HexLineShape 1.0 HexLineShape.qml
 HexShape 1.0 HexShape.qml
 HexGridRenderer 1.0 HexGridRenderer.qml
+PackDelegate 1.0 PackDelegate.qml
 PacksView 1.0 PacksView.qml
 PlayerMap 1.0 PlayerMap.qml
 WorldMapLayout 1.0 WorldMapLayout.qml

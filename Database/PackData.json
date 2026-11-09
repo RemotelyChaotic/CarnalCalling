@@ -5,7 +5,7 @@
       "title": "Queen Chrysalis",
       "description": "<img src=\"image://DataBaseImageProivider/{id}/UnknownSvg\" width=\"16\" height=\"16\" /> Awesome.",
       "style": 0,
-      "layout": "DefaultPack.qml",
+      "layout": "PackDelegate.qml",
       "image": "Test",
       "faction": "Changeling",
       "cost": {

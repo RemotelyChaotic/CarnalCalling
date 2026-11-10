@@ -89,6 +89,9 @@ Rectangle {
 
         anchors.fill: parent
 
+        property real uPixelWidth: 1.0 / Math.max(1.0, width)
+        property real uPixelHeight: 1.0 / Math.max(1.0, height)
+
         // Existing texture sources
         property variant frontTexture: cardTextureFront
         property variant backTexture: cardTextureBack
@@ -109,6 +112,8 @@ Rectangle {
         property real uSideSeamWidth: previewDelegate.sideSeamWidth
         property real uCrimpStrength: previewDelegate.crimpStrength
         property real seamFoilStrength: previewDelegate.seamFoilStrength
+
+        property bool aaEnabled: Settings.playerAntialiasing
 
         property vector3d foilColor: previewDelegate.foilColor
 
@@ -141,6 +146,9 @@ Rectangle {
             uniform sampler2D frontTexture;
             uniform sampler2D backTexture;
 
+            uniform highp float uPixelWidth;
+            uniform highp float uPixelHeight;
+
             uniform highp float uRotationX;
             uniform highp float uRotationY;
             uniform highp float uRotationZ;
@@ -154,12 +162,17 @@ Rectangle {
             uniform highp float uCrimpStrength;
             uniform highp float seamFoilStrength;
 
+            uniform bool aaEnabled;
+
             uniform highp vec3 foilColor;
 
             uniform lowp float qt_Opacity;
 
             const float MAX_DISTANCE = 5.0;
             const int MAX_STEPS = 72;
+            // We don't want to use fwidth because that would need enabling extentions
+            // GL_OES_standard_derivatives. This is good enough.
+            const float FWIDTH_APPROX = 0.015;
 
             vec3 rotateX(vec3 p, float a)
             {
@@ -273,9 +286,9 @@ Rectangle {
                 ));
             }
 
-            void main()
+            vec4 renderSample(vec2 sampleCoord)
             {
-                vec2 screen = qt_TexCoord0 * 2.0 - 1.0;
+                vec2 screen = sampleCoord * 2.0 - 1.0;
 
                 screen.x *= uAspectRatio;
                 screen.y = -screen.y;
@@ -337,8 +350,7 @@ Rectangle {
 
                 if (!hit)
                 {
-                    gl_FragColor = vec4(0.0);
-                    return;
+                    return vec4(0.0);
                 }
 
                 vec3 hitPosition =
@@ -377,10 +389,13 @@ Rectangle {
 
                 uv = clamp(uv, 0.0, 1.0);
 
+                float faceValue = abs(normalObject.z);
+                float faceAA = FWIDTH_APPROX; //fwidth(faceValue);
+
                 float frontFace = smoothstep(
-                    0.35,
-                    0.85,
-                    abs(normalObject.z)
+                    0.35 - faceAA,
+                    0.85 + faceAA,
+                    faceValue
                 );
 
                 vec3 artwork;
@@ -412,13 +427,18 @@ Rectangle {
                     1.0 - uv.y
                 );
 
+                float seamAA = FWIDTH_APPROX; //max(fwidth(verticalEdgeDistance), 0.00001);
                 float seam = 1.0 - smoothstep(
-                    uSeamWidth * 0.72,
-                    uSeamWidth,
+                    uSeamWidth * 0.72 - seamAA,
+                    uSeamWidth + seamAA,
                     verticalEdgeDistance
                 );
 
-                float ridges = 0.5 + 0.5 * sin(uv.x * 420.0);
+                float ridgePhase = uv.x * 420.0;
+                float ridgeAA = FWIDTH_APPROX; //fwidth(ridgePhase);
+                float ridges = 0.5 + 0.5 *
+                    sin(ridgePhase) *
+                    (sin(ridgeAA * 0.5) / max(ridgeAA * 0.5, 0.0001));
 
                 // Blend the artwork color with the foil.
                 vec3 crimpBase = mix(artwork, foil, seamFoilStrength);
@@ -500,10 +520,51 @@ Rectangle {
                 surfaceColor *= lighting;
                 surfaceColor += vec3(0.10) * rim;
 
-                gl_FragColor = vec4(
+                return vec4(
                     surfaceColor,
                     qt_Opacity
                 );
+            }
+
+            void main()
+            {
+                vec4 color = vec4(0.0);
+
+                // Size of one pixel in texture coordinates.
+                if (aaEnabled)
+                {
+                    vec2 pixelSize = vec2(
+                        uPixelWidth,
+                        uPixelHeight
+                    );
+
+                    // Offset samples by one quarter of a pixel.
+                    vec2 offset = pixelSize * 0.25;
+
+                    // Four independently rendered samples.
+                    color += renderSample(
+                        qt_TexCoord0 + vec2(-offset.x, -offset.y)
+                    );
+
+                    color += renderSample(
+                        qt_TexCoord0 + vec2( offset.x, -offset.y)
+                    );
+
+                    color += renderSample(
+                        qt_TexCoord0 + vec2(-offset.x,  offset.y)
+                    );
+
+                    color += renderSample(
+                        qt_TexCoord0 + vec2( offset.x,  offset.y)
+                    );
+                }
+                else
+                {
+                    color += renderSample(qt_TexCoord0);
+                }
+
+                // Average all four samples.
+                gl_FragColor = color * 0.25;
             }
         "
     }

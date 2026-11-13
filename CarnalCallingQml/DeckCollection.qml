@@ -12,13 +12,13 @@ import SortFilterProxyModel 0.2
 Rectangle {
     id: layout
     color: "transparent"
+    border.color: "red"
 
     property Project currentlyLoadedProject: root.currentlyLoadedProject
     property DataRepository repository: null
 
     property int numRows: 0
     property int numCols: 0
-    property point hexBg: Qt.point(0,0)
 
     property bool canToggleOnlyOwned: true
 
@@ -31,9 +31,31 @@ Rectangle {
 
     visible: false
 
-    function showWith(ownedDecks)
+    property int currentDeck: -1
+    property alias depth: stack.depth
+    property var ownedCards : []
+
+    function popStack()
     {
-        deckModel.clear();
+        deckTypesModel.clear();
+        deckCardModel.clear();
+        deckCardModel.currentDeck = null;
+
+        while (stack.depth > 1) {
+            stack.pop();
+        }
+
+        currentDeck = -1;
+        cardList.visible = false;
+    }
+
+    function showWith(ownedDecks, ownedCardsP)
+    {
+        if (null != ownedCardsP) {
+            ownedCards = ownedCardsP;
+        }
+
+        popStack();
 
         let nextId = 0;
         for (let deck of ownedDecks)
@@ -43,23 +65,11 @@ Rectangle {
                 displayCardData = repository.getCard(deck.displayCard.id, deck.displayCard.setId);
             }
 
-            nextId = deck.id + 1;
+            nextId = Math.max(deck.id + 1, nextId);
             pushDeck(deck, displayCardData);
         }
 
         pushNewDeck(nextId);
-
-        for (let pack of repository.packs) {
-            let keys = Object.keys(pack.cards);
-            for (let k of keys) {
-                if (!k.startsWith("_") && pack.cards[k].length > 0) {
-                    let setID = pack.cards[k][0].setId;
-                    let cardId = pack.cards[k][0].id;
-                    pushNewPack(pack, cardId, setID);
-                    break;
-                }
-            }
-        }
 
         addTimerDecks.start();
 
@@ -133,6 +143,22 @@ Rectangle {
                         });
     }
 
+    function rebuildPackModel()
+    {
+        deckTypesModel.clear();
+        for (let pack of repository.packs) {
+            let keys = Object.keys(pack.cards);
+            for (let k of keys) {
+                if (!k.startsWith("_") && pack.cards[k].length > 0) {
+                    let setID = pack.cards[k][0].setId;
+                    let cardId = pack.cards[k][0].id;
+                    pushNewPack(pack, cardId, setID);
+                    break;
+                }
+            }
+        }
+    }
+
     function pushNewPack(pack, cardId, setID)
     {
         let cardView = repository.getCardViewElements(cardId, setID);
@@ -147,6 +173,101 @@ Rectangle {
                                     "deckFilter": deckFilter,
                                     "orderId": pack.setId
                                 });
+        }
+    }
+
+    function cardKey(setId, id)
+    {
+        return setId + ";" + String(id).padStart(4, '0');
+    }
+
+    function rebuildDeckCardModel(deckData)
+    {
+        deckCardModel.clear();
+        deckCardModel.currentDeck = deckData;
+
+        if (null != repository && null != deckData &&
+            null != deckData.deck && null != deckData.sideDeck) {
+
+            let vAllCardsSorted = [];
+            if (deckData.deck) {
+                for (const card of deckData.deck) {
+                    vAllCardsSorted.push(card);
+                }
+            }
+
+            vAllCardsSorted.sort((a, b) => {
+                // Primary: setId (string comparison)
+                const setIdCompare = a.setId.localeCompare(b.setId);
+                if (setIdCompare !== 0) {
+                  return setIdCompare;
+                }
+
+                // Secondary: id (numeric)
+                return a.id - b.id;
+            });
+
+            for (const c of vAllCardsSorted) {
+                pushCard(addTimerDeckCards, c);
+            }
+        }
+
+        addTimerDeckCards.start();
+    }
+
+    function rebuildCardModel(setId)
+    {
+        cardModel.clear();
+
+        if (null != repository) {
+            let vAllCardsSorted = [];
+            if (null != ownedCards) {
+                for (const card of ownedCards) {
+                    if (card.setId === setId) {
+                        vAllCardsSorted.push(card);
+                    }
+                }
+            }
+
+            vAllCardsSorted.sort((a, b) => {
+                // Primary: setId (string comparison)
+                const setIdCompare = a.setId.localeCompare(b.setId);
+                if (setIdCompare !== 0) {
+                  return setIdCompare;
+                }
+
+                // Secondary: id (numeric)
+                return a.id - b.id;
+            });
+
+            for (const c of vAllCardsSorted) {
+                pushCard(addTimerCards, c);
+            }
+        }
+
+        addTimerCards.start();
+    }
+
+    function pushCard(timer, cardData)
+    {
+        if (null != cardData && null != cardData.id &&
+            null != cardData.setId && -1 < cardData.id && "" !== cardData.setId)
+        {
+            let card = repository.getCard(cardData.id, cardData.setId);
+            let cardFilter = card.setId + ";" + card.id + ";" + card.title + ";" +
+                             card.description + ";" + card.faction + ";" + card.cardType + ";" +
+                             card.slot + ";" + card.rarity + ";" +
+                             genderStrings[card.gendering+1] + ";" +
+                             card.tags.join(";");
+            timer.itemsToAdd.push({
+                                 "cardData": card,
+                                 "cardViewElems": repository.getCardViewElements(card),
+                                 "cardLayout": card.layout,
+                                 "cardCount": cardData.count,
+                                 "projId": currentlyLoadedProject.id,
+                                 "cardFilter": cardFilter,
+                                 "orderId": cardKey(cardData.setId, cardData.id)
+                            });
         }
     }
 
@@ -169,6 +290,44 @@ Rectangle {
             }
         }
     }
+    Timer {
+        id: addTimerDeckCards
+        interval: 100
+        repeat: true
+        running: false
+
+        property var itemsToAdd: []
+        property int nextItem: 0
+
+        onTriggered: {
+            if (0 < itemsToAdd.length) {
+                deckCardModel.append(itemsToAdd.splice(0,1)[0]);
+
+                nextItem++
+            } else {
+                stop();
+            }
+        }
+    }
+    Timer {
+        id: addTimerCards
+        interval: 100
+        repeat: true
+        running: false
+
+        property var itemsToAdd: []
+        property int nextItem: 0
+
+        onTriggered: {
+            if (0 < itemsToAdd.length) {
+                cardModel.append(itemsToAdd.splice(0,1)[0]);
+
+                nextItem++
+            } else {
+                stop();
+            }
+        }
+    }
 
     ListModel {
         id: deckModel
@@ -178,14 +337,25 @@ Rectangle {
         id: deckTypesModel
         dynamicRoles: false
     }
+    ListModel {
+        id: deckCardModel
+        dynamicRoles: false
+
+        property var currentDeck: null
+    }
+    ListModel {
+        id: cardModel
+        dynamicRoles: false
+    }
 
     StackView {
         id: stack
         initialItem: stackViewItemDecks
 
-        anchors.centerIn: parent
-        width: parent.width - StyleParams.hexWidth*3
-        height: parent.height - StyleParams.hexHeight*3
+        y: StyleParams.hexHeight
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: parent.width - StyleParams.hexWidth*2
+        height: (parent.height - StyleParams.hexHeight*2) / (cardList.visible ? 2 : 1)
 
         pushEnter: Transition {
             PropertyAnimation {
@@ -237,16 +407,23 @@ Rectangle {
             verticalLayoutDirection: GridView.TopToBottom
 
             signal addNewDeck(int newId)
-            signal openDeck(var deckData)
+            signal openDeck(int id, var deckData)
 
             onAddNewDeck: {
+                layout.currentDeck = newId;
+                layout.rebuildPackModel();
+                stack.push(deckCardListView);
                 stack.push(newDeckSelect);
             }
             onOpenDeck: {
-                // todo
+                layout.currentDeck = id;
+                stack.push(deckCardListView);
+                layout.rebuildDeckCardModel(deckData);
+                layout.rebuildCardModel(deckData.sets.length > 0 ? deckData.sets[0] : "");
+                cardList.visible = true;
             }
 
-            clip: true
+            clip: false
             highlightFollowsCurrentItem: true
             highlight: Rectangle {
                 color: "transparent"
@@ -566,7 +743,7 @@ Rectangle {
                         if (model.isAddNew) {
                             deckList.addNewDeck(model.id);
                         } else {
-                            deckList.openDeck(model.deckData);
+                            deckList.openDeck(model.id, model.deckData);
                         }
                     }
                 }
@@ -666,8 +843,8 @@ Rectangle {
 
         ListView {
             id: deckSelectView
-            width: stack.width
-            height: stack.height
+            width: parent.width
+            height: parent.height-StyleParams.hexHeight
 
             property real cellWidth: StyleParams.deckCollectionWidthMin
             property real cellHeight: StyleParams.deckCollectionHeightMin
@@ -675,37 +852,26 @@ Rectangle {
             orientation: ListView.Horizontal
             verticalLayoutDirection: GridView.TopToBottom
 
-            signal deckClicked(var setIdArr)
+            signal setClicked(var setId)
 
-            onDeckClicked: {
-                // todo
+            onSetClicked: {
+                layout.rebuildDeckCardModel({
+                                                "id": layout.currentDeck,
+                                                "deck": [],
+                                                "sideDeck": [],
+                                                "displayCard": null,
+                                                "sets": [ setId ],
+                                                "gendering": -1,
+                                                "numSocial": 0,
+                                                "numAction": 0,
+                                                "tags": []
+                                            });
+                layout.rebuildCardModel(setId);
+                stack.pop();
+                cardList.visible = true;
             }
 
-            clip: true
-            highlightFollowsCurrentItem: true
-            highlight: Rectangle {
-                color: "transparent"
-                width: deckSelectView.cellWidth
-                height: deckSelectView.cellHeight
-                x: null != deckSelectView.currentItem ? deckSelectView.currentItem.x : 0
-                y: null != deckSelectView.currentItem ? deckSelectView.currentItem.y : 0
-                Rectangle {
-                    anchors.centerIn: parent
-                    width: parent.width-8
-                    height: parent.height-8
-                    color: StyleParams.glowHexColor
-                    radius: 8
-                }
-
-                layer.enabled: true
-                layer.effect: Glow {
-                    radius: StyleParams.glowHexRadius
-                    samples: 17
-                    spread: StyleParams.glowHexSpread
-                    color: StyleParams.glowHexColor
-                    transparentBorder: true
-                }
-            }
+            clip: false
 
             model: SortFilterProxyModel {
                 id: deckTypeProxyModel
@@ -734,6 +900,7 @@ Rectangle {
                 color: "transparent"
 
                 property int itemMargin: 10
+                property bool selected: false
 
                 Loader {
                     id: packLoader
@@ -743,27 +910,29 @@ Rectangle {
                     anchors.horizontalCenter: parent.horizontalCenter
                     source: model.pack.layout
                     asynchronous: true
-                    visible: status === Loader.Ready
+                    visible: !thisPackType.selected && status === Loader.Ready
 
                     onLoaded: {
                         item.packData = model.pack;
                     }
                 }
 
+                Glow {
+                    anchors.fill: packLoader
+                    radius: StyleParams.glowHexRadius
+                    color: StyleParams.glowHexColor
+                    source: packLoader
+                    enabled: thisPackType.selected
+                    visible: thisPackType.selected
+                }
+
                 MouseArea {
                     anchors.fill: parent
                     hoverEnabled: true
 
-                    onEntered: {
-                        let oldX = deckSelectView.contentX;
-                        let oldY = deckSelectView.contentY
-                        deckSelectView.currentIndex = index;
-                        deckSelectView.contentX = oldX;
-                        deckSelectView.contentY = oldY;
-                    }
-
                     onClicked: {
-                        // TODO:
+                        thisPackType.selected = !thisPackType.selected;
+                        deckSelectView.setClicked(model.pack.setId);
                     }
                 }
             }
@@ -799,10 +968,90 @@ Rectangle {
         }
     }
 
+    Component {
+        id: deckCardListView
+
+        CardGrid {
+            id: deckCardList
+            width: stack.width
+            height: stack.height
+
+            cellWidth: StyleParams.cardCollectionWidthMin+10
+            cellHeight: StyleParams.cardCollectionHeightMin+10
+
+            flow: GridView.FlowLeftToRight
+            layoutDirection: Qt.LeftToRight
+            verticalLayoutDirection: GridView.TopToBottom
+
+            innerMouseAreaEnabled: true
+
+            sourceModel: deckCardModel
+            filters: AllOf {
+                filters: [
+                    RegExpFilter {
+                        roleName: "cardFilter"
+                        pattern: filterTextArea.text === "" ? ".*" : filterTextArea.text
+                        caseSensitivity: Qt.CaseInsensitive
+                    }
+                ]
+            }
+
+            onItemClicked: {
+                // TODO:
+            }
+
+            Rectangle {
+                anchors.fill: parent
+                color: "yellow"
+            }
+        }
+    }
+
+    CardGrid {
+        id: cardList
+        anchors.centerIn: parent
+        anchors.bottom: parent.bottom
+        width: parent.width - StyleParams.hexWidth*3
+        height: visible ? (parent.height - StyleParams.hexHeight*3)/2 : 0
+
+        Behavior on height {
+            NumberAnimation { duration: 500; easing.type: Easing.InOutQuad }
+        }
+
+        cellWidth: StyleParams.cardCollectionWidthMin+10
+        cellHeight: StyleParams.cardCollectionHeightMin+10
+
+        flow: GridView.FlowLeftToRight
+        layoutDirection: Qt.LeftToRight
+        verticalLayoutDirection: GridView.TopToBottom
+
+        innerMouseAreaEnabled: true
+
+        sourceModel: cardModel
+        filters: AllOf {
+            filters: [
+                RegExpFilter {
+                    roleName: "cardFilter"
+                    pattern: filterTextArea.text === "" ? ".*" : filterTextArea.text
+                    caseSensitivity: Qt.CaseInsensitive
+                }
+            ]
+        }
+
+        onItemClicked: {
+            // TODO:
+        }
+    }
+
+    Rectangle {
+        anchors.fill: cardList
+        color: "red"
+    }
+
     HexButtonWithToolTip {
         id: searchButton
-        x: hexBg.x
-        y: hexBg.y
+        x: 0
+        y: 0
         width: StyleParams.hexWidth
         height: StyleParams.hexHeight
         hexWidth: StyleParams.hexWidth
@@ -818,7 +1067,7 @@ Rectangle {
     TextArea {
         id: filterTextArea
         x: searchButton.x + searchButton.width
-        y: hexBg.y
+        y: 0
         width: {
             if (StyleParams.hexWidth * 7 > parent.width) {
                 let hexStride = StyleParams.hexWidth*0.75;

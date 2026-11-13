@@ -28,7 +28,7 @@ Rectangle {
     Timer {
         id: timer
         repeat: true
-        running: parent.visible
+        running: true //parent.visible
         interval: 33 // 30fps
 
         onTriggered: {

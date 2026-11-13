@@ -4,6 +4,7 @@ BoosterPack3D 1.0 BoosterPack3D.qml
 CardCollection 1.0 CardCollection.qml
 CardDelegate 1.0 CardDelegate.qml
 CardDelegateBack 1.0 CardDelegateBack.qml
+CardGrid 1.0 CardGrid.qml
 CardPreviewRender 1.0 CardPreviewRender.qml
 CardsAndDecksLayout 1.0 CardsAndDecksLayout.qml
 CCPlayerControls 1.0 CCPlayerControls.qml

@@ -21,6 +21,8 @@ Rectangle {
     property alias pauseButton: pauseButtonLoader
     property alias hideButton: hideButtonLoader
 
+    property string exitButtonText: qsTr("Exit tease")
+
     signal setUiVisible(bool visible)
 
     property var quit: function()
@@ -140,9 +142,9 @@ Rectangle {
             id: exitButtonLoader
             sourceComponent: buttonTemplate
 
-            property string buttonText: qsTr("Exit tease")
+            property string buttonText: sceneControl.exitButtonText
             property string shortcut: Settings.keyBinding("Exit")
-            property string toolTipText: qsTr("Exit tease")
+            property string toolTipText: sceneControl.exitButtonText
             property string imageSource:
                 item.hovered ? StyleParams.exitHoverButton : StyleParams.exitButton
 

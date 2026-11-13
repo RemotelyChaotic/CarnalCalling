@@ -18,7 +18,6 @@ Rectangle {
 
     property int numRows: 0
     property int numCols: 0
-    property point hexBg: Qt.point(0,0)
 
     property bool canToggleOnlyOwned: true
     readonly property var genderStrings: [ "None", "Male", "Female", "Herm"]
@@ -167,7 +166,7 @@ Rectangle {
         dynamicRoles: false
     }
 
-    GridView {
+    CardGrid {
         id: cardList
         anchors.centerIn: parent
         width: parent.width - StyleParams.hexWidth*3
@@ -179,7 +178,23 @@ Rectangle {
         layoutDirection: Qt.LeftToRight
         verticalLayoutDirection: GridView.TopToBottom
 
-        signal itemClicked(int index, real x, real y, string setId, int id)
+        innerMouseAreaEnabled: !previewDelegate.visible
+
+        sourceModel: cardModel
+        filters: AllOf {
+            filters: [
+                RegExpFilter {
+                    roleName: "cardFilter"
+                    pattern: filterTextArea.text === "" ? ".*" : filterTextArea.text
+                    caseSensitivity: Qt.CaseInsensitive
+                },
+                RegExpFilter {
+                    roleName: "cardLayout"
+                    pattern: showOnlyOwnedButtonCheckable.checked ? "^(?!CardDelegateBack[.]qml$).*" : ".*"
+                    caseSensitivity: Qt.CaseInsensitive
+                }
+            ]
+        }
 
         onItemClicked: {
             previewDelegate.x = x;
@@ -195,216 +210,6 @@ Rectangle {
             }
 
             previewDelegate.show();
-        }
-
-        clip: true
-        highlightFollowsCurrentItem: true
-        highlight: Rectangle {
-            color: "transparent"
-            width: cardList.cellWidth
-            height: cardList.cellHeight
-            x: null != cardList.currentItem ? cardList.currentItem.x : 0
-            y: null != cardList.currentItem ? cardList.currentItem.y : 0
-            Rectangle {
-                anchors.centerIn: parent
-                width: parent.width-8
-                height: parent.height-8
-                color: StyleParams.glowHexColor
-                radius: 8
-            }
-
-            layer.enabled: true
-            layer.effect: Glow {
-                radius: StyleParams.glowHexRadius
-                samples: 17
-                spread: StyleParams.glowHexSpread
-                color: StyleParams.glowHexColor
-                transparentBorder: true
-            }
-        }
-
-        model: SortFilterProxyModel {
-            id: cardProxyModel
-
-            sourceModel: cardModel
-            filters: AllOf {
-                filters: [
-                    RegExpFilter {
-                        roleName: "cardFilter"
-                        pattern: filterTextArea.text === "" ? ".*" : filterTextArea.text
-                        caseSensitivity: Qt.CaseInsensitive
-                    },
-                    RegExpFilter {
-                        roleName: "cardLayout"
-                        pattern: showOnlyOwnedButtonCheckable.checked ? "^(?!CardDelegateBack[.]qml$).*" : ".*"
-                        caseSensitivity: Qt.CaseInsensitive
-                    }
-                ]
-            }
-
-            sorters: StringSorter {
-                id: sorter
-                roleName: "orderId"
-            }
-        }
-
-        delegate: Rectangle {
-            id: thisCard
-            width: StyleParams.cardCollectionWidthMin
-            height: StyleParams.cardCollectionHeightMin
-            color: "transparent"
-
-            Loader {
-                id: cardLoader
-                anchors.fill: parent
-                source: ""
-                asynchronous: true
-                visible: status == Loader.Ready
-            }
-
-            HexShape {
-                anchors.horizontalCenter: parent.horizontalCenter
-                y: parent.height - height
-                width: StyleParams.hexWidth / 2
-                height: StyleParams.hexHeight / 2
-
-                fillColor: StyleParams.fillColorHexInactive
-                strokeColor: StyleParams.strokeColorHexInactive
-                strokeWidth: StyleParams.strokeColorHexInactiveWidth
-
-                visible: model.cardData != null
-
-                Text {
-                    anchors.fill: parent
-
-                    text: model.cardCount
-
-                    property real zoomFactorX: thisCard.width / StyleParams.cardWidthOrig
-
-                    font.family: null != root.currentlyLoadedProject ?
-                                     root.currentlyLoadedProject.font : "Arial"
-                    font.pixelSize: StyleParams.cardCountPonintSize
-                    font.hintingPreference: Font.PreferNoHinting
-
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    elide: Text.ElideNone
-                    wrapMode: Text.WordWrap
-                    color: StyleParams.textColorMenu
-                    textFormat: Text.RichText
-                }
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                enabled: !previewDelegate.visible
-                hoverEnabled: true
-
-                onEntered: {
-                    let oldX = cardList.contentX;
-                    let oldY = cardList.contentY
-                    cardList.currentIndex = index;
-                    cardList.contentX = oldX;
-                    cardList.contentY = oldY;
-                }
-
-                onClicked: {
-                    if (null != model.cardData) {
-                        let pointInLayout = mapToItem(layout, 0.0, 0.0);
-                        cardList.itemClicked(
-                                    index,
-                                    pointInLayout.x,
-                                    pointInLayout.y,
-                                    model.cardData.setId,
-                                    model.cardData.id);
-                    }
-                }
-            }
-
-            Connections {
-                target: thisCard
-
-                function onVisibleChanged() {
-                    if (thisCard.visible && cardLoader.status === Loader.Null) {
-                        cardLoader.source = model.cardLayout;
-                    }
-                }
-            }
-
-            Component.onCompleted: {
-                if (visible) {
-                    cardLoader.source = model.cardLayout;
-                }
-            }
-        }
-
-        remove: Transition {
-            SequentialAnimation {
-                ParallelAnimation {
-                    NumberAnimation {
-                        property: "y"
-                        from: cardList.contentY
-                        to: cardList.contentY - 100
-                        duration: 500
-                        easing.type: Easing.OutCubic
-                    }
-
-                    NumberAnimation {
-                        property: "opacity"
-                        from: 1
-                        to: 0
-                        duration: 500
-                    }
-                }
-            }
-        }
-        populate: Transition {
-            SequentialAnimation {
-                ParallelAnimation {
-                    NumberAnimation {
-                        property: "y"
-                        from: cardList.contentY + 100
-                        duration: 500
-                        easing.type: Easing.OutCubic
-                    }
-
-                    NumberAnimation {
-                        property: "opacity"
-                        from: 1
-                        to: 0
-                        duration: 500
-                    }
-                }
-            }
-        }
-
-        ScrollBar.vertical: ScrollBar {
-            id: scrollV
-            orientation: Qt.Vertical
-            policy: Qt.ScrollBarAlwaysOn
-
-            parent: cardList.parent
-
-            anchors.top: cardList.top
-            anchors.bottom: cardList.bottom
-            width: StyleParams.hexWidth/3
-            anchors.left:  StyleParams.dominantHand === DominantHand.Left  ? undefined : cardList.left
-            anchors.right: StyleParams.dominantHand === DominantHand.Left  ? cardList.right : undefined
-            anchors.leftMargin:  StyleParams.dominantHand === DominantHand.Left ? 0 : -width-StyleParams.hexWidth/2
-            anchors.rightMargin: StyleParams.dominantHand === DominantHand.Left ? width+StyleParams.hexWidth/2 : 0
-
-            contentItem: Rectangle {
-                implicitWidth: parent.width - StyleParams.strokeColorHexInactiveWidth*2
-                implicitHeight: 100
-                radius: width / 2
-                color: StyleParams.fillColorHexActive
-            }
-            background: Rectangle {
-                implicitWidth: parent.width
-                radius: width / 2
-                color: StyleParams.fillColorHexInactive
-                border.color: StyleParams.strokeColorHexInactive
-            }
         }
     }
 
@@ -428,8 +233,8 @@ Rectangle {
 
     HexButtonWithToolTip {
         id: searchButton
-        x: hexBg.x
-        y: hexBg.y
+        x: 0
+        y: 0
         width: StyleParams.hexWidth
         height: StyleParams.hexHeight
         hexWidth: StyleParams.hexWidth
@@ -445,7 +250,7 @@ Rectangle {
     TextArea {
         id: filterTextArea
         x: searchButton.x + searchButton.width
-        y: hexBg.y
+        y: 0
         width: {
             if (StyleParams.hexWidth * 7 > parent.width) {
                 let hexStride = StyleParams.hexWidth*0.75;
@@ -492,8 +297,8 @@ Rectangle {
 
     HexButtonWithToolTip {
         id: showOnlyOwnedButtonCheckable
-        x: hexBg.x + filterTextArea.width + searchButton.width
-        y: hexBg.y
+        x: filterTextArea.width + searchButton.width
+        y: 0
         width: StyleParams.hexWidth
         height: StyleParams.hexHeight
         hexWidth: StyleParams.hexWidth

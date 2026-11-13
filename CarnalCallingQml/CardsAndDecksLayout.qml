@@ -82,27 +82,25 @@ Rectangle {
 
         DeckCollection {
             id: decks
-            x: 0
-            y: 0
-            width: parent.width
-            height: parent.height
+            x: gridWrapper.offsetX
+            y: gridWrapper.offsetY
+            width: parent.width - gridWrapper.offsetX*2
+            height: parent.height - gridWrapper.offsetY*2
 
             numRows: gridWrapper.numRows
             numCols: gridWrapper.numCols
-            hexBg: Qt.point(hexBgRenderer.x, hexBgRenderer.y)
 
             repository: repositoryLoader
         }
         CardCollection {
             id: cards
-            x: 0
-            y: 0
-            width: parent.width
-            height: parent.height
+            x: gridWrapper.offsetX
+            y: gridWrapper.offsetY
+            width: parent.width - gridWrapper.offsetX*2
+            height: parent.height - gridWrapper.offsetY*2
 
             numRows: gridWrapper.numRows
             numCols: gridWrapper.numCols
-            hexBg: Qt.point(hexBgRenderer.x, hexBgRenderer.y)
 
             repository: repositoryLoader
         }
@@ -172,9 +170,16 @@ Rectangle {
         pauseButton.visible: false
         hideButton.visible: false
 
+        exitButtonText: qsTr("Back")
+
         quit: function()
         {
-            eventReceiver.sendEventResponse("cardEvent", "");
+            if (decks.depth > 1) {
+                decks.popStack();
+            }
+            else {
+                eventReceiver.sendEventResponse("cardEvent", "");
+            }
         }
 
         onSetUiVisible: {
@@ -203,8 +208,8 @@ Rectangle {
     {
         let deckData = JSON.parse(sData);
         textBox.state = "HIDDEN";
-        decks.showWith(null != deckData.ownedDecks ? deckData.ownedDecks : null);
-        cards.initWith(null != deckData.ownedCards ? deckData.ownedCards : null);
+        decks.showWith(null != deckData.ownedDecks ? deckData.ownedDecks : null,
+                       null != deckData.ownedCards ? deckData.ownedCards : null);
         cards.visible = false;
     }
 

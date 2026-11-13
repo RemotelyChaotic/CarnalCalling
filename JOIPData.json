@@ -349,6 +349,16 @@
             ]
         },
         {
+            "sName": "CardGrid.qml",
+            "sPath": "pfs:CarnalCallingQml/CardGrid.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "CardIconActionAssChangeling",
             "sPath": "pfs:Images/CardGame/Changeling/CardIconActionAssChangeling.svg",
             "sResourceBundle": "",

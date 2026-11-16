@@ -107,6 +107,7 @@ Rectangle {
             let cardView = repository.getCardViewElements(cardData.id, cardData.setId);
             let cardFilter = cardData.setId + ";" + cardData.id;
             addTimer.itemsToAdd.push({
+                                 "enabled": true,
                                  "cardData": null,
                                  "cardViewElems": cardView,
                                  "cardLayout": "CardDelegateBack.qml",
@@ -130,6 +131,7 @@ Rectangle {
                              genderStrings[card.gendering+1] + ";" +
                              card.tags.join(";");
             addTimer.itemsToAdd.push({
+                                 "enabled": true,
                                  "cardData": card,
                                  "cardViewElems": repository.getCardViewElements(card),
                                  "cardLayout": card.layout,
@@ -174,8 +176,9 @@ Rectangle {
         width: parent.width - StyleParams.hexWidth*2
         height: parent.height - StyleParams.hexHeight*2
 
-        cellWidth: StyleParams.cardCollectionWidthMin+10
-        cellHeight: StyleParams.cardCollectionHeightMin+10
+        cellHintWidth: StyleParams.cardCollectionWidthMin
+        cellHintHeight: StyleParams.cardCollectionHeightMin
+        cellMargin: 10
 
         flow: GridView.FlowLeftToRight
         layoutDirection: Qt.LeftToRight
@@ -184,20 +187,8 @@ Rectangle {
         innerMouseAreaEnabled: !previewDelegate.visible
 
         sourceModel: cardModel
-        filters: AllOf {
-            filters: [
-                RegExpFilter {
-                    roleName: "cardFilter"
-                    pattern: filterTextArea.text === "" ? ".*" : filterTextArea.text
-                    caseSensitivity: Qt.CaseInsensitive
-                },
-                RegExpFilter {
-                    roleName: "cardLayout"
-                    pattern: showOnlyOwnedButtonCheckable.checked ? "^(?!CardDelegateBack[.]qml$).*" : ".*"
-                    caseSensitivity: Qt.CaseInsensitive
-                }
-            ]
-        }
+        filterPattern: filterTextArea.text === "" ? ".*" : filterTextArea.text
+        onlyShowNonZeroCount: showOnlyOwnedButtonCheckable.checked
 
         onItemClicked: {
             previewDelegate.x = x;

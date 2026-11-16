@@ -13,17 +13,27 @@ GridView {
     id: cardList
     width: parent.width - StyleParams.hexWidth*3
     height: parent.height - StyleParams.hexHeight*3
-    cellWidth: StyleParams.cardCollectionWidthMin+10
-    cellHeight: StyleParams.cardCollectionHeightMin+10
+
+    cellWidth: cellHintWidth + cellMargin
+    cellHeight: cellHintHeight + cellMargin
+
+    property real cellHintWidth: StyleParams.cardCollectionWidthMin
+    property real cellHintHeight: StyleParams.cardCollectionHeightMin
+    property real cellMargin: 10
 
     flow: GridView.FlowLeftToRight
     layoutDirection: Qt.LeftToRight
     verticalLayoutDirection: GridView.TopToBottom
 
+    property bool showCardCount: true
     property bool innerMouseAreaEnabled: true
+    property bool onlyShowNonZeroCount: false
+    property string countRole: "cardCount"
+    property string filterRole: "cardFilter"
+    property string filterPattern: ""
+    property string sortRole: "orderId"
 
     property alias sourceModel: cardProxyModel.sourceModel
-    property alias filters: cardProxyModel.filters
 
     signal itemClicked(int index, real x, real y, string setId, int id)
 
@@ -31,16 +41,16 @@ GridView {
     highlightFollowsCurrentItem: true
     highlight: Rectangle {
         color: "transparent"
-        width: cardList.cellWidth
-        height: cardList.cellHeight
+        width: cardList.cellWidth + cardList.cellMargin
+        height: cardList.cellHeight + cardList.cellMargin
         x: null != cardList.currentItem ? cardList.currentItem.x : 0
         y: null != cardList.currentItem ? cardList.currentItem.y : 0
         Rectangle {
             anchors.centerIn: parent
-            width: parent.width-8
-            height: parent.height-8
+            width: parent.width-cardList.cellMargin*0.8
+            height: parent.height-cardList.cellMargin*0.8
             color: StyleParams.glowHexColor
-            radius: 8
+            radius: cardList.cellMargin*0.8
         }
 
         layer.enabled: true
@@ -57,18 +67,31 @@ GridView {
         id: cardProxyModel
 
         sourceModel: null
-        filters: []
+        filters: AllOf {
+            filters: [
+                RegExpFilter {
+                    roleName: cardList.filterRole
+                    pattern: cardList.filterPattern
+                    caseSensitivity: Qt.CaseInsensitive
+                },
+                RegExpFilter {
+                    roleName: cardList.countRole
+                    pattern: cardList.onlyShowNonZeroCount ? "^(?!0$).*" : ".*"
+                    caseSensitivity: Qt.CaseInsensitive
+                }
+            ]
+        }
 
         sorters: StringSorter {
             id: sorter
-            roleName: "orderId"
+            roleName: cardList.sortRole
         }
     }
 
     delegate: Rectangle {
         id: thisCard
-        width: StyleParams.cardCollectionWidthMin
-        height: StyleParams.cardCollectionHeightMin
+        width: cardList.cellHintWidth
+        height: cardList.cellHintHeight
         color: "transparent"
 
         Loader {
@@ -76,7 +99,14 @@ GridView {
             anchors.fill: parent
             source: ""
             asynchronous: true
-            visible: status == Loader.Ready
+            visible: false
+        }
+
+        Desaturate {
+            anchors.fill: cardLoader
+            source: cardLoader
+            desaturation: model.enabled ? 0.0 : 1.0
+            visible: cardLoader.status == Loader.Ready
         }
 
         HexShape {
@@ -89,14 +119,14 @@ GridView {
             strokeColor: StyleParams.strokeColorHexInactive
             strokeWidth: StyleParams.strokeColorHexInactiveWidth
 
-            visible: model.cardData != null
+            visible: cardList.showCardCount && model.cardData != null
 
             Text {
-                anchors.fill: parent
+                width: parent.width*1.5
+                height: parent.height*1.5
+                anchors.centerIn: parent
 
                 text: model.cardCount
-
-                property real zoomFactorX: thisCard.width / StyleParams.cardWidthOrig
 
                 font.family: null != root.currentlyLoadedProject ?
                                  root.currentlyLoadedProject.font : "Arial"
@@ -114,7 +144,7 @@ GridView {
 
         MouseArea {
             anchors.fill: parent
-            enabled: cardList.innerMouseAreaEnabled
+            enabled: cardList.innerMouseAreaEnabled && model.enabled
             hoverEnabled: true
 
             onEntered: {
@@ -127,7 +157,7 @@ GridView {
 
             onClicked: {
                 if (null != model.cardData) {
-                    let pointInLayout = mapToItem(layout, 0.0, 0.0);
+                    let pointInLayout = mapToItem(cardList.parent, 0.0, 0.0);
                     cardList.itemClicked(
                                 index,
                                 pointInLayout.x,
@@ -165,7 +195,6 @@ GridView {
                     duration: 500
                     easing.type: Easing.OutCubic
                 }
-
                 NumberAnimation {
                     property: "opacity"
                     from: 1
@@ -184,11 +213,10 @@ GridView {
                     duration: 500
                     easing.type: Easing.OutCubic
                 }
-
                 NumberAnimation {
                     property: "opacity"
-                    from: 1
-                    to: 0
+                    from: 0
+                    to: 1
                     duration: 500
                 }
             }

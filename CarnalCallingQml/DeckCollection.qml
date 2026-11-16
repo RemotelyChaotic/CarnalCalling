@@ -27,6 +27,8 @@ Rectangle {
     readonly property string iconSocialTag: "icontype:Social"
     readonly property string iconClothesTag: "icontype:Clothes"
     readonly property string iconNoneTag: "None"
+    readonly property string actionType: "Action"
+    readonly property string socialType: "Social"
 
     visible: false
 
@@ -180,6 +182,13 @@ Rectangle {
         return setId + ";" + String(id).padStart(4, '0');
     }
 
+    function getNrInDeck(setId, id)
+    {
+        return null != deckCardModel.currentDeck && null != deckCardModel.currentDeck.deck ?
+                    deckCardModel.currentDeck.deck.filter(c => c.id === id && c.setId === setId).length :
+                    0;
+    }
+
     function rebuildDeckCardModel(deckData)
     {
         deckCardModel.clear();
@@ -196,25 +205,21 @@ Rectangle {
             }
 
             vAllCardsSorted.sort((a, b) => {
-                // Primary: setId (string comparison)
-                const setIdCompare = a.setId.localeCompare(b.setId);
-                if (setIdCompare !== 0) {
-                  return setIdCompare;
-                }
-
-                // Secondary: id (numeric)
-                return a.id - b.id;
+                const setIdCompare = cardKey(a.setId,a.id).localeCompare(cardKey(b.setId,b.id));
+                return setIdCompare;
             });
 
             for (const c of vAllCardsSorted) {
-                pushCard(addTimerDeckCards, c);
+                let cardData = repository.getCard(c.id, c.setId);
+                pushCard(addTimerDeckCards, cardData,
+                         { "cardInDeck" : 1, "cardMax": 1, "display": "" }, true);
             }
         }
 
         addTimerDeckCards.start();
     }
 
-    function rebuildCardModel(setId)
+    function rebuildCardModel(setId, deckData)
     {
         cardModel.clear();
 
@@ -229,42 +234,47 @@ Rectangle {
             }
 
             vAllCardsSorted.sort((a, b) => {
-                // Primary: setId (string comparison)
-                const setIdCompare = a.setId.localeCompare(b.setId);
-                if (setIdCompare !== 0) {
-                  return setIdCompare;
-                }
-
-                // Secondary: id (numeric)
-                return a.id - b.id;
+                const setIdCompare = cardKey(a.setId,a.id).localeCompare(cardKey(b.setId,b.id));
+                return setIdCompare;
             });
 
             for (const c of vAllCardsSorted) {
-                pushCard(addTimerCards, c);
+                let nrInDeck = getNrInDeck(c.setId, c.id);
+                let cardData = repository.getCard(c.id, c.setId);
+                let enabled = cardData.gendering === -1 || deckData.gendering === -1 ||
+                    cardData.gendering === deckData.gendering;
+                pushCard(addTimerCards,
+                         cardData,
+                         { "cardInDeck" : nrInDeck, "cardMax": c.count,
+                           "display": nrInDeck + "/" + c.count },
+                         enabled);
             }
         }
 
         addTimerCards.start();
     }
 
-    function pushCard(timer, cardData)
+    function pushCard(timer, cardData, count, enabled)
     {
         if (null != cardData && null != cardData.id &&
             null != cardData.setId && -1 < cardData.id && "" !== cardData.setId)
         {
-            let card = repository.getCard(cardData.id, cardData.setId);
-            let cardFilter = card.setId + ";" + card.id + ";" + card.title + ";" +
-                             card.description + ";" + card.faction + ";" + card.cardType + ";" +
-                             card.slot + ";" + card.rarity + ";" +
-                             genderStrings[card.gendering+1] + ";" +
-                             card.tags.join(";");
+            let cardFilter = cardData.setId + ";" + cardData.id + ";" + cardData.title + ";" +
+                             cardData.description + ";" + cardData.faction + ";" + cardData.cardType + ";" +
+                             cardData.slot + ";" + cardData.rarity + ";" +
+                             genderStrings[cardData.gendering+1] + ";" +
+                             cardData.tags.join(";");
             timer.itemsToAdd.push({
-                                 "cardData": card,
-                                 "cardViewElems": repository.getCardViewElements(card),
-                                 "cardLayout": card.layout,
-                                 "cardCount": cardData.count,
+                                 "enabled": enabled,
+                                 "cardData": cardData,
+                                 "cardViewElems": repository.getCardViewElements(cardData),
+                                 "cardLayout": cardData.layout,
+                                 "cardInDeck": count.cardInDeck,
+                                 "cardMax": count.cardMax,
+                                 "cardCount": count.display,
                                  "projId": currentlyLoadedProject.id,
                                  "cardFilter": cardFilter,
+                                 "genderFilter": cardData.gendering,
                                  "orderId": cardKey(cardData.setId, cardData.id)
                             });
         }
@@ -420,7 +430,8 @@ Rectangle {
                 layout.currentDeck = id;
                 stack.push(deckCardListView);
                 layout.rebuildDeckCardModel(deckData);
-                layout.rebuildCardModel(deckData.sets.length > 0 ? deckData.sets[0] : "");
+                layout.rebuildCardModel(deckData.sets.length > 0 ? deckData.sets[0] : "",
+                                        deckData);
                 cardList.visible = true;
             }
 
@@ -778,7 +789,6 @@ Rectangle {
                             duration: 500
                             easing.type: Easing.OutCubic
                         }
-
                         NumberAnimation {
                             property: "opacity"
                             from: 1
@@ -797,11 +807,10 @@ Rectangle {
                             duration: 500
                             easing.type: Easing.OutCubic
                         }
-
                         NumberAnimation {
                             property: "opacity"
-                            from: 1
-                            to: 0
+                            from: 0
+                            to: 1
                             duration: 500
                         }
                     }
@@ -857,18 +866,19 @@ Rectangle {
             signal setClicked(var setId)
 
             onSetClicked: {
-                layout.rebuildDeckCardModel({
-                                                "id": layout.currentDeck,
-                                                "deck": [],
-                                                "sideDeck": [],
-                                                "displayCard": null,
-                                                "sets": [ setId ],
-                                                "gendering": -1,
-                                                "numSocial": 0,
-                                                "numAction": 0,
-                                                "tags": []
-                                            });
-                layout.rebuildCardModel(setId);
+                let deckData = {
+                    "id": layout.currentDeck,
+                    "deck": [],
+                    "sideDeck": [],
+                    "displayCard": null,
+                    "sets": [ setId ],
+                    "gendering": -1,
+                    "numSocial": 0,
+                    "numAction": 0,
+                    "tags": []
+                };
+                layout.rebuildDeckCardModel(deckData);
+                layout.rebuildCardModel(setId, deckData);
                 stack.pop();
                 cardList.visible = true;
             }
@@ -939,6 +949,44 @@ Rectangle {
                 }
             }
 
+            remove: Transition {
+                SequentialAnimation {
+                    ParallelAnimation {
+                        NumberAnimation {
+                            property: "y"
+                            from: deckSelectView.contentY
+                            to: deckSelectView.contentY - 100
+                            duration: 500
+                            easing.type: Easing.OutCubic
+                        }
+                        NumberAnimation {
+                            property: "opacity"
+                            from: 1
+                            to: 0
+                            duration: 500
+                        }
+                    }
+                }
+            }
+            populate: Transition {
+                SequentialAnimation {
+                    ParallelAnimation {
+                        NumberAnimation {
+                            property: "y"
+                            from: deckSelectView.contentY + 100
+                            duration: 500
+                            easing.type: Easing.OutCubic
+                        }
+                        NumberAnimation {
+                            property: "opacity"
+                            from: 0
+                            to: 1
+                            duration: 500
+                        }
+                    }
+                }
+            }
+
             ScrollBar.vertical: ScrollBar {
                 id: scrollVDeckTypes
                 orientation: Qt.Vertical
@@ -979,28 +1027,72 @@ Rectangle {
             width: stack.width
             height: stack.height
 
-            cellWidth: StyleParams.cardCollectionWidthMin+10
-            cellHeight: StyleParams.cardCollectionHeightMin+10
+            cellHintWidth: StyleParams.deckBuildingWidthMin
+            cellHintHeight: StyleParams.deckBuildingHeightMin
+            cellMargin: 5
 
             flow: GridView.FlowLeftToRight
             layoutDirection: Qt.LeftToRight
             verticalLayoutDirection: GridView.TopToBottom
 
+            showCardCount: false
             innerMouseAreaEnabled: true
 
             sourceModel: deckCardModel
-            filters: AllOf {
-                filters: [
-                    RegExpFilter {
-                        roleName: "cardFilter"
-                        pattern: filterTextArea.text === "" ? ".*" : filterTextArea.text
-                        caseSensitivity: Qt.CaseInsensitive
-                    }
-                ]
-            }
+            filterPattern: filterTextArea.text === "" ? ".*" : filterTextArea.text
 
             onItemClicked: {
-                // TODO:
+                // get card and enabled state plus source index
+                let cardData = repository.getCard(id, setId);
+                let enabled = model.get(index, "enabled");
+                let sourceRow = model.mapToSource(index);
+
+                if (null != cardData && enabled &&
+                    null != deckCardModel.currentDeck) {
+
+                    // modify the current deck
+                    deckCardModel.currentDeck.deck.splice(index);
+
+                    let newGendering = -1;
+                    for (let c of deckCardModel.currentDeck.deck) {
+                        if (c.gendering !== -1) {
+                            newGendering = c.gendering;
+                            break;
+                        }
+                    }
+                    deckCardModel.currentDeck.gendering = newGendering;
+
+                    if (cardData.cardType === layout.actionType) {
+                        deckCardModel.currentDeck.numAction--;
+                    } else if (cardData.cardType === layout.actionType) {
+                        deckCardModel.currentDeck.numSocial--;
+                    }
+
+                    // modify model
+                    deckCardModel.remove(sourceRow);
+
+                    // modify the card model
+                    let indexInCardModel = -1;
+                    for (let i = 0; i < cardList.model.count; ++i) {
+                        let modelInList = cardList.model.get(i, "cardData");
+                        if (modelInList.id === id && modelInList.setId === setId) {
+                            indexInCardModel = i;
+                            break;
+                        }
+                    }
+
+                    if (-1 != indexInCardModel)
+                    {
+                        sourceRow = cardList.model.mapToSource(indexInCardModel);
+                        let nrInDeck = layout.getNrInDeck(setId, id);
+                        let max = cardList.model.get(indexInCardModel, "cardMax");
+                        cardModel.setProperty(sourceRow, "cardInDeck", nrInDeck);
+                        cardModel.setProperty(sourceRow, "cardCount", ""+nrInDeck+"/"+max);
+                    }
+
+                    // Update enabled state of all cards
+                    cardList.updateEnabledStateOfAll();
+                }
             }
 
             ScrollBar.vertical.visible: stack.depth == 2
@@ -1020,8 +1112,9 @@ Rectangle {
             NumberAnimation { duration: 500; easing.type: Easing.InOutQuad }
         }
 
-        cellWidth: StyleParams.cardCollectionWidthMin+10
-        cellHeight: StyleParams.cardCollectionHeightMin+10
+        cellHintWidth: StyleParams.cardCollectionWidthMin
+        cellHintHeight: StyleParams.cardCollectionHeightMin
+        cellMargin: 10
 
         flow: GridView.FlowLeftToRight
         layoutDirection: Qt.LeftToRight
@@ -1030,18 +1123,59 @@ Rectangle {
         innerMouseAreaEnabled: true
 
         sourceModel: cardModel
-        filters: AllOf {
-            filters: [
-                RegExpFilter {
-                    roleName: "cardFilter"
-                    pattern: filterTextArea.text === "" ? ".*" : filterTextArea.text
-                    caseSensitivity: Qt.CaseInsensitive
-                }
-            ]
+        filterPattern: filterTextArea.text === "" ? ".*" : filterTextArea.text
+
+        function updateEnabledStateOfAll() {
+            for (let idx = 0; model.count > idx; ++idx) {
+                let sourceRow = model.mapToSource(idx);
+                let genderingCard = model.get(idx, "genderFilter");
+                let enabled = genderingCard === -1 ||
+                    deckCardModel.currentDeck.gendering === -1 ||
+                    genderingCard === deckCardModel.currentDeck.gendering;
+                cardModel.setProperty(sourceRow, "enabled", enabled);
+            }
         }
 
         onItemClicked: {
-            // TODO:
+            // get card and enabled state plus source index
+            let cardData = repository.getCard(id, setId);
+            let enabled = model.get(index, "enabled");
+            let sourceRow = model.mapToSource(index);
+
+            let nrInDeck = getNrInDeck(setId, id);
+            let max = model.get(index, "cardMax");
+
+            if (null != cardData && enabled && nrInDeck < max &&
+                null != deckCardModel.currentDeck) {
+
+                // modify the current deck
+                if (deckCardModel.currentDeck.gendering === -1) {
+                    deckCardModel.currentDeck.gendering = cardData.gendering;
+                }
+                deckCardModel.currentDeck.deck.push({"setId": setId, "id": id});
+                deckCardModel.currentDeck.deck.sort((a, b) => {
+                    const setIdCompare = cardKey(a.setId,a.id).localeCompare(cardKey(b.setId,b.id));
+                    return setIdCompare;
+                });
+                if (cardData.cardType === layout.actionType) {
+                    deckCardModel.currentDeck.numAction++;
+                } else if (cardData.cardType === layout.actionType) {
+                    deckCardModel.currentDeck.numSocial++;
+                }
+
+                // modify the item models
+                nrInDeck = getNrInDeck(setId, id);
+                cardModel.setProperty(sourceRow, "cardInDeck", nrInDeck);
+                cardModel.setProperty(sourceRow, "cardCount", ""+nrInDeck+"/"+max);
+
+                // push the card into the deck's item model
+                pushCard(addTimerDeckCards, cardData,
+                         { "cardInDeck" : 1, "cardMax": 1, "display": "" }, true);
+                addTimerDeckCards.start();
+
+                // Update enabled state of all cards
+                updateEnabledStateOfAll();
+            }
         }
 
         ScrollBar.vertical.visible: stack.depth == 2

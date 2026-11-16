@@ -30,7 +30,8 @@ const CardType = Object.freeze({
     Social:     EnumValue("Social"),
     Action:     EnumValue("Action"),
     Clothes:    EnumValue("Clothes"),
-    Blocker:    EnumValue("Blocker")
+    Blocker:    EnumValue("Blocker"),
+    Token:      EnumValue("Token")
 });
 
 const GenderType = Object.freeze({

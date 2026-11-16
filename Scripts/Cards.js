@@ -8,9 +8,10 @@ let dataToSend =
             {
                 "id": 0,
                 "name":"Testaaaaaaaa",
-                "deck": [],
+                "deck": [{"setId": "chr_0", "id": 0}],
                 "sideDeck": [],
                 "displayCard": {"setId": "chr_0", "id": 0},
+                "sets": [ "chr_0" ],
                 "gendering": -1,
                 "numSocial": 0,
                 "numAction": 0,

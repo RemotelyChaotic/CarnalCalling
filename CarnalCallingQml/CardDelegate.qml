@@ -20,6 +20,8 @@ Rectangle {
     property real zoomFactorX: width / StyleParams.cardWidthOrig
     property real zoomFactorY: height / StyleParams.cardHeightOrig
 
+    readonly property string actionType: "Action"
+    readonly property string socialType: "Social"
     readonly property string tagIcontype: "icontype"
     readonly property string tagIcontypeGender: "icontype:gender"
     readonly property string tagIcontypeRarity: "icontype:rarity"
@@ -271,17 +273,17 @@ Rectangle {
             if (null == cardData) {
                 return "";
             }
-            if ("Action" === cardData.cardType)
+            if (cardRoot.actionType === cardData.cardType)
             {
                 return "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + "HorniIcon" ;
             }
             return "";
         }
-        visible: null != cardData && "Action" === cardData.cardType
+        visible: null != cardData && cardRoot.actionType === cardData.cardType
 
         onStatusChanged: {
             if (status === Image.Error && cardRoot.unknownImage !== source &&
-                "Action" === cardData.cardType) {
+                cardRoot.actionType === cardData.cardType) {
                 source = cardRoot.unknownImage;
             }
         }
@@ -324,17 +326,17 @@ Rectangle {
             if (null == cardData) {
                 return "";
             }
-            if ("Social" === cardData.cardType)
+            if (cardRoot.socialType === cardData.cardType)
             {
                 return "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + "ComboIcon" ;
             }
             return "";
         }
-        visible: null != cardData && "Social" === cardData.cardType
+        visible: null != cardData && cardRoot.socialType === cardData.cardType
 
         onStatusChanged: {
             if (status === Image.Error && cardRoot.unknownImage !== source &&
-                "Social" === cardData.cardType) {
+                cardRoot.socialType === cardData.cardType) {
                 source = cardRoot.unknownImage;
             }
         }
@@ -423,17 +425,17 @@ Rectangle {
             if (null == cardData) {
                 return "";
             }
-            if ("Action" === cardData.cardType && cardData.bpm.value > 0)
+            if (cardRoot.actionType === cardData.cardType && cardData.bpm.value > 0)
             {
                 return "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + "MetronomeIcon" ;
             }
             return "";
         }
-        visible: null != cardData && "Action" === cardData.cardType && cardData.bpm.value > 0
+        visible: null != cardData && cardRoot.actionType === cardData.cardType && cardData.bpm.value > 0
 
         onStatusChanged: {
             if (status === Image.Error && cardRoot.unknownImage !== source &&
-                "Action" === cardData.cardType) {
+                cardRoot.actionType === cardData.cardType) {
                 source = cardRoot.unknownImage;
             }
         }
@@ -476,7 +478,7 @@ Rectangle {
             if (null == cardData) {
                 return "";
             }
-            if ("Social" === cardData.cardType)
+            if (cardRoot.socialType === cardData.cardType)
             {
                 return cardData.draw.value > 0 ?
                     "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + "DrawIcon" :
@@ -484,11 +486,11 @@ Rectangle {
             }
             return "";
         }
-        visible: null != cardData && "Social" === cardData.cardType
+        visible: null != cardData && cardRoot.socialType === cardData.cardType
 
         onStatusChanged: {
             if (status === Image.Error && cardRoot.unknownImage !== source &&
-                "Social" === cardData.cardType) {
+                cardRoot.socialType === cardData.cardType) {
                 source = cardRoot.unknownImage;
             }
         }

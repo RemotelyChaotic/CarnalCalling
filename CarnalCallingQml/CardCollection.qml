@@ -168,9 +168,12 @@ Rectangle {
 
     CardGrid {
         id: cardList
-        anchors.centerIn: parent
-        width: parent.width - StyleParams.hexWidth*3
-        height: parent.height - StyleParams.hexHeight*3
+
+        y: StyleParams.hexHeight
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: parent.width - StyleParams.hexWidth*2
+        height: parent.height - StyleParams.hexHeight*2
+
         cellWidth: StyleParams.cardCollectionWidthMin+10
         cellHeight: StyleParams.cardCollectionHeightMin+10
 

@@ -12,7 +12,6 @@ import SortFilterProxyModel 0.2
 Rectangle {
     id: layout
     color: "transparent"
-    border.color: "red"
 
     property Project currentlyLoadedProject: root.currentlyLoadedProject
     property DataRepository repository: null
@@ -355,7 +354,9 @@ Rectangle {
         y: StyleParams.hexHeight
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width - StyleParams.hexWidth*2
-        height: (parent.height - StyleParams.hexHeight*2) / (cardList.visible ? 2 : 1)
+        height: cardList.visible ?
+                    (parent.height - StyleParams.hexHeight) / 2 :
+                    (parent.height - StyleParams.hexHeight*2)
 
         pushEnter: Transition {
             PropertyAnimation {
@@ -812,15 +813,16 @@ Rectangle {
                 orientation: Qt.Vertical
                 policy: Qt.ScrollBarAlwaysOn
 
+                visible: stack.depth == 1
+
                 parent: deckList.parent
 
                 anchors.top: deckList.top
                 anchors.bottom: deckList.bottom
+                x: StyleParams.dominantHand === DominantHand.Left ?
+                    deckList.x + deckList.width + (StyleParams.hexWidth - width)/2 :
+                    deckList.x - (StyleParams.hexWidth + width)/2
                 width: StyleParams.hexWidth/3
-                anchors.left:  StyleParams.dominantHand === DominantHand.Left  ? undefined : deckList.left
-                anchors.right: StyleParams.dominantHand === DominantHand.Left  ? deckList.right : undefined
-                anchors.leftMargin:  StyleParams.dominantHand === DominantHand.Left ? 0 : -width-StyleParams.hexWidth/2
-                anchors.rightMargin: StyleParams.dominantHand === DominantHand.Left ? width+StyleParams.hexWidth/2 : 0
 
                 contentItem: Rectangle {
                     implicitWidth: parent.width - StyleParams.strokeColorHexInactiveWidth*2
@@ -942,15 +944,16 @@ Rectangle {
                 orientation: Qt.Vertical
                 policy: Qt.ScrollBarAlwaysOn
 
+                visible: stack.depth == 3
+
                 parent: deckSelectView.parent
 
                 anchors.top: deckSelectView.top
                 anchors.bottom: deckSelectView.bottom
+                x: StyleParams.dominantHand === DominantHand.Left ?
+                    deckSelectView.x + deckSelectView.width + (StyleParams.hexWidth - width)/2 :
+                    deckSelectView.x - (StyleParams.hexWidth + width)/2
                 width: StyleParams.hexWidth/3
-                anchors.left:  StyleParams.dominantHand === DominantHand.Left  ? undefined : deckSelectView.left
-                anchors.right: StyleParams.dominantHand === DominantHand.Left  ? deckSelectView.right : undefined
-                anchors.leftMargin:  StyleParams.dominantHand === DominantHand.Left ? 0 : -width-StyleParams.hexWidth/2
-                anchors.rightMargin: StyleParams.dominantHand === DominantHand.Left ? width+StyleParams.hexWidth/2 : 0
 
                 contentItem: Rectangle {
                     implicitWidth: parent.width - StyleParams.strokeColorHexInactiveWidth*2
@@ -1000,19 +1003,18 @@ Rectangle {
                 // TODO:
             }
 
-            Rectangle {
-                anchors.fill: parent
-                color: "yellow"
-            }
+            ScrollBar.vertical.visible: stack.depth == 2
         }
     }
 
     CardGrid {
         id: cardList
-        anchors.centerIn: parent
+        anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        width: parent.width - StyleParams.hexWidth*3
-        height: visible ? (parent.height - StyleParams.hexHeight*3)/2 : 0
+        width: parent.width - StyleParams.hexWidth*2
+        height: visible ? (parent.height - StyleParams.hexHeight)/2 : 0
+
+        visible: false
 
         Behavior on height {
             NumberAnimation { duration: 500; easing.type: Easing.InOutQuad }
@@ -1041,11 +1043,8 @@ Rectangle {
         onItemClicked: {
             // TODO:
         }
-    }
 
-    Rectangle {
-        anchors.fill: cardList
-        color: "red"
+        ScrollBar.vertical.visible: stack.depth == 2
     }
 
     HexButtonWithToolTip {

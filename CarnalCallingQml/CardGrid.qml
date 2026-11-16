@@ -204,11 +204,10 @@ GridView {
 
         anchors.top: cardList.top
         anchors.bottom: cardList.bottom
+        x: StyleParams.dominantHand === DominantHand.Left ?
+            cardList.x + cardList.width + (StyleParams.hexWidth - width)/2 :
+            cardList.x - (StyleParams.hexWidth + width)/2
         width: StyleParams.hexWidth/3
-        anchors.left:  StyleParams.dominantHand === DominantHand.Left  ? undefined : cardList.left
-        anchors.right: StyleParams.dominantHand === DominantHand.Left  ? cardList.right : undefined
-        anchors.leftMargin:  StyleParams.dominantHand === DominantHand.Left ? 0 : -width-StyleParams.hexWidth/2
-        anchors.rightMargin: StyleParams.dominantHand === DominantHand.Left ? width+StyleParams.hexWidth/2 : 0
 
         contentItem: Rectangle {
             implicitWidth: parent.width - StyleParams.strokeColorHexInactiveWidth*2

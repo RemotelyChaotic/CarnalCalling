@@ -112,6 +112,7 @@ Rectangle {
                                  "cardViewElems": cardView,
                                  "cardLayout": "CardDelegateBack.qml",
                                  "cardCount": 0,
+                                 "cardCountColor": StyleParams.textColorMenu,
                                  "projId": currentlyLoadedProject.id,
                                  "cardFilter": cardFilter,
                                  "orderId": cardKey(cardData.setId, cardData.id)
@@ -136,6 +137,7 @@ Rectangle {
                                  "cardViewElems": repository.getCardViewElements(card),
                                  "cardLayout": card.layout,
                                  "cardCount": cardData.count,
+                                 "cardCountColor": StyleParams.textColorMenu,
                                  "projId": currentlyLoadedProject.id,
                                  "cardFilter": cardFilter,
                                  "orderId": cardKey(cardData.setId, cardData.id)

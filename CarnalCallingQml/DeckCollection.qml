@@ -16,6 +16,10 @@ Rectangle {
     property Project currentlyLoadedProject: root.currentlyLoadedProject
     property DataRepository repository: null
 
+    property int maxInstancesOfCardInDeck: 3
+    property int minDeckSize: 10
+    property int maxDeckSize: 40
+
     property int numRows: 0
     property int numCols: 0
 
@@ -46,7 +50,7 @@ Rectangle {
             stack.pop();
         }
 
-        currentDeck = -1;
+        layout.currentDeck = -1;
         cardList.visible = false;
     }
 
@@ -193,6 +197,7 @@ Rectangle {
     {
         deckCardModel.clear();
         deckCardModel.currentDeck = deckData;
+        deckCardModel.updateDeckCount();
 
         if (null != repository && null != deckData &&
             null != deckData.deck && null != deckData.sideDeck) {
@@ -272,6 +277,8 @@ Rectangle {
                                  "cardInDeck": count.cardInDeck,
                                  "cardMax": count.cardMax,
                                  "cardCount": count.display,
+                                 "cardCountColor": count.cardInDeck >= maxInstancesOfCardInDeck ?
+                                                       StyleParams.textColorError : StyleParams.textColorMenu,
                                  "projId": currentlyLoadedProject.id,
                                  "cardFilter": cardFilter,
                                  "genderFilter": cardData.gendering,
@@ -351,6 +358,7 @@ Rectangle {
         dynamicRoles: false
 
         property var currentDeck: null
+        signal updateDeckCount();
     }
     ListModel {
         id: cardModel
@@ -1052,6 +1060,7 @@ Rectangle {
 
                     // modify the current deck
                     deckCardModel.currentDeck.deck.splice(index, 1);
+                    deckCardModel.updateDeckCount();
 
                     let newGendering = -1;
                     for (let c of deckCardModel.currentDeck.deck) {
@@ -1086,6 +1095,11 @@ Rectangle {
                         sourceRow = cardList.model.mapToSource(indexInCardModel);
                         let nrInDeck = layout.getNrInDeck(setId, id);
                         let max = cardList.model.get(indexInCardModel, "cardMax");
+                        if (layout.maxInstancesOfCardInDeck <= nrInDeck || nrInDeck >= max) {
+                            cardModel.setProperty(sourceRow, "cardCountColor", StyleParams.textColorError);
+                        } else {
+                            cardModel.setProperty(sourceRow, "cardCountColor", StyleParams.textColorMenu);
+                        }
                         cardModel.setProperty(sourceRow, "cardInDeck", nrInDeck);
                         cardModel.setProperty(sourceRow, "cardCount", ""+nrInDeck+"/"+max);
                     }
@@ -1121,6 +1135,59 @@ Rectangle {
                         }
                     }
                 }
+            }
+
+            Text {
+                id: deckCounter
+                width: parent.width
+                height: StyleParams.menuTextPonintSize + 2
+                anchors.top: parent.top
+
+                text: "" + deckCardModel.currentDeck.deck.length + "/" + layout.maxDeckSize
+
+                function updateCount()
+                {
+                    if (null != deckCardModel.currentDeck)
+                    {
+                        text = "" + deckCardModel.currentDeck.deck.length + "/" + layout.maxDeckSize;
+                        if (deckCardModel.currentDeck.deck.length < layout.minDeckSize)
+                        {
+                            color = StyleParams.textColorWarn;
+                        }
+                        else if (deckCardModel.currentDeck.deck.length >= layout.maxDeckSize)
+                        {
+                            color = StyleParams.textColorError;
+                        }
+                        else
+                        {
+                            color = StyleParams.textColorMenu;
+                        }
+                    }
+                }
+
+                font.family: null != root.currentlyLoadedProject ?
+                                 root.currentlyLoadedProject.font : "Arial"
+                font.pixelSize: StyleParams.menuTextPonintSize
+                font.hintingPreference: Font.PreferNoHinting
+
+                horizontalAlignment: StyleParams.dominantHand === DominantHand.Left ?
+                                         Text.AlignLeft : Text.AlignRight
+                verticalAlignment: Text.AlignVCenter
+                elide: Text.ElideNone
+                wrapMode: Text.WordWrap
+                color: StyleParams.textColorMenu
+                textFormat: Text.PlainText
+
+                Connections {
+                    target: deckCardModel
+                    onUpdateDeckCount: {
+                        deckCounter.updateCount();
+                    }
+                }
+            }
+
+            Component.onCompleted: {
+                deckCounter.updateCount();
             }
         }
     }
@@ -1201,7 +1268,8 @@ Rectangle {
             let max = model.get(index, "cardMax");
             let delegateType = model.get(index, "cardLayout");
 
-            if (null != cardData && enabled && nrInDeck < max &&
+            if (null != cardData && enabled &&
+                nrInDeck < max && nrInDeck < layout.maxInstancesOfCardInDeck &&
                 null != deckCardModel.currentDeck) {
 
                 let item = itemAtIndex(index);
@@ -1220,6 +1288,7 @@ Rectangle {
                     const setIdCompare = cardKey(a.setId,a.id).localeCompare(cardKey(b.setId,b.id));
                     return setIdCompare;
                 });
+                deckCardModel.updateDeckCount();
                 if (cardData.cardType === layout.actionType) {
                     deckCardModel.currentDeck.numAction++;
                 } else if (cardData.cardType === layout.actionType) {
@@ -1228,6 +1297,11 @@ Rectangle {
 
                 // modify the item models
                 nrInDeck = getNrInDeck(setId, id);
+                if (layout.maxInstancesOfCardInDeck <= nrInDeck || nrInDeck >= max) {
+                    cardModel.setProperty(sourceRow, "cardCountColor", StyleParams.textColorError);
+                } else {
+                    cardModel.setProperty(sourceRow, "cardCountColor", StyleParams.textColorMenu);
+                }
                 cardModel.setProperty(sourceRow, "cardInDeck", nrInDeck);
                 cardModel.setProperty(sourceRow, "cardCount", ""+nrInDeck+"/"+max);
 

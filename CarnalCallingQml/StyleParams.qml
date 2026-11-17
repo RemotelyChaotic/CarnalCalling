@@ -35,6 +35,8 @@ QtObject {
     readonly property int travelDuration: 3000
 
     readonly property string textColorMenu: "white"
+    readonly property string textColorWarn: "orange"
+    readonly property string textColorError: "red"
     readonly property string textOutlineColorMenu: "black"
     readonly property string placeholderTextColorMenu: "grey"
     readonly property string fillColorHexActive: "#282828"

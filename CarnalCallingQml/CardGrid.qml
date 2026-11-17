@@ -137,8 +137,8 @@ GridView {
                 verticalAlignment: Text.AlignVCenter
                 elide: Text.ElideNone
                 wrapMode: Text.WordWrap
-                color: StyleParams.textColorMenu
-                textFormat: Text.RichText
+                color: model.cardCountColor
+                textFormat: Text.PlainText
             }
         }
 

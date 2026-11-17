@@ -1051,7 +1051,7 @@ Rectangle {
                     null != deckCardModel.currentDeck) {
 
                     // modify the current deck
-                    deckCardModel.currentDeck.deck.splice(index);
+                    deckCardModel.currentDeck.deck.splice(index, 1);
 
                     let newGendering = -1;
                     for (let c of deckCardModel.currentDeck.deck) {
@@ -1064,7 +1064,7 @@ Rectangle {
 
                     if (cardData.cardType === layout.actionType) {
                         deckCardModel.currentDeck.numAction--;
-                    } else if (cardData.cardType === layout.actionType) {
+                    } else if (cardData.cardType === layout.socialType) {
                         deckCardModel.currentDeck.numSocial--;
                     }
 
@@ -1096,6 +1096,32 @@ Rectangle {
             }
 
             ScrollBar.vertical.visible: stack.depth == 2
+
+            removeDisplaced: Transition {
+                NumberAnimation {
+                    properties: "x,y"
+                    duration: 300
+                    easing.type: Easing.OutCubic
+                }
+            }
+            add: Transition {
+                SequentialAnimation {
+                    ParallelAnimation {
+                        NumberAnimation {
+                            property: "y"
+                            from: cardList.contentY + 100
+                            duration: 500
+                            easing.type: Easing.OutCubic
+                        }
+                        NumberAnimation {
+                            property: "opacity"
+                            from: 0
+                            to: 1
+                            duration: 500
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -1136,17 +1162,54 @@ Rectangle {
             }
         }
 
+        function createAndRunCardFlier(from, to, sourceSize, destSize,
+                                       parent,
+                                       delegate, card, cardViewElems,
+                                       fnToRunAfter)
+        {
+            var flyer = flyingComponent.createObject(parent, {
+                "x": from.x,
+                "y": from.y,
+                "width": sourceSize.width,
+                "height": sourceSize.height,
+                "endX": to.x,
+                "endY": to.y,
+                "endWidth": destSize.width,
+                "endHeight": destSize.height,
+                "delegate": delegate,
+                "cardData": card,
+                "cardViewElems": cardViewElems,
+                "finishFunction": fnToRunAfter
+            });
+
+            if (flyer === null) {
+                console.log(qsTr("Could not create flying delegate"));
+                return;
+            };
+
+            flyer.start();
+        }
+
         onItemClicked: {
             // get card and enabled state plus source index
             let cardData = repository.getCard(id, setId);
+            let cardView = repository.getCardViewElements(cardData);
             let enabled = model.get(index, "enabled");
             let sourceRow = model.mapToSource(index);
 
             let nrInDeck = getNrInDeck(setId, id);
             let max = model.get(index, "cardMax");
+            let delegateType = model.get(index, "cardLayout");
 
             if (null != cardData && enabled && nrInDeck < max &&
                 null != deckCardModel.currentDeck) {
+
+                let item = itemAtIndex(index);
+                let from = item.mapToItem(layout, 0.0, 0.0);
+                let to = Qt.point(stack.x, stack.y);
+                let sourceSize = Qt.size(item.width, item.height);
+                let destSize = Qt.size(StyleParams.deckBuildingWidthMin + 5,
+                                       StyleParams.deckBuildingHeightMin + 5);
 
                 // modify the current deck
                 if (deckCardModel.currentDeck.gendering === -1) {
@@ -1168,17 +1231,98 @@ Rectangle {
                 cardModel.setProperty(sourceRow, "cardInDeck", nrInDeck);
                 cardModel.setProperty(sourceRow, "cardCount", ""+nrInDeck+"/"+max);
 
-                // push the card into the deck's item model
-                pushCard(addTimerDeckCards, cardData,
-                         { "cardInDeck" : 1, "cardMax": 1, "display": "" }, true);
-                addTimerDeckCards.start();
-
                 // Update enabled state of all cards
                 updateEnabledStateOfAll();
+
+                createAndRunCardFlier(from, to, sourceSize, destSize,
+                                      layout, delegateType, cardData, cardView,
+                                      function(){
+
+                    // push the card into the deck's item model
+                    pushCard(addTimerDeckCards, cardData,
+                             { "cardInDeck" : 1, "cardMax": 1, "display": "" }, true);
+                    addTimerDeckCards.start();
+                });
             }
         }
 
         ScrollBar.vertical.visible: stack.depth == 2
+    }
+
+    // This Component is a factory, not a single reusable animation.
+    Component {
+        id: flyingComponent
+
+        Item {
+            id: flyer
+
+            width: 40
+            height: 40
+
+            property real endX: 0
+            property real endY: 0
+            property real endWidth: 0
+            property real endHeight: 0
+            property string delegate: ""
+            property var cardData: null
+            property var cardViewElems: null
+            property var finishFunction: null
+
+            function start() {
+                animation.start()
+            }
+
+            Loader {
+                anchors.fill: parent
+                source: flyer.delegate
+                asynchronous: false
+                visible: true
+
+                onLoaded: {
+                    item.currentlyLoadedProjectId = layout.currentlyLoadedProject.id
+                    item.cardData = flyer.cardData
+                    item.cardViewElems = flyer.cardViewElems
+                }
+            }
+
+            ParallelAnimation {
+                id: animation
+
+                NumberAnimation {
+                    target: flyer
+                    property: "x"
+                    to: flyer.endX
+                    duration: 600
+                    easing.type: Easing.OutCubic
+                }
+                NumberAnimation {
+                    target: flyer
+                    property: "y"
+                    to: flyer.endY
+                    duration: 600
+                    easing.type: Easing.OutCubic
+                }
+                NumberAnimation {
+                    target: flyer
+                    property: "width"
+                    to: flyer.endWidth
+                    duration: 600
+                    easing.type: Easing.OutCubic
+                }
+                NumberAnimation {
+                    target: flyer
+                    property: "height"
+                    to: flyer.endHeight
+                    duration: 600
+                    easing.type: Easing.OutCubic
+                }
+
+                onStopped: {
+                    flyer.finishFunction();
+                    flyer.destroy();
+                }
+            }
+        }
     }
 
     HexButtonWithToolTip {

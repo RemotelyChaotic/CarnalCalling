@@ -202,8 +202,8 @@ Rectangle {
                 let mapped = layout.mapToGlobal(x,y);
                 layout.showCardPreview(mapped.x,
                                        mapped.y,
-                                       StyleParams.cardCollectionWidthMin,
-                                       StyleParams.cardCollectionHeightMin,
+                                       cellHintWidth,
+                                       cellHintHeight,
                                        card,
                                        repository.getCardViewElements(card),
                                        card.layout);

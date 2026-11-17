@@ -16,6 +16,8 @@ Rectangle {
     property Project currentlyLoadedProject: root.currentlyLoadedProject
     property DataRepository repository: null
 
+    signal showCardPreview(real x, real y, real width, real height, var cardData, var cardViewElems, string source)
+
     property int maxInstancesOfCardInDeck: 3
     property int minDeckSize: 10
     property int maxDeckSize: 40
@@ -1055,6 +1057,19 @@ Rectangle {
                 let enabled = model.get(index, "enabled");
                 let sourceRow = model.mapToSource(index);
 
+                if (button === Qt.RightButton || button === Qt.MiddleButton)
+                {
+                    let mapped = stack.mapToGlobal(x,y);
+                    layout.showCardPreview(mapped.x,
+                                           mapped.y,
+                                           cellHintWidth,
+                                           cellHintHeight,
+                                           cardData,
+                                           repository.getCardViewElements(cardData),
+                                           cardData.layout);
+                    return;
+                }
+
                 if (null != cardData && enabled &&
                     null != deckCardModel.currentDeck) {
 
@@ -1264,9 +1279,22 @@ Rectangle {
             let enabled = model.get(index, "enabled");
             let sourceRow = model.mapToSource(index);
 
+            if (button === Qt.RightButton || button === Qt.MiddleButton)
+            {
+                let mapped = layout.mapToGlobal(x,y);
+                layout.showCardPreview(mapped.x,
+                                       mapped.y,
+                                       cellHintWidth,
+                                       cellHintHeight,
+                                       cardData,
+                                       cardView,
+                                       cardData.layout);
+                return;
+            }
+
             let nrInDeck = getNrInDeck(setId, id);
             let max = model.get(index, "cardMax");
-            let delegateType = model.get(index, "cardLayout");
+            let delegateType = cardData.layout;
 
             if (null != cardData && enabled &&
                 nrInDeck < max && nrInDeck < layout.maxInstancesOfCardInDeck &&

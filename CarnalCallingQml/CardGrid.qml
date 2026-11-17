@@ -35,7 +35,7 @@ GridView {
 
     property alias sourceModel: cardProxyModel.sourceModel
 
-    signal itemClicked(int index, real x, real y, string setId, int id)
+    signal itemClicked(int index, real x, real y, string setId, int id, int button)
 
     clip: true
     highlightFollowsCurrentItem: true
@@ -147,6 +147,8 @@ GridView {
             enabled: cardList.innerMouseAreaEnabled && model.enabled
             hoverEnabled: true
 
+            acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+
             onEntered: {
                 let oldX = cardList.contentX;
                 let oldY = cardList.contentY
@@ -163,7 +165,8 @@ GridView {
                                 pointInLayout.x,
                                 pointInLayout.y,
                                 model.cardData.setId,
-                                model.cardData.id);
+                                model.cardData.id,
+                                mouse.button);
                 }
             }
         }

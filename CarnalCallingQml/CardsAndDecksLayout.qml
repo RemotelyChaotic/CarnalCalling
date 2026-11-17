@@ -79,6 +79,18 @@ Rectangle {
             numCols: gridWrapper.numCols
 
             repository: repositoryLoader
+
+            onShowCardPreview: {
+                let mapped = layout.mapFromGlobal(x,y);
+                previewDelegate.x = mapped.x;
+                previewDelegate.y = mapped.y;
+                previewDelegate.width = width;
+                previewDelegate.height = height;
+                previewDelegate.cardData = cardData;
+                previewDelegate.cardViewElems = cardViewElems;
+                previewDelegate.source = source;
+                previewDelegate.show();
+            }
         }
         CardCollection {
             id: cards

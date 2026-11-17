@@ -68,18 +68,6 @@ Rectangle {
             gradientRendering: false
         }
 
-        /*
-        Rectangle {
-            id: debugRenderer
-            x: hexBg.x
-            y: hexBg.y
-            width: parent.width - hexBg.x *2
-            height: parent.height - hexBg.y *2
-            color: "transparent"
-            border.color: "blue"
-        }
-        */
-
         DeckCollection {
             id: decks
             x: gridWrapper.offsetX
@@ -102,8 +90,49 @@ Rectangle {
             numRows: gridWrapper.numRows
             numCols: gridWrapper.numCols
 
+            innerMouseAreaEnabled: !previewDelegate.visible
+
             repository: repositoryLoader
+
+            onShowCardPreview: {
+                let mapped = layout.mapFromGlobal(x,y);
+                previewDelegate.x = mapped.x;
+                previewDelegate.y = mapped.y;
+                previewDelegate.width = width;
+                previewDelegate.height = height;
+                previewDelegate.cardData = cardData;
+                previewDelegate.cardViewElems = cardViewElems;
+                previewDelegate.source = source;
+                previewDelegate.show();
+            }
         }
+    }
+
+    Rectangle {
+        id: overlayRect
+        anchors.fill: parent
+        color: "#88000000"
+        opacity: previewDelegate.visible ? 1.0 : 0.0
+        Behavior on opacity {
+            NumberAnimation { duration: 300; easing.type: Easing.InOutQuad }
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            enabled: previewDelegate.visible
+            onClicked: {
+                previewDelegate.visible = false;
+            }
+        }
+    }
+
+    CardPreviewRender {
+        id: previewDelegate
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+        currentlyLoadedProject: layout.currentlyLoadedProject.id
     }
 
     CCPlayerNotification {

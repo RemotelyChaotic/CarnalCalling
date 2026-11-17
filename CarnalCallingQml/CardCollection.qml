@@ -19,10 +19,14 @@ Rectangle {
     property int numRows: 0
     property int numCols: 0
 
+    property alias innerMouseAreaEnabled: cardList.innerMouseAreaEnabled
+
     property bool canToggleOnlyOwned: true
     readonly property var genderStrings: [ "None", "Male", "Female", "Herm"]
 
     visible: false
+
+    signal showCardPreview(real x, real y, real width, real height, var cardData, var cardViewElems, string source)
 
     function cardKey(setId, id)
     {
@@ -186,43 +190,23 @@ Rectangle {
         layoutDirection: Qt.LeftToRight
         verticalLayoutDirection: GridView.TopToBottom
 
-        innerMouseAreaEnabled: !previewDelegate.visible
+        innerMouseAreaEnabled: true
 
         sourceModel: cardModel
         filterPattern: filterTextArea.text === "" ? ".*" : filterTextArea.text
         onlyShowNonZeroCount: showOnlyOwnedButtonCheckable.checked
 
         onItemClicked: {
-            previewDelegate.x = x;
-            previewDelegate.y = y;
-            previewDelegate.width = StyleParams.cardCollectionWidthMin;
-            previewDelegate.height = StyleParams.cardCollectionHeightMin;
-
             let card = repository.getCard(id, setId);
             if (null != card) {
-                previewDelegate.cardData = card;
-                previewDelegate.cardViewElems = repository.getCardViewElements(card);
-                previewDelegate.source = card.layout;
-            }
-
-            previewDelegate.show();
-        }
-    }
-
-    Rectangle {
-        id: overlayRect
-        anchors.fill: parent
-        color: "#88000000"
-        opacity: previewDelegate.visible ? 1.0 : 0.0
-        Behavior on opacity {
-            NumberAnimation { duration: 300; easing.type: Easing.InOutQuad }
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            enabled: previewDelegate.visible
-            onClicked: {
-                previewDelegate.visible = false;
+                let mapped = layout.mapToGlobal(x,y);
+                layout.showCardPreview(mapped.x,
+                                       mapped.y,
+                                       StyleParams.cardCollectionWidthMin,
+                                       StyleParams.cardCollectionHeightMin,
+                                       card,
+                                       repository.getCardViewElements(card),
+                                       card.layout);
             }
         }
     }
@@ -308,14 +292,5 @@ Rectangle {
 
         checkable: true
         visible: layout.canToggleOnlyOwned
-    }
-
-    CardPreviewRender {
-        id: previewDelegate
-        x: 0
-        y: 0
-        width: 0
-        height: 0
-        currentlyLoadedProject: layout.currentlyLoadedProject.id
     }
 }

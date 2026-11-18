@@ -139,6 +139,13 @@ Item {
                 "resource": null
             }
         },
+        "icontype:Token": {
+            "None": {
+                "name": "CardIconBlocker",
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconBlocker",
+                "resource": null
+            }
+        },
         "icontype:gender": {
             "-1": {
                 "name": "GenderIconNone",

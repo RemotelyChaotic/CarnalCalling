@@ -145,6 +145,8 @@ Rectangle {
         width: 0
         height: 0
         currentlyLoadedProject: layout.currentlyLoadedProject.id
+
+        repository: repositoryLoader
     }
 
     CCPlayerNotification {

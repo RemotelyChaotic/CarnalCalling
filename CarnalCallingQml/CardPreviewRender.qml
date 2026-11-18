@@ -3,6 +3,7 @@ import QtQuick.Controls 2.14
 import QtGraphicalEffects 1.14
 import JOIP.core 1.5
 import JoipEngine 1.3
+import CarnalCallingQml 1.0
 
 Rectangle {
     id: previewDelegate
@@ -14,6 +15,7 @@ Rectangle {
     visible: false
 
     property int currentlyLoadedProject : -1
+    property DataRepository repository: null
 
     property real intendedWidth: origW * scale
     property real intendedHeight: origH * scale
@@ -61,8 +63,8 @@ Rectangle {
             }
         }
         ParallelAnimation {
-            NumberAnimation { target: previewDelegate; property: "x"; to: layout.width/2-previewDelegate.intendedWidth/2; duration: 300 }
-            NumberAnimation { target: previewDelegate; property: "y"; to: layout.height/2-previewDelegate.intendedHeight/2; duration: 300 }
+            NumberAnimation { target: previewDelegate; property: "x"; to: previewDelegate.parent.width/2-previewDelegate.intendedWidth/2; duration: 300 }
+            NumberAnimation { target: previewDelegate; property: "y"; to: previewDelegate.parent.height/2-previewDelegate.intendedHeight/2; duration: 300 }
             NumberAnimation { target: previewDelegate; property: "width"; to: previewDelegate.intendedWidth; duration: 300 }
             NumberAnimation { target: previewDelegate; property: "height"; to: previewDelegate.intendedHeight; duration: 300 }
         }
@@ -73,6 +75,32 @@ Rectangle {
                 cardTextureBack.width = previewDelegate.width;
                 cardTextureBack.height = previewDelegate.height;
                 previewDelegate.animationFinished = true;
+
+                if (null != cardData) {
+                    keywords.showWith(cardData.tags);
+                }
+            }
+        }
+    }
+
+    KeywordsList {
+        id: keywords
+        x: StyleParams.dominantHand === DominantHand.Left ?
+            width + 5 : -width - 5
+        anchors.verticalCenter: parent.verticalCenter
+        width: StyleParams.toolTipWidth
+        height: Math.min(parent.height - 20, model.count * toolTipHeight)
+        toolTipHeight: StyleParams.toolTipHeight
+        visible: false
+
+        repository: previewDelegate.repository
+
+        Connections {
+            target: previewDelegate
+            onVisibleChanged: {
+                if (!previewDelegate.visible) {
+                    keywords.hide();
+                }
             }
         }
     }

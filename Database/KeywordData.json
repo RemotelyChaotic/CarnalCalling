@@ -1,0 +1,22 @@
+{
+  "Keywords": [
+    {
+      "id": "reshuffle",
+      "name": "Re-Shuffle",
+      "image": "ReshuffleIconNoBorder",
+      "text": "Shuffle the deck and discard pile back into your deck."
+    },
+    {
+      "id": "scry",
+      "name": "Scry",
+      "image": "ScryIconNoBorder",
+      "text": "Look at the top X cards of the deck and put any number of them on the bottom in any order, and put the rest back on top in any order."
+    },
+    {
+      "id": "tutor",
+      "name": "Tutor",
+      "image": "TutorIconNoBorder",
+      "text": "Look for X cards in your deck matching given criteria and add them to your hand, then shuffle the deck."
+    }
+  ]
+}

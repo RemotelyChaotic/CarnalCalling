@@ -11,6 +11,7 @@ Item {
     property var packs: null
     property var imageData: null
     property var iconImages: null
+    property var keywordData: null
 
     readonly property string tagCard: "card"
     readonly property string tagLayer: "layer"
@@ -409,5 +410,17 @@ Item {
 
         iconImages = locIconData;
         //console.log(JSON.stringify(iconImages))
+
+        let localKeywords = root.evaluate("localStorage.load('keywordData')").Keywords;
+        let keywordsProcessed = {};
+        for (let keyword of localKeywords) {
+            keywordsProcessed[keyword.id] = {
+                "name": keyword.name,
+                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + keyword.image,
+                "text": keyword.text
+            };
+        }
+
+        keywordData = keywordsProcessed;
     }
 }

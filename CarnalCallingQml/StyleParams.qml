@@ -18,6 +18,8 @@ QtObject {
     readonly property int cardDescTextPonintSize: 50
     readonly property int cardCreditsTextPonintSize: 40
     readonly property int cardCountPonintSize: 12
+    readonly property int toolTipTitleSize: 16
+    readonly property int toolTipPonintSize: 12
 
     readonly property real cardWidthOrig: 1080
     readonly property real cardHeightOrig: 1920
@@ -29,6 +31,9 @@ QtObject {
     readonly property real deckCollectionHeightMin: isMobile ? 192 : 288
     readonly property real deckCollectionGenderWidth: isMobile ? 33 : 50
     readonly property real deckCollectionGenderHeight: isMobile ? 33 : 50
+    readonly property real toolTipHeight: isMobile ? 200 : 200
+    readonly property real toolTipWidth: isMobile ? 150 : 150
+    readonly property real toolTiptitleHeight: 20
 
     readonly property int placeWidth: 50
     readonly property int placeHeight: 50

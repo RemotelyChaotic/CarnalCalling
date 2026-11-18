@@ -1296,6 +1296,26 @@
             ]
         },
         {
+            "sName": "KeywordData.json",
+            "sPath": "pfs:Database/KeywordData.json",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "json",
+            "type": 5,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "KeywordsList.qml",
+            "sPath": "pfs:CarnalCallingQml/KeywordsList.qml",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "qml",
+            "type": 7,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "MapData.json",
             "sPath": "pfs:Database/MapData.json",
             "sResourceBundle": "",

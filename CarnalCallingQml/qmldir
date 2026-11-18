@@ -22,4 +22,5 @@ HexGridRenderer 1.0 HexGridRenderer.qml
 PackDelegate 1.0 PackDelegate.qml
 PacksView 1.0 PacksView.qml
 PlayerMap 1.0 PlayerMap.qml
+KeywordsList 1.0 KeywordsList.qml
 WorldMapLayout 1.0 WorldMapLayout.qml

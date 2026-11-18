@@ -8,7 +8,6 @@ import JOIP.core 1.5
 import CarnalCallingQml 1.0
 import SortFilterProxyModel 0.2
 
-
 GridView {
     id: cardList
     width: parent.width - StyleParams.hexWidth*3

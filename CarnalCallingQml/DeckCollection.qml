@@ -1029,6 +1029,16 @@ Rectangle {
         }
     }
 
+    Item {
+        id: deckCardListViewProps
+        property real cellHintWidth: StyleParams.deckBuildingWidthMin
+        property real cellHintHeight: StyleParams.deckBuildingHeightMin
+        property real cellMargin: 5
+
+        property real cellWidth: cellHintWidth + cellMargin
+        property real cellHeight: cellHintHeight + cellMargin
+    }
+
     Component {
         id: deckCardListView
 
@@ -1037,9 +1047,9 @@ Rectangle {
             width: stack.width
             height: stack.height
 
-            cellHintWidth: StyleParams.deckBuildingWidthMin
-            cellHintHeight: StyleParams.deckBuildingHeightMin
-            cellMargin: 5
+            cellHintWidth: deckCardListViewProps.cellHintWidth
+            cellHintHeight: deckCardListViewProps.cellHintHeight
+            cellMargin: deckCardListViewProps.cellMargin
 
             flow: GridView.FlowLeftToRight
             layoutDirection: Qt.LeftToRight
@@ -1131,6 +1141,18 @@ Rectangle {
                     properties: "x,y"
                     duration: 300
                     easing.type: Easing.OutCubic
+                }
+            }
+            displaced: Transition {
+                NumberAnimation {
+                    properties: "x,y"
+                    duration: 300
+                    easing.type: Easing.OutQuad
+                }
+                NumberAnimation {
+                    properties: "opacity"
+                    to: 1.0
+                    duration: 300
                 }
             }
             add: Transition {
@@ -1302,7 +1324,8 @@ Rectangle {
 
                 let item = itemAtIndex(index);
                 let from = item.mapToItem(layout, 0.0, 0.0);
-                let to = Qt.point(stack.x, stack.y);
+                let to = Qt.point(stack.x, stack.y); // default top left corner
+
                 let sourceSize = Qt.size(item.width, item.height);
                 let destSize = Qt.size(StyleParams.deckBuildingWidthMin + 5,
                                        StyleParams.deckBuildingHeightMin + 5);
@@ -1316,6 +1339,31 @@ Rectangle {
                     const setIdCompare = cardKey(a.setId,a.id).localeCompare(cardKey(b.setId,b.id));
                     return setIdCompare;
                 });
+
+                // search for index in sorted list
+                let indexInDeck = -1;
+                for (let i = deckCardModel.currentDeck.deck.length-1; 0 <= i; --i) {
+                    if (deckCardModel.currentDeck.deck[i].id === id &&
+                        deckCardModel.currentDeck.deck[i].setId === setId) {
+                        indexInDeck = i;
+                        break;
+                    }
+                }
+                // get the position of the item to be inserted
+                if (-1 !== indexInDeck) {
+                    let columns = Math.floor(stack.width / deckCardListViewProps.cellWidth)
+                    let column = indexInDeck % columns;
+                    let row = Math.floor(indexInDeck / columns);
+                    let xl = column * deckCardListViewProps.cellWidth;
+                    let yl = row * deckCardListViewProps.cellHeight;
+                    // assume stack has the deck grid pushed on top
+                    xl -= stack.currentItem.contentX;
+                    yl -= stack.currentItem.contentY;
+                    xl = Math.max(0, Math.min(xl, stack.width));
+                    yl = Math.max(0, Math.min(yl, stack.height));
+                    to = stack.mapToItem(layout, xl, yl);
+                }
+
                 deckCardModel.updateDeckCount();
                 if (cardData.cardType === layout.actionType) {
                     deckCardModel.currentDeck.numAction++;

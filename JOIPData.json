@@ -1066,6 +1066,26 @@
             ]
         },
         {
+            "sName": "EdgeIcon",
+            "sPath": "pfs:Images/CardGame/Icons/EdgeIcon.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "EdgeIconNoBorder",
+            "sPath": "pfs:Images/CardGame/Icons/EdgeIconNoBorder.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "FogOfWar.qml",
             "sPath": "pfs:CarnalCallingQml/FogOfWar.qml",
             "sResourceBundle": "",

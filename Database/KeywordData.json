@@ -1,6 +1,72 @@
 {
   "Keywords": [
     {
+      "id": "action_changeling",
+      "name": "Action",
+      "image": "CardIconActionChangeling",
+      "text": "An action card usually for increasing the partner's arousal."
+    },
+    {
+      "id": "arousal",
+      "name": "Arousal",
+      "image": "HorniIconNoBorder",
+      "text": "If arousal reaches maximum and no edges are left, the date is over."
+    },
+    {
+      "id": "blocker_changeling",
+      "name": "Blocker",
+      "image": "CardIconBlocker",
+      "text": "Blocker type card. Provides a usually negative effect while in hand."
+    },
+    {
+      "id": "clothing",
+      "name": "Clothing",
+      "image": "CardIconClothes",
+      "text": "Clothing type card. Remains active in the slot until explicitely discarded by an effect or overwritten."
+    },
+    {
+      "id": "combo",
+      "name": "Combo",
+      "image": "ComboIconNoBorder",
+      "text": "Increase combo by X. Each combo adds a 50% gain to arousal."
+    },
+    {
+      "id": "discard",
+      "name": "Discard",
+      "image": "DiscardIconNoBorder",
+      "text": "Discard X number of cards from hand to the discard pile if possible."
+    },
+    {
+      "id": "draw",
+      "name": "Draw",
+      "image": "DrawIconNoBorder",
+      "text": "Draw X number of cards. If the draw pile is empty, reshuffle once first."
+    },
+    {
+      "id": "edge",
+      "name": "Edge",
+      "image": "EdgeIconNoBorder",
+      "text": "If arousal reaches maximum an instance of edge is consumed."
+    },
+    {
+      "id": "female",
+      "name": "Female",
+      "image": "GenderIconFemaleNoBorder",
+      "text": "Female gendered card or effect."
+    },
+    {
+      "id": "male",
+      "name": "Male",
+      "image": "GenderIconMaleNoBorder",
+      "text": "Male gendered card or effect."
+    },
+    {
+      "id": "no_gender",
+      "name": "No Gender",
+      "image": "GenderIconNoneNoBorder",
+      "text": "Not gendered card or effect."
+    },
+    {
       "id": "reshuffle",
       "name": "Re-Shuffle",
       "image": "ReshuffleIconNoBorder",
@@ -11,6 +77,18 @@
       "name": "Scry",
       "image": "ScryIconNoBorder",
       "text": "Look at the top X cards of the deck and put any number of them on the bottom in any order, and put the rest back on top in any order."
+    },
+    {
+      "id": "shemale",
+      "name": "Shemale",
+      "image": "GenderIconShemaleNoBorder",
+      "text": "Shemale gendered card or effect."
+    },
+    {
+      "id": "social_changeling",
+      "name": "Social",
+      "image": "CardIconSocal",
+      "text": "A social card usually for combos and drawing cards."
     },
     {
       "id": "tutor",

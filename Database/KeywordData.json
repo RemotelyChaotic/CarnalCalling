@@ -19,6 +19,12 @@
       "text": "Blocker type card. Provides a usually negative effect while in hand."
     },
     {
+      "id": "bpm",
+      "name": "Beats Per Minute",
+      "image": "MetronomeIconNoBorder",
+      "text": "The beats per minute X the metronome is set to for the duration of the effect."
+    },
+    {
       "id": "clothing",
       "name": "Clothing",
       "image": "CardIconClothes",
@@ -85,10 +91,70 @@
       "text": "Shemale gendered card or effect."
     },
     {
+      "id": "slot_ass",
+      "name": "Ass Slot",
+      "image": "CardIconActionAssSecondary",
+      "text": "Slot for cards targeting the anus."
+    },
+    {
+      "id": "slot_chest",
+      "name": "Chest Slot",
+      "image": "CardIconActionChestSecondary",
+      "text": "Slot for cards targeting the chest."
+    },
+    {
+      "id": "slot_face",
+      "name": "Face Slot",
+      "image": "CardIconActionFaceSecondary",
+      "text": "Slot for cards targeting the chest."
+    },
+    {
+      "id": "slot_genitals",
+      "name": "Genital Slot",
+      "image": "CardIconActionGenitalsSecondary",
+      "text": "Slot for cards targeting the penis or vagina."
+    },
+    {
+      "id": "slot_hooves",
+      "name": "Hooves Slot",
+      "image": "CardIconActionHoofSecondary",
+      "text": "Slot for cards targeting the hooves."
+    },
+    {
+      "id": "slot_horn",
+      "name": "Horn Slot",
+      "image": "CardIconActionHornSecondary",
+      "text": "Slot for cards targeting the horn."
+    },
+    {
+      "id": "slot_mouth",
+      "name": "Mouth Slot",
+      "image": "CardIconActionMouthSecondary",
+      "text": "Slot for cards targeting the mouth."
+    },
+    {
+      "id": "slot_nipple",
+      "name": "Nipple Slot",
+      "image": "CardIconActionNippleSecondary",
+      "text": "Slot for cards targeting the nipples."
+    },
+    {
+      "id": "slot_wing",
+      "name": "Wing Slot",
+      "image": "CardIconActionWingSecondary",
+      "text": "Slot for cards targeting the wings."
+    },
+    {
       "id": "social_changeling",
       "name": "Social",
       "image": "CardIconSocal",
       "text": "A social card usually for combos and drawing cards."
+    },
+    {
+      "id": "timeout",
+      "name": "Timeout",
+      "image": "TimeIconNoBorder",
+      "text": "X seconds of delay before a card of the given type can be played."
     },
     {
       "id": "tutor",

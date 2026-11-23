@@ -120,35 +120,6 @@ Rectangle {
         }
     }
 
-    Rectangle {
-        id: overlayRect
-        anchors.fill: parent
-        color: "#88000000"
-        opacity: previewDelegate.visible ? 1.0 : 0.0
-        Behavior on opacity {
-            NumberAnimation { duration: 300; easing.type: Easing.InOutQuad }
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            enabled: previewDelegate.visible
-            onClicked: {
-                previewDelegate.visible = false;
-            }
-        }
-    }
-
-    CardPreviewRender {
-        id: previewDelegate
-        x: 0
-        y: 0
-        width: 0
-        height: 0
-        currentlyLoadedProject: layout.currentlyLoadedProject.id
-
-        repository: repositoryLoader
-    }
-
     CCPlayerNotification {
         id: notificationRect
 
@@ -178,6 +149,35 @@ Rectangle {
                 break;
             }
         }
+    }
+
+    Rectangle {
+        id: overlayRect
+        anchors.fill: parent
+        color: "#88000000"
+        opacity: previewDelegate.visible ? 1.0 : 0.0
+        Behavior on opacity {
+            NumberAnimation { duration: 300; easing.type: Easing.InOutQuad }
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            enabled: previewDelegate.visible
+            onClicked: {
+                previewDelegate.visible = false;
+            }
+        }
+    }
+
+    CardPreviewRender {
+        id: previewDelegate
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+        currentlyLoadedProject: layout.currentlyLoadedProject.id
+
+        repository: repositoryLoader
     }
 
     CCPlayerTextBox {
@@ -214,14 +214,21 @@ Rectangle {
         hideButton.visible: false
 
         exitButtonText: qsTr("Back")
+        exitButtonImage: StyleParams.backButton
+        exitButtonImageHovered: StyleParams.backHoverButton
 
         quit: function()
         {
-            if (decks.depth > 1) {
-                decks.popStack();
+            if (previewDelegate.visible) {
+                previewDelegate.visible = false;
             }
             else {
-                eventReceiver.sendEventResponse("cardEvent", "");
+                if (decks.depth > 1) {
+                    decks.popStack();
+                }
+                else {
+                    eventReceiver.sendEventResponse("cardEvent", "");
+                }
             }
         }
 

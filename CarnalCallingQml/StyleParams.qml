@@ -82,6 +82,8 @@ QtObject {
     readonly property string inVisibleHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonInvisibleHover"
     readonly property string devicesButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonPlug"
     readonly property string devicesHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonPlugHover"
+    readonly property string backButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonBack"
+    readonly property string backHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonBackHover"
     readonly property string exitButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonExit"
     readonly property string exitHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonExitHover"
     readonly property string searchButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonSearch"

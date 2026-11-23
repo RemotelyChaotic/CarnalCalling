@@ -59,6 +59,26 @@
             ]
         },
         {
+            "sName": "ButtonBack",
+            "sPath": "pfs:Images/Icons/ButtonBack.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "ButtonBackHover",
+            "sPath": "pfs:Images/Icons/ButtonBackHover.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "ButtonCards",
             "sPath": "pfs:Images/Icons/ButtonCards.svg",
             "sResourceBundle": "",

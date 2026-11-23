@@ -22,6 +22,8 @@ Rectangle {
     property alias hideButton: hideButtonLoader
 
     property string exitButtonText: qsTr("Exit tease")
+    property string exitButtonImage: StyleParams.exitButton
+    property string exitButtonImageHovered: StyleParams.exitHoverButton
 
     signal setUiVisible(bool visible)
 
@@ -146,7 +148,7 @@ Rectangle {
             property string shortcut: Settings.keyBinding("Exit")
             property string toolTipText: sceneControl.exitButtonText
             property string imageSource:
-                item.hovered ? StyleParams.exitHoverButton : StyleParams.exitButton
+                item.hovered ? sceneControl.exitButtonImageHovered : sceneControl.exitButtonImage
 
             Layout.preferredHeight: sceneControl.buttonHeight
             Layout.preferredWidth: sceneControl.buttonWidth

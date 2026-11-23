@@ -13,6 +13,7 @@ const RarityType = Object.freeze({
     Common:     EnumValue("Common"),
     Uncommon:   EnumValue("Uncommon"),
     Rare:       EnumValue("Rare"),
+    Epic:       EnumValue("Epic"),
     Mythic:     EnumValue("Mythic")
 });
 

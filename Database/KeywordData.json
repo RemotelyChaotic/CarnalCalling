@@ -147,7 +147,8 @@
     {
       "id": "social_changeling",
       "name": "Social",
-      "image": "CardIconSocal",
+      "image": "CardIconSocalChangeling
+      ",
       "text": "A social card usually for combos and drawing cards."
     },
     {

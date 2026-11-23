@@ -22,13 +22,6 @@ Item {
     readonly property string tagStyle: "style"
 
     readonly property var commonIconSets : {
-        "icontype:Social": {
-            "None": {
-                "name": "CardIconSocal",
-                "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "CardIconSocal",
-                "resource": null
-            }
-        },
         "icontype:Secondary": {
             "None": {
                 "name": "CardIconAction",
@@ -335,7 +328,11 @@ Item {
                     sType = sTag;
                 }
                 if (styleTags.find((t) => t === sTag) != null) {
-                    sStyle = sTag;
+                    if ("" === sStyle) {
+                        sStyle = sTag;
+                    } else {
+                        sStyle += ";" + sTag;
+                    }
                 } else if (tagStyle + ":-1" === sTag) {
                     sStyle = sTag;
                 }
@@ -360,9 +357,12 @@ Item {
                     "resource": resurce
                 };
 
+                let styles = sStyle.split(";");
                 if (tagBack === sType) {
                     if (tagStyle + ":-1" !== sStyle) {
-                        locImageData[sCardType][sType][sStyle].push(objToPush);
+                        for (let i = 0; i < styles.length; ++i) {
+                            locImageData[sCardType][sType][styles[i]].push(objToPush);
+                        }
                     } else {
                         for (const sStyleA of styleTags) {
                             locImageData[sCardType][sType][sStyleA].push(objToPush);
@@ -371,7 +371,9 @@ Item {
                 } else {
                     objToPush["layer"] = sLayer;
                     if (tagStyle + ":-1" !== sStyle) {
-                        locImageData[sCardType][sType][sStyle][sLayer].push(objToPush);
+                        for (let i = 0; i < styles.length; ++i) {
+                            locImageData[sCardType][sType][styles[i]][sLayer].push(objToPush);
+                        }
                     } else {
                         for (const sStyleA of styleTags) {
                             locImageData[sCardType][sType][sStyleA][sLayer].push(objToPush);

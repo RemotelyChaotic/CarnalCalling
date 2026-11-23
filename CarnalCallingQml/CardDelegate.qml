@@ -127,6 +127,51 @@ Rectangle {
         }
     }
 
+    // icons and stats
+    Image {
+        id: cardTypeLayer
+        x: (cardRoot.width - width) / 2
+        y: 900 * zoomFactorY
+        width: 300 * zoomFactorX
+        height: 300 * zoomFactorY
+
+        asynchronous: true
+        smooth: Settings.playerImageSmooth
+        antialiasing: Settings.playerAntialiasing
+        mipmap: Settings.playerImageMipMap
+        source: null != cardViewElems ?
+                    cardViewElems.icons[cardRoot.tagIcontype + ":" + cardData.cardType][cardData.slot].image :
+                    ""
+
+        onStatusChanged: {
+            if (status === Image.Error && cardRoot.unknownImage !== source) {
+                source = cardRoot.unknownImage;
+            }
+        }
+
+        Image {
+            id: cardSlotSecondaryLayer
+            anchors.right: parent.right
+            anchors.top: parent.top
+            width: 150 * zoomFactorX
+            height: 150 * zoomFactorY
+
+            asynchronous: true
+            smooth: Settings.playerImageSmooth
+            antialiasing: Settings.playerAntialiasing
+            mipmap: Settings.playerImageMipMap
+            source: null != cardViewElems ?
+                        cardViewElems.icons[cardRoot.tagIcontypeSecondarySlot][cardData.secondarySlot].image :
+                        ""
+
+            onStatusChanged: {
+                if (status === Image.Error && cardRoot.unknownImage !== source) {
+                    source = cardRoot.unknownImage;
+                }
+            }
+        }
+    }
+
     Image {
         id: topLayer
         anchors.fill: parent
@@ -141,6 +186,7 @@ Rectangle {
             }
 
             const layer = cardViewElems.layers.find((l) => l.layer === tagLayer + ":" + 2);
+            console.log(JSON.stringify(layer))
             if (null != layer) {
                 return layer.image;
             }
@@ -190,8 +236,8 @@ Rectangle {
     Text {
         id: description
         anchors.horizontalCenter: parent.horizontalCenter
-        y: 1040 * zoomFactorY
-        height: 650 * zoomFactorY
+        y: 1160 * zoomFactorY
+        height: 500 * zoomFactorY
         width: parent.width - 2 * 100 * zoomFactorX
         // &nbsp; needed so the text layouts correctly, even if an image tag appears first
         // This is a workaround for a known Qt bug.
@@ -214,50 +260,6 @@ Rectangle {
         textFormat: Text.RichText
     }
 
-    // icons and stats
-    Image {
-        id: cardTypeLayer
-        x: 20 * zoomFactorX
-        y: 20 * zoomFactorY
-        width: 300 * zoomFactorX
-        height: 300 * zoomFactorY
-
-        asynchronous: true
-        smooth: Settings.playerImageSmooth
-        antialiasing: Settings.playerAntialiasing
-        mipmap: Settings.playerImageMipMap
-        source: null != cardViewElems ?
-                    cardViewElems.icons[cardRoot.tagIcontype + ":" + cardData.cardType][cardData.slot].image :
-                    ""
-
-        onStatusChanged: {
-            if (status === Image.Error && cardRoot.unknownImage !== source) {
-                source = cardRoot.unknownImage;
-            }
-        }
-
-        Image {
-            id: cardSlotSecondaryLayer
-            anchors.right: parent.right
-            anchors.bottom: parent.bottom
-            width: 150 * zoomFactorX
-            height: 150 * zoomFactorY
-
-            asynchronous: true
-            smooth: Settings.playerImageSmooth
-            antialiasing: Settings.playerAntialiasing
-            mipmap: Settings.playerImageMipMap
-            source: null != cardViewElems ?
-                        cardViewElems.icons[cardRoot.tagIcontypeSecondarySlot][cardData.secondarySlot].image :
-                        ""
-
-            onStatusChanged: {
-                if (status === Image.Error && cardRoot.unknownImage !== source) {
-                    source = cardRoot.unknownImage;
-                }
-            }
-        }
-    }
     Image {
         id: statsLayerActionDamage
         x: parent.width - 245 * zoomFactorX
@@ -366,8 +368,8 @@ Rectangle {
     }
     Image {
         id: timingInfoLayer
-        x: parent.width - 85 * zoomFactorX - width
-        y: parent.height - 85 * zoomFactorY - height
+        x: 85 * zoomFactorX
+        y: 85 * zoomFactorY
         width: 155 * zoomFactorX
         height: 155 * zoomFactorY
 
@@ -412,8 +414,8 @@ Rectangle {
     }
     Image {
         id: statsLayerBpm
-        x: parent.width - 60 * zoomFactorX - width
-        y: parent.height - 350 * zoomFactorY
+        x: 60 * zoomFactorX
+        y: 350 * zoomFactorY - height
         width: 77.5 * zoomFactorX
         height: 77.5 * zoomFactorY
 
@@ -441,7 +443,7 @@ Rectangle {
         }
 
         Text {
-            x: -width
+            x: parent.width
             y: 0
             width: 77.5 * zoomFactorX
             height: parent.height
@@ -466,7 +468,7 @@ Rectangle {
     Image {
         id: statsLayerSocial
         x: parent.width - 60 * zoomFactorX - width
-        y: (350-77.5) * zoomFactorY
+        y: 350 * zoomFactorY - height
         width: 77.5 * zoomFactorX
         height: 77.5 * zoomFactorY
 

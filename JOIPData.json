@@ -681,6 +681,10 @@
             "sSubType": "svg",
             "type": 0,
             "vsResourceTags": [
+                "Action:Wing",
+                "card:changeling",
+                "icontype:Action",
+                "type:icon"
             ]
         },
         {
@@ -825,6 +829,20 @@
             ]
         },
         {
+            "sName": "CardIconSocalChangeling",
+            "sPath": "pfs:Images/CardGame/Changeling/CardIconSocalChangeling.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+                "Social:None",
+                "card:changeling",
+                "icontype:Social",
+                "type:icon"
+            ]
+        },
+        {
             "sName": "CardPreviewRender.qml",
             "sPath": "pfs:CarnalCallingQml/CardPreviewRender.qml",
             "sResourceBundle": "",
@@ -882,8 +900,8 @@
             ]
         },
         {
-            "sName": "ChangelingCardFrontOverlay1",
-            "sPath": "pfs:Images/CardGame/Changeling/ChangelingCardFrontOverlay1.png",
+            "sName": "ChangelingCardFrontOverlay1_a",
+            "sPath": "pfs:Images/CardGame/Changeling/ChangelingCardFrontOverlay1_a.png",
             "sResourceBundle": "",
             "sSource": "",
             "sSubType": "png",
@@ -892,6 +910,20 @@
                 "card:changeling",
                 "layer:1",
                 "style:0",
+                "type:front"
+            ]
+        },
+        {
+            "sName": "ChangelingCardFrontOverlay1_b",
+            "sPath": "pfs:Images/CardGame/Changeling/ChangelingCardFrontOverlay1_b.png",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "png",
+            "type": 0,
+            "vsResourceTags": [
+                "card:changeling",
+                "layer:1",
+                "style:1",
                 "type:front"
             ]
         },
@@ -906,6 +938,7 @@
                 "card:changeling",
                 "layer:2",
                 "style:0",
+                "style:1",
                 "type:front"
             ]
         },
@@ -920,6 +953,20 @@
                 "card:changeling",
                 "icontype:rarity",
                 "rarity:Common",
+                "type:icon"
+            ]
+        },
+        {
+            "sName": "ChangelingEpic",
+            "sPath": "pfs:Images/CardGame/Changeling/ChangelingEpic.png",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "png",
+            "type": 0,
+            "vsResourceTags": [
+                "card:changeling",
+                "icontype:rarity",
+                "rarity:Epic",
                 "type:icon"
             ]
         },
@@ -1661,6 +1708,16 @@
             "sType": "action"
         },
         {
+            "sDescribtion": "",
+            "sName": "Action:Wing",
+            "sType": "Action"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "Social:None",
+            "sType": "Social"
+        },
+        {
             "sDescribtion": "keenkris",
             "sName": "artist:keenkris",
             "sType": "artist"
@@ -1683,6 +1740,11 @@
         {
             "sDescribtion": "",
             "sName": "icontype:Action",
+            "sType": "icontype"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "icontype:Social",
             "sType": "icontype"
         },
         {
@@ -1717,6 +1779,11 @@
         },
         {
             "sDescribtion": "",
+            "sName": "rarity:Epic",
+            "sType": "rarity"
+        },
+        {
+            "sDescribtion": "",
             "sName": "rarity:Mythic",
             "sType": "rarity"
         },
@@ -1738,6 +1805,11 @@
         {
             "sDescribtion": "",
             "sName": "style:0",
+            "sType": "style"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "style:1",
             "sType": "style"
         },
         {

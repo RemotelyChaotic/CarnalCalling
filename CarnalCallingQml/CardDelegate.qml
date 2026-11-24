@@ -186,7 +186,7 @@ Rectangle {
             }
 
             const layer = cardViewElems.layers.find((l) => l.layer === tagLayer + ":" + 2);
-            console.log(JSON.stringify(layer))
+
             if (null != layer) {
                 return layer.image;
             }

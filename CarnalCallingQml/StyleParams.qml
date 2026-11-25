@@ -42,27 +42,27 @@ QtObject {
     readonly property string textColorMenu: "white"
     readonly property string textColorWarn: "orange"
     readonly property string textColorError: "red"
-    readonly property string textOutlineColorMenu: "black"
-    readonly property string placeholderTextColorMenu: "grey"
-    readonly property string fillColorHexActive: "#282828"
-    readonly property string strokeColorHexActive: "black"
+    readonly property string textOutlineColorMenu: "#151515"
+    readonly property string placeholderTextColorMenu: "#565656"
+    readonly property string fillColorHexActive: "#2A2A2A"
+    readonly property string strokeColorHexActive: "#151515"
     readonly property int strokeColorHexActiveWidth: 2
-    readonly property string fillColorHexInactive: "black"
-    readonly property string strokeColorHexInactive: "#282828"
+    readonly property string fillColorHexInactive: "#151515"
+    readonly property string strokeColorHexInactive: "#2A2A2A"
     readonly property int strokeColorHexInactiveWidth: 2
-    readonly property string glowHexColor: "#00B4DE"
+    readonly property string glowHexColor: "#6CC929"
     readonly property int glowHexRadius: 15
     readonly property real glowHexSpread: 0.5
-    readonly property string cursorColor: "#00B4DE"
+    readonly property string cursorColor: "#6CC929"
     readonly property int cursorWidth: 2
 
-    readonly property string colorPlayerBorder: "#ff00ff"
-    readonly property string colorCurrentPlace: "#ff00ff"
-    readonly property string colorPlaceBg: "black"
-    readonly property string colorTravel: "#ff00ff"
-    readonly property string primaryColorSelection: "#ff00ff"
-    readonly property string secondaryColorSelection: "#660066"
-    readonly property string tertiaryColorSelection: "#880088"
+    readonly property string colorPlayerBorder: "#6CC929"
+    readonly property string colorCurrentPlace: "#6CC929"
+    readonly property string colorPlaceBg: "#151515"
+    readonly property string colorTravel: "#6CC929"
+    readonly property string primaryColorSelection: "#6CC929"
+    readonly property string secondaryColorSelection: "#14747E"
+    readonly property string tertiaryColorSelection: "#218984"
 
     readonly property string optionsButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonOptions"
     readonly property string optionsHoverButton: "image://DataBaseImageProivider/" + currentProjectId + "/" + "ButtonOptionsHover"

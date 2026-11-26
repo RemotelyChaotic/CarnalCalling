@@ -12,7 +12,7 @@ let dataToSend =
                 "sideDeck": [],
                 "displayCard": {"setId": "chr_0", "id": 0},
                 "sets": [ "chr_0" ],
-                "gendering": -1,
+                "gendering": 0,
                 "numSocial": 0,
                 "numAction": 0,
                 "tags": []

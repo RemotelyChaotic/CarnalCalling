@@ -37,10 +37,10 @@ const CardType = Object.freeze({
 });
 
 const GenderType = Object.freeze({
-    None:       -1,
-    Male:       0,
-    Female:     1,
-    Herm:       2,
+    None:       0,
+    Male:       1,
+    Female:     2,
+    Herm:       3,
 });
 
 const SlotType = Object.freeze({

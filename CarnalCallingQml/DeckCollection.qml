@@ -106,7 +106,7 @@ Rectangle {
             }
 
             let deckFilter = deckData.id + ";" + deckData.name + ";" +
-                             genderStrings[deckData.gendering+1] + ";" +
+                             genderStrings[deckData.gendering] + ";" +
                              deckData.tags.join(";");
 
             addTimerDecks.itemsToAdd.push({
@@ -248,8 +248,8 @@ Rectangle {
             for (const c of vAllCardsSorted) {
                 let nrInDeck = getNrInDeck(c.setId, c.id);
                 let cardData = repository.getCard(c.id, c.setId);
-                let enabled = cardData.gendering === -1 || deckData.gendering === -1 ||
-                    cardData.gendering === deckData.gendering;
+                let enabled = deckData.gendering === 0 ||
+                    cardData.self.gendering === deckData.gendering;
                 pushCard(addTimerCards,
                          cardData,
                          { "cardInDeck" : nrInDeck, "cardMax": c.count,
@@ -268,8 +268,8 @@ Rectangle {
         {
             let cardFilter = cardData.setId + ";" + cardData.id + ";" + cardData.title + ";" +
                              cardData.description + ";" + cardData.faction + ";" + cardData.cardType + ";" +
-                             cardData.slot + ";" + cardData.rarity + ";" +
-                             genderStrings[cardData.gendering+1] + ";" +
+                             cardData.self.slot + ";" + cardData.rarity + ";" +
+                             genderStrings[cardData.self.gendering] + ";" + genderStrings[cardData.other.gendering] + ";" +
                              cardData.tags.join(";");
             timer.itemsToAdd.push({
                                  "enabled": enabled,
@@ -283,7 +283,7 @@ Rectangle {
                                                        StyleParams.textColorError : StyleParams.textColorMenu,
                                  "projId": currentlyLoadedProject.id,
                                  "cardFilter": cardFilter,
-                                 "genderFilter": cardData.gendering,
+                                 "genderFilter": cardData.self.gendering,
                                  "orderId": cardKey(cardData.setId, cardData.id)
                             });
         }
@@ -882,7 +882,7 @@ Rectangle {
                     "sideDeck": [],
                     "displayCard": null,
                     "sets": [ setId ],
-                    "gendering": -1,
+                    "gendering": 0,
                     "numSocial": 0,
                     "numAction": 0,
                     "tags": []
@@ -1087,10 +1087,10 @@ Rectangle {
                     deckCardModel.currentDeck.deck.splice(index, 1);
                     deckCardModel.updateDeckCount();
 
-                    let newGendering = -1;
+                    let newGendering = 0;
                     for (let c of deckCardModel.currentDeck.deck) {
-                        if (c.gendering !== -1) {
-                            newGendering = c.gendering;
+                        if (c.self.gendering !== 0) {
+                            newGendering = c.self.gendering;
                             break;
                         }
                     }
@@ -1259,8 +1259,8 @@ Rectangle {
             for (let idx = 0; model.count > idx; ++idx) {
                 let sourceRow = model.mapToSource(idx);
                 let genderingCard = model.get(idx, "genderFilter");
-                let enabled = genderingCard === -1 ||
-                    deckCardModel.currentDeck.gendering === -1 ||
+                let enabled = genderingCard === 0 ||
+                    deckCardModel.currentDeck.gendering === 0 ||
                     genderingCard === deckCardModel.currentDeck.gendering;
                 cardModel.setProperty(sourceRow, "enabled", enabled);
             }
@@ -1331,8 +1331,8 @@ Rectangle {
                                        StyleParams.deckBuildingHeightMin + 5);
 
                 // modify the current deck
-                if (deckCardModel.currentDeck.gendering === -1) {
-                    deckCardModel.currentDeck.gendering = cardData.gendering;
+                if (deckCardModel.currentDeck.gendering === 0) {
+                    deckCardModel.currentDeck.gendering = cardData.self.gendering;
                 }
                 deckCardModel.currentDeck.deck.push({"setId": setId, "id": id});
                 deckCardModel.currentDeck.deck.sort((a, b) => {

@@ -132,8 +132,8 @@ Rectangle {
             let card = repository.getCard(cardData.id, cardData.setId);
             let cardFilter = card.setId + ";" + card.id + ";" + card.title + ";" +
                              card.description + ";" + card.faction + ";" + card.cardType + ";" +
-                             card.slot + ";" + card.rarity + ";" +
-                             genderStrings[card.gendering+1] + ";" +
+                             card.self.slot + ";" + card.rarity + ";" +
+                             genderStrings[card.self.gendering] + ";" + genderStrings[card.other.gendering] + ";" +
                              card.tags.join(";");
             addTimer.itemsToAdd.push({
                                  "enabled": true,

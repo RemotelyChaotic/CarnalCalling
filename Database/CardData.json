@@ -11,8 +11,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "None",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -41,7 +39,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -61,6 +58,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "None",
+        "gendering": 0
       }
     },
     {
@@ -74,8 +79,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "Mouth",
       "cooldown": {
         "value": 5,
         "display": "5s"
@@ -104,7 +107,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -133,6 +135,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Mouth",
+        "gendering": 0
       }
     },
     {
@@ -146,8 +156,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "Mouth",
       "cooldown": {
         "value": 20,
         "display": "20s"
@@ -176,7 +184,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -205,6 +212,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Mouth",
+        "gendering": 0
       }
     },
     {
@@ -218,8 +233,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "Mouth",
       "cooldown": {
         "value": 15,
         "display": "15s"
@@ -248,7 +261,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -277,6 +289,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Mouth",
+        "gendering": 0
       }
     },
     {
@@ -290,8 +310,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "Mouth",
       "cooldown": {
         "value": 20,
         "display": "20s"
@@ -320,7 +338,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -350,6 +367,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Mouth",
+        "gendering": 0
       }
     },
     {
@@ -363,8 +388,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "None",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -393,7 +416,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -443,6 +465,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "None",
+        "gendering": 0
       }
     },
     {
@@ -456,8 +486,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "Mouth",
       "cooldown": {
         "value": 15,
         "display": "15s"
@@ -486,7 +514,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -506,6 +533,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Mouth",
+        "gendering": 0
       }
     },
     {
@@ -519,8 +554,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "None",
       "cooldown": {
         "value": 5,
         "display": "5s"
@@ -549,7 +582,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -598,6 +630,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "None",
+        "gendering": 0
       }
     },
     {
@@ -611,8 +651,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "Mouth",
       "cooldown": {
         "value": 20,
         "display": "20s"
@@ -641,7 +679,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -720,6 +757,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Mouth",
+        "gendering": 0
       }
     },
     {
@@ -733,8 +778,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "None",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -763,7 +806,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -796,6 +838,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "None",
+        "gendering": 0
       }
     },
     {
@@ -809,8 +859,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "None",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -839,7 +887,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -872,6 +919,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "None",
+        "gendering": 0
       }
     },
     {
@@ -885,8 +940,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "None",
       "cooldown": {
         "value": 15,
         "display": "15s"
@@ -915,7 +968,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -945,6 +997,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "None",
+        "gendering": 0
       }
     },
     {
@@ -958,8 +1018,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "None",
       "cooldown": {
         "value": 15,
         "display": "15s"
@@ -988,7 +1046,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -1008,6 +1065,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "None",
+        "gendering": 0
       }
     },
     {
@@ -1021,8 +1086,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "None",
       "cooldown": {
         "value": 5,
         "display": "5s"
@@ -1051,7 +1114,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -1073,6 +1135,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "None",
+        "gendering": 0
       }
     },
     {
@@ -1086,8 +1156,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "Mouth",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -1116,7 +1184,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -1146,6 +1213,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Mouth",
+        "gendering": 0
       }
     },
     {
@@ -1159,8 +1234,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "None",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -1189,7 +1262,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -1218,6 +1290,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "None",
+        "gendering": 0
       }
     },
     {
@@ -1231,8 +1311,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "None",
       "cooldown": {
         "value": 20,
         "display": "20s"
@@ -1261,7 +1339,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -1281,6 +1358,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "None",
+        "gendering": 0
       }
     },
     {
@@ -1294,8 +1379,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "None",
       "cooldown": {
         "value": 10,
         "display": "5-15s"
@@ -1324,7 +1407,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -1374,6 +1456,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "None",
+        "gendering": 0
       }
     },
     {
@@ -1387,8 +1477,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "Mouth",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -1417,7 +1505,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -1466,6 +1553,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Mouth",
+        "gendering": 0
       }
     },
     {
@@ -1479,8 +1574,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "Mouth",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -1509,7 +1602,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -1549,6 +1641,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Mouth",
+        "gendering": 0
       }
     },
     {
@@ -1562,8 +1662,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Social",
-      "slot": "None",
-      "secondarySlot": "Mouth",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -1592,7 +1690,6 @@
         "value": 0,
         "display": ""
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -1631,6 +1728,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Mouth",
+        "gendering": 0
       }
     },
     {
@@ -1644,8 +1749,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Genitals",
-      "secondarySlot": "Face",
       "cooldown": {
         "value": 5,
         "display": "5s"
@@ -1674,7 +1777,6 @@
         "value": 5,
         "display": "5"
       },
-      "gendering": 0,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
@@ -1694,6 +1796,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Genitals",
+        "gendering": 1
+      },
+      "other": {
+        "slot": "Face",
+        "gendering": 0
       }
     },
     {
@@ -1707,8 +1817,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Genitals",
-      "secondarySlot": "Face",
       "cooldown": {
         "value": 5,
         "display": "5s"
@@ -1737,7 +1845,6 @@
         "value": 5,
         "display": "5"
       },
-      "gendering": 1,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
@@ -1747,21 +1854,27 @@
         "onDraw": [],
         "onPlay": [],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Genitals",
+        "gendering": 2
+      },
+      "other": {
+        "slot": "Face",
+        "gendering": 0
       }
     },
     {
       "id": 23,
       "setId": "chr_0",
       "title": "The Classic",
-      "description": "Can only be used on <img src=\"image://DataBaseImageProivider/{id}/GenderIconFemaleNoBorder\" width=\"{w}\" height=\"{h}\" /> or <img src=\"image://DataBaseImageProivider/{id}/GenderIconShemaleNoBorder\" width=\"{w}\" height=\"{h}\" />",
+      "description": "",
       "style": 1,
       "layout": "CardDelegate.qml",
       "background": "Test",
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Genitals",
-      "secondarySlot": "Genitals",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -1790,34 +1903,13 @@
         "value": 30,
         "display": "30"
       },
-      "gendering": 0,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
         "card:changeling"
       ],
       "effects": {
-        "onDraw": [
-          {
-            "name": "eval",
-            "targets": [
-              "other"
-            ],
-            "args": [
-              "other.player.gendering === 1 || other.player.gendering === 2"
-            ]
-          },
-          {
-            "name": "modify_value",
-            "targets": [
-              "self"
-            ],
-            "args": [
-              "playable",
-              "%1"
-            ]
-          }
-        ],
+        "onDraw": [],
         "onPlay": [
           {
             "name": "sound",
@@ -1830,21 +1922,27 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Genitals",
+        "gendering": 1
+      },
+      "other": {
+        "slot": "Genitals",
+        "gendering": 2
       }
     },
     {
       "id": 24,
       "setId": "chr_0",
       "title": "Dick Ride",
-      "description": "Can only be used on <img src=\"image://DataBaseImageProivider/{id}/GenderIconMaleNoBorder\" width=\"{w}\" height=\"{h}\" /> or <img src=\"image://DataBaseImageProivider/{id}/GenderIconShemaleNoBorder\" width=\"{w}\" height=\"{h}\" />",
+      "description": "",
       "style": 1,
       "layout": "CardDelegate.qml",
       "background": "Test",
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Genitals",
-      "secondarySlot": "Genitals",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -1873,34 +1971,13 @@
         "value": 30,
         "display": "30"
       },
-      "gendering": 1,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
         "card:changeling"
       ],
       "effects": {
-        "onDraw": [
-          {
-            "name": "eval",
-            "targets": [
-              "other"
-            ],
-            "args": [
-              "other.player.gendering === 0 || other.player.gendering === 2"
-            ]
-          },
-          {
-            "name": "modify_value",
-            "targets": [
-              "self"
-            ],
-            "args": [
-              "playable",
-              "%1"
-            ]
-          }
-        ],
+        "onDraw": [],
         "onPlay": [
           {
             "name": "sound",
@@ -1913,6 +1990,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Genitals",
+        "gendering": 2
+      },
+      "other": {
+        "slot": "Genitals",
+        "gendering": 1
       }
     },
     {
@@ -1926,8 +2011,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Genitals",
-      "secondarySlot": "Mouth",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -1956,7 +2039,6 @@
         "value": 30,
         "display": "30"
       },
-      "gendering": 0,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
@@ -1976,21 +2058,27 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Genitals",
+        "gendering": 1
+      },
+      "other": {
+        "slot": "Mouth",
+        "gendering": 0
       }
     },
     {
       "id": 26,
       "setId": "chr_0",
       "title": "On Mute",
-      "description": "Can only be used on <img src=\"image://DataBaseImageProivider/{id}/GenderIconMaleNoBorder\" width=\"{w}\" height=\"{h}\" /> or <img src=\"image://DataBaseImageProivider/{id}/GenderIconShemaleNoBorder\" width=\"{w}\" height=\"{h}\" />",
+      "description": "",
       "style": 1,
       "layout": "CardDelegate.qml",
       "background": "Test",
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Genitals",
-      "secondarySlot": "Mouth",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -2019,34 +2107,13 @@
         "value": 30,
         "display": "30"
       },
-      "gendering": 1,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
         "card:changeling"
       ],
       "effects": {
-        "onDraw": [
-          {
-            "name": "eval",
-            "targets": [
-              "other"
-            ],
-            "args": [
-              "other.player.gendering === 0 || other.player.gendering === 2"
-            ]
-          },
-          {
-            "name": "modify_value",
-            "targets": [
-              "self"
-            ],
-            "args": [
-              "playable",
-              "%1"
-            ]
-          }
-        ],
+        "onDraw": [],
         "onPlay": [
           {
             "name": "sound",
@@ -2059,6 +2126,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Genitals",
+        "gendering": 2
+      },
+      "other": {
+        "slot": "Mouth",
+        "gendering": 1
       }
     },
     {
@@ -2072,8 +2147,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Hoof",
-      "secondarySlot": "Chest",
       "cooldown": {
         "value": 5,
         "display": "5s"
@@ -2102,7 +2175,6 @@
         "value": 5,
         "display": "5"
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
@@ -2112,6 +2184,14 @@
         "onDraw": [],
         "onPlay": [],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Hoof",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Chest",
+        "gendering": 0
       }
     },
     {
@@ -2125,8 +2205,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Hoof",
-      "secondarySlot": "Genitals",
       "cooldown": {
         "value": 15,
         "display": "15s"
@@ -2155,7 +2233,6 @@
         "value": 10,
         "display": "10"
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
@@ -2165,21 +2242,27 @@
         "onDraw": [],
         "onPlay": [],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Hoof",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Genitals",
+        "gendering": 0
       }
     },
     {
       "id": 29,
       "setId": "chr_0",
       "title": "Hoofjob",
-      "description": "Can only be used on <img src=\"image://DataBaseImageProivider/{id}/GenderIconMaleNoBorder\" width=\"{w}\" height=\"{h}\" /> or <img src=\"image://DataBaseImageProivider/{id}/GenderIconShemaleNoBorder\" width=\"{w}\" height=\"{h}\" />",
+      "description": "",
       "style": 1,
       "layout": "CardDelegate.qml",
       "background": "Test",
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Hoof",
-      "secondarySlot": "Genitals",
       "cooldown": {
         "value": 20,
         "display": "20s"
@@ -2208,51 +2291,36 @@
         "value": 20,
         "display": "20"
       },
-      "gendering": 0,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
         "card:changeling"
       ],
       "effects": {
-        "onDraw": [
-          {
-            "name": "eval",
-            "targets": [
-              "other"
-            ],
-            "args": [
-              "other.player.gendering === 1 || other.player.gendering === 2"
-            ]
-          },
-          {
-            "name": "modify_value",
-            "targets": [
-              "self"
-            ],
-            "args": [
-              "playable",
-              "%1"
-            ]
-          }
-        ],
+        "onDraw": [],
         "onPlay": [],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Hoof",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Genitals",
+        "gendering": 1
       }
     },
     {
       "id": 30,
       "setId": "chr_0",
       "title": "Hoffing Off",
-      "description": "Can only be used on <img src=\"image://DataBaseImageProivider/{id}/GenderIconFemaleNoBorder\" width=\"{w}\" height=\"{h}\" /> or <img src=\"image://DataBaseImageProivider/{id}/GenderIconShemaleNoBorder\" width=\"{w}\" height=\"{h}\" />",
+      "description": "",
       "style": 1,
       "layout": "CardDelegate.qml",
       "background": "Test",
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Hoof",
-      "secondarySlot": "Genitals",
       "cooldown": {
         "value": 20,
         "display": "20s"
@@ -2281,36 +2349,23 @@
         "value": 20,
         "display": "20"
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
         "card:changeling"
       ],
       "effects": {
-        "onDraw": [
-          {
-            "name": "eval",
-            "targets": [
-              "other"
-            ],
-            "args": [
-              "other.player.gendering === 1 || other.player.gendering === 2"
-            ]
-          },
-          {
-            "name": "modify_value",
-            "targets": [
-              "self"
-            ],
-            "args": [
-              "playable",
-              "%1"
-            ]
-          }
-        ],
+        "onDraw": [],
         "onPlay": [],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Hoof",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Genitals",
+        "gendering": 2
       }
     },
     {
@@ -2324,8 +2379,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Hoof",
-      "secondarySlot": "Mouth",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -2354,7 +2407,6 @@
         "value": 5,
         "display": "5"
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
@@ -2364,21 +2416,27 @@
         "onDraw": [],
         "onPlay": [],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Hoof",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Mouth",
+        "gendering": 0
       }
     },
     {
       "id": 32,
       "setId": "chr_0",
       "title": "Nipple Rub",
-      "description": "Can only be used on <img src=\"image://DataBaseImageProivider/{id}/GenderIconFemaleNoBorder\" width=\"{w}\" height=\"{h}\" /> or <img src=\"image://DataBaseImageProivider/{id}/GenderIconShemaleNoBorder\" width=\"{w}\" height=\"{h}\" />",
+      "description": "",
       "style": 1,
       "layout": "CardDelegate.qml",
       "background": "Test",
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Hoof",
-      "secondarySlot": "Nipple",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -2407,51 +2465,36 @@
         "value": 10,
         "display": "10"
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
         "card:changeling"
       ],
       "effects": {
-        "onDraw": [
-          {
-            "name": "eval",
-            "targets": [
-              "other"
-            ],
-            "args": [
-              "other.player.gendering === 1 || other.player.gendering === 2"
-            ]
-          },
-          {
-            "name": "modify_value",
-            "targets": [
-              "self"
-            ],
-            "args": [
-              "playable",
-              "%1"
-            ]
-          }
-        ],
+        "onDraw": [],
         "onPlay": [],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Hoof",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Nipple",
+        "gendering": 2
       }
     },
     {
       "id": 33,
       "setId": "chr_0",
       "title": "Magic Job",
-      "description": "Can only be used on <img src=\"image://DataBaseImageProivider/{id}/GenderIconMaleNoBorder\" width=\"{w}\" height=\"{h}\" /> or <img src=\"image://DataBaseImageProivider/{id}/GenderIconShemaleNoBorder\" width=\"{w}\" height=\"{h}\" />",
+      "description": "",
       "style": 1,
       "layout": "CardDelegate.qml",
       "background": "Test",
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Horn",
-      "secondarySlot": "Genitals",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -2480,34 +2523,13 @@
         "value": 20,
         "display": "20"
       },
-      "gendering": 0,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
         "card:changeling"
       ],
       "effects": {
-        "onDraw": [
-          {
-            "name": "eval",
-            "targets": [
-              "other"
-            ],
-            "args": [
-              "other.player.gendering === 1 || other.player.gendering === 2"
-            ]
-          },
-          {
-            "name": "modify_value",
-            "targets": [
-              "self"
-            ],
-            "args": [
-              "playable",
-              "%1"
-            ]
-          }
-        ],
+        "onDraw": [],
         "onPlay": [
           {
             "name": "sound",
@@ -2520,21 +2542,27 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Horn",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Genitals",
+        "gendering": 1
       }
     },
     {
       "id": 34,
       "setId": "chr_0",
       "title": "Buzz Off",
-      "description": "Can only be used on <img src=\"image://DataBaseImageProivider/{id}/GenderIconFemaleNoBorder\" width=\"{w}\" height=\"{h}\" /> or <img src=\"image://DataBaseImageProivider/{id}/GenderIconShemaleNoBorder\" width=\"{w}\" height=\"{h}\" />",
+      "description": "",
       "style": 1,
       "layout": "CardDelegate.qml",
       "background": "Test",
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Horn",
-      "secondarySlot": "Genitals",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -2563,34 +2591,13 @@
         "value": 20,
         "display": "20"
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
         "card:changeling"
       ],
       "effects": {
-        "onDraw": [
-          {
-            "name": "eval",
-            "targets": [
-              "other"
-            ],
-            "args": [
-              "other.player.gendering === 1 || other.player.gendering === 2"
-            ]
-          },
-          {
-            "name": "modify_value",
-            "targets": [
-              "self"
-            ],
-            "args": [
-              "playable",
-              "%1"
-            ]
-          }
-        ],
+        "onDraw": [],
         "onPlay": [
           {
             "name": "sound",
@@ -2603,6 +2610,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Horn",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Genitals",
+        "gendering": 2
       }
     },
     {
@@ -2616,8 +2631,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Mouth",
-      "secondarySlot": "Face",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -2646,7 +2659,6 @@
         "value": 10,
         "display": "10"
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
@@ -2656,6 +2668,14 @@
         "onDraw": [],
         "onPlay": [],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Mouth",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Face",
+        "gendering": 0
       }
     },
     {
@@ -2669,8 +2689,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Mouth",
-      "secondarySlot": "Genitals",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -2699,7 +2717,6 @@
         "value": 20,
         "display": "20"
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
@@ -2719,21 +2736,27 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Mouth",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Genitals",
+        "gendering": 0
       }
     },
     {
       "id": 37,
       "setId": "chr_0",
       "title": "Succ",
-      "description": "Can only be used on <img src=\"image://DataBaseImageProivider/{id}/GenderIconMaleNoBorder\" width=\"{w}\" height=\"{h}\" /> or <img src=\"image://DataBaseImageProivider/{id}/GenderIconShemaleNoBorder\" width=\"{w}\" height=\"{h}\" />",
+      "description": "",
       "style": 1,
       "layout": "CardDelegate.qml",
       "background": "Test",
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Mouth",
-      "secondarySlot": "Genitals",
       "cooldown": {
         "value": 30,
         "display": "30s"
@@ -2762,34 +2785,13 @@
         "value": 30,
         "display": "30"
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
         "card:changeling"
       ],
       "effects": {
-        "onDraw": [
-          {
-            "name": "eval",
-            "targets": [
-              "other"
-            ],
-            "args": [
-              "other.player.gendering === 1 || other.player.gendering === 2"
-            ]
-          },
-          {
-            "name": "modify_value",
-            "targets": [
-              "self"
-            ],
-            "args": [
-              "playable",
-              "%1"
-            ]
-          }
-        ],
+        "onDraw": [],
         "onPlay": [
           {
             "name": "sound",
@@ -2802,21 +2804,27 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Mouth",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Genitals",
+        "gendering": 1
       }
     },
     {
       "id": 38,
       "setId": "chr_0",
       "title": "Licc",
-      "description": "Can only be used on <img src=\"image://DataBaseImageProivider/{id}/GenderIconFemaleNoBorder\" width=\"{w}\" height=\"{h}\" /> or <img src=\"image://DataBaseImageProivider/{id}/GenderIconShemaleNoBorder\" width=\"{w}\" height=\"{h}\" />",
+      "description": "",
       "style": 1,
       "layout": "CardDelegate.qml",
       "background": "Test",
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Mouth",
-      "secondarySlot": "Genitals",
       "cooldown": {
         "value": 30,
         "display": "30s"
@@ -2845,34 +2853,13 @@
         "value": 30,
         "display": "30"
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
         "card:changeling"
       ],
       "effects": {
-        "onDraw": [
-          {
-            "name": "eval",
-            "targets": [
-              "other"
-            ],
-            "args": [
-              "other.player.gendering === 1 || other.player.gendering === 2"
-            ]
-          },
-          {
-            "name": "modify_value",
-            "targets": [
-              "self"
-            ],
-            "args": [
-              "playable",
-              "%1"
-            ]
-          }
-        ],
+        "onDraw": [],
         "onPlay": [
           {
             "name": "sound",
@@ -2885,6 +2872,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Mouth",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Genitals",
+        "gendering": 2
       }
     },
     {
@@ -2898,8 +2893,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Mouth",
-      "secondarySlot": "Horn",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -2928,7 +2921,6 @@
         "value": 10,
         "display": "10"
       },
-      "gendering": 0,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
@@ -2948,6 +2940,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Mouth",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Horn",
+        "gendering": 0
       }
     },
     {
@@ -2961,8 +2961,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Mouth",
-      "secondarySlot": "Mouth",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -2991,7 +2989,6 @@
         "value": 10,
         "display": "10"
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
@@ -3011,21 +3008,27 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Mouth",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Mouth",
+        "gendering": 0
       }
     },
     {
       "id": 41,
       "setId": "chr_0",
       "title": "Nipple Succ",
-      "description": "Can only be used on <img src=\"image://DataBaseImageProivider/{id}/GenderIconFemaleNoBorder\" width=\"{w}\" height=\"{h}\" /> or <img src=\"image://DataBaseImageProivider/{id}/GenderIconShemaleNoBorder\" width=\"{w}\" height=\"{h}\" />",
+      "description": "",
       "style": 1,
       "layout": "CardDelegate.qml",
       "background": "Test",
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Mouth",
-      "secondarySlot": "Nipple",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -3054,34 +3057,13 @@
         "value": 10,
         "display": "10"
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "Someone @ 2026",
       "tags": [
         "card:changeling"
       ],
       "effects": {
-        "onDraw": [
-          {
-            "name": "eval",
-            "targets": [
-              "other"
-            ],
-            "args": [
-              "other.player.gendering === 1 || other.player.gendering === 2"
-            ]
-          },
-          {
-            "name": "modify_value",
-            "targets": [
-              "self"
-            ],
-            "args": [
-              "playable",
-              "%1"
-            ]
-          }
-        ],
+        "onDraw": [],
         "onPlay": [
           {
             "name": "sound",
@@ -3094,6 +3076,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Mouth",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Nipple",
+        "gendering": 2
       }
     },
     {
@@ -3107,8 +3097,6 @@
       "image": "Test",
       "faction": "Changeling",
       "cardType": "Action",
-      "slot": "Face",
-      "secondarySlot": "Face",
       "cooldown": {
         "value": 10,
         "display": "10s"
@@ -3137,7 +3125,6 @@
         "value": 0,
         "display": "0"
       },
-      "gendering": -1,
       "rarity": "Common",
       "artist": "RemotelyChaotic @ 2026",
       "tags": [
@@ -3157,6 +3144,14 @@
           }
         ],
         "onDiscard": []
+      },
+      "self": {
+        "slot": "Face",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "Face",
+        "gendering": 0
       }
     }
   ]

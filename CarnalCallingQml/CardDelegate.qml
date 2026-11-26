@@ -141,7 +141,7 @@ Rectangle {
         antialiasing: Settings.playerAntialiasing
         mipmap: Settings.playerImageMipMap
         source: null != cardViewElems ?
-                    cardViewElems.icons[cardRoot.tagIcontype + ":" + cardData.cardType][cardData.slot].image :
+                    cardViewElems.icons[cardRoot.tagIcontype + ":" + cardData.cardType][cardData.self.slot].image :
                     ""
 
         onStatusChanged: {
@@ -162,7 +162,7 @@ Rectangle {
             antialiasing: Settings.playerAntialiasing
             mipmap: Settings.playerImageMipMap
             source: null != cardViewElems ?
-                        cardViewElems.icons[cardRoot.tagIcontypeSecondarySlot][cardData.secondarySlot].image :
+                        cardViewElems.icons[cardRoot.tagIcontypeSecondarySlot][cardData.other.slot].image :
                         ""
 
             onStatusChanged: {
@@ -585,7 +585,7 @@ Rectangle {
         smooth: Settings.playerImageSmooth
         antialiasing: Settings.playerAntialiasing
         mipmap: Settings.playerImageMipMap
-        source: null != cardViewElems ? cardViewElems.icons[cardRoot.tagIcontypeGender][cardData.gendering].image : ""
+        source: null != cardViewElems ? cardViewElems.icons[cardRoot.tagIcontypeGender][cardData.self.gendering].image : ""
 
         onStatusChanged: {
             if (status === Image.Error && cardRoot.unknownImage !== source) {

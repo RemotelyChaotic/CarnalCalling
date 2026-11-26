@@ -141,22 +141,22 @@ Item {
             }
         },
         "icontype:gender": {
-            "-1": {
+            "0": {
                 "name": "GenderIconNone",
                 "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "GenderIconNone",
                 "resource": null
             },
-            "0": {
+            "1": {
                 "name": "GenderIconMale",
                 "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "GenderIconMale",
                 "resource": null
             },
-            "1": {
+            "2": {
                 "name": "GenderIconFemale",
                 "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "GenderIconFemale",
                 "resource": null
             },
-            "2": {
+            "3": {
                 "name": "GenderIconShemale",
                 "image": "image://DataBaseImageProivider/" + currentlyLoadedProject.id + "/" + "GenderIconShemale",
                 "resource": null

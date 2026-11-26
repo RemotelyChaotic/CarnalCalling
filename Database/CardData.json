@@ -66,7 +66,23 @@
       "other": {
         "slot": "None",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "combo.value = 1 + upgrade.level",
+              "combo.display = '' + (1 + upgrade.level)"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 1,
@@ -143,7 +159,22 @@
       "other": {
         "slot": "Mouth",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 2,
@@ -220,7 +251,22 @@
       "other": {
         "slot": "Mouth",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 3,
@@ -297,7 +343,22 @@
       "other": {
         "slot": "Mouth",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 4,
@@ -375,7 +436,22 @@
       "other": {
         "slot": "Mouth",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 5,
@@ -441,8 +517,7 @@
               "self"
             ],
             "args": [
-              "draw.value",
-              "(%1 * 2 - 3) * -1"
+              "draw.value = (%1 * 2 - 3) * -1"
             ]
           },
           {
@@ -473,7 +548,22 @@
       "other": {
         "slot": "None",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 6,
@@ -541,7 +631,22 @@
       "other": {
         "slot": "Mouth",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 7,
@@ -606,8 +711,7 @@
               "self"
             ],
             "args": [
-              "combo.value",
-              "(%1 * 2 - 3) * -1"
+              "combo.value = (%1 * 2 - 3) * -1"
             ]
           },
           {
@@ -638,7 +742,22 @@
       "other": {
         "slot": "None",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 8,
@@ -714,18 +833,8 @@
               "self"
             ],
             "args": [
-              "combo.value",
-              "(%1 * 2 - 3) * -1"
-            ]
-          },
-          {
-            "name": "modify_value",
-            "targets": [
-              "self"
-            ],
-            "args": [
-              "draw.value",
-              "(%2 * 2 - 3) * -1"
+              "combo.value = (%1 * 2 - 3) * -1",
+              "draw.value = (%2 * 2 - 3) * -1"
             ]
           },
           {
@@ -765,7 +874,22 @@
       "other": {
         "slot": "Mouth",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 9,
@@ -846,7 +970,22 @@
       "other": {
         "slot": "None",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 10,
@@ -927,7 +1066,22 @@
       "other": {
         "slot": "None",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 11,
@@ -1005,7 +1159,22 @@
       "other": {
         "slot": "None",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 12,
@@ -1073,7 +1242,22 @@
       "other": {
         "slot": "None",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 13,
@@ -1143,7 +1327,22 @@
       "other": {
         "slot": "None",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 14,
@@ -1221,7 +1420,22 @@
       "other": {
         "slot": "Mouth",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 15,
@@ -1298,7 +1512,22 @@
       "other": {
         "slot": "None",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 16,
@@ -1366,7 +1595,22 @@
       "other": {
         "slot": "None",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 17,
@@ -1431,18 +1675,8 @@
               "self"
             ],
             "args": [
-              "time.value",
-              "10 + (%1 * 2 - 3) * -5"
-            ]
-          },
-          {
-            "name": "modify_value",
-            "targets": [
-              "self"
-            ],
-            "args": [
-              "cooldown.value",
-              "10 + (%1 * 2 - 3) * -5"
+              "time.value = 10 + (%1 * 2 - 3) * -5",
+              "cooldown.value = 10 + (%1 * 2 - 3) * -5"
             ]
           },
           {
@@ -1464,7 +1698,22 @@
       "other": {
         "slot": "None",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 18,
@@ -1538,8 +1787,7 @@
               "self"
             ],
             "args": [
-              "draw.value",
-              "1 + (%2 * 2 - 3) * -1"
+              "draw.value = 1 + (%2 * 2 - 3) * -1"
             ]
           },
           {
@@ -1561,7 +1809,22 @@
       "other": {
         "slot": "Mouth",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 19,
@@ -1635,8 +1898,7 @@
               "self"
             ],
             "args": [
-              "combo.value",
-              "1 + (%2 * 2 - 3) * -1"
+              "combo.value = 1 + (%2 * 2 - 3) * -1"
             ]
           }
         ],
@@ -1649,7 +1911,22 @@
       "other": {
         "slot": "Mouth",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 20,
@@ -1736,7 +2013,22 @@
       "other": {
         "slot": "Mouth",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 21,
@@ -1804,7 +2096,22 @@
       "other": {
         "slot": "Face",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 22,
@@ -1862,7 +2169,22 @@
       "other": {
         "slot": "Face",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 23,
@@ -1930,7 +2252,22 @@
       "other": {
         "slot": "Genitals",
         "gendering": 2
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 24,
@@ -1998,7 +2335,22 @@
       "other": {
         "slot": "Genitals",
         "gendering": 1
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 25,
@@ -2066,7 +2418,22 @@
       "other": {
         "slot": "Mouth",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 26,
@@ -2134,7 +2501,22 @@
       "other": {
         "slot": "Mouth",
         "gendering": 1
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 27,
@@ -2192,7 +2574,22 @@
       "other": {
         "slot": "Chest",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 28,
@@ -2250,7 +2647,22 @@
       "other": {
         "slot": "Genitals",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 29,
@@ -2308,7 +2720,22 @@
       "other": {
         "slot": "Genitals",
         "gendering": 1
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 30,
@@ -2366,7 +2793,22 @@
       "other": {
         "slot": "Genitals",
         "gendering": 2
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 31,
@@ -2424,7 +2866,22 @@
       "other": {
         "slot": "Mouth",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 32,
@@ -2482,7 +2939,22 @@
       "other": {
         "slot": "Nipple",
         "gendering": 2
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 33,
@@ -2550,7 +3022,22 @@
       "other": {
         "slot": "Genitals",
         "gendering": 1
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 34,
@@ -2618,7 +3105,22 @@
       "other": {
         "slot": "Genitals",
         "gendering": 2
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 35,
@@ -2676,7 +3178,22 @@
       "other": {
         "slot": "Face",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 36,
@@ -2744,7 +3261,22 @@
       "other": {
         "slot": "Genitals",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 37,
@@ -2812,7 +3344,22 @@
       "other": {
         "slot": "Genitals",
         "gendering": 1
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 38,
@@ -2880,7 +3427,22 @@
       "other": {
         "slot": "Genitals",
         "gendering": 2
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 39,
@@ -2948,7 +3510,22 @@
       "other": {
         "slot": "Horn",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 40,
@@ -3016,7 +3593,22 @@
       "other": {
         "slot": "Mouth",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 41,
@@ -3084,7 +3676,125 @@
       "other": {
         "slot": "Nipple",
         "gendering": 2
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
+    },
+    {
+      "id": 42,
+      "setId": "chr_0",
+      "title": "Go Down",
+      "description": "",
+      "style": 1,
+      "layout": "CardDelegate.qml",
+      "background": "Test",
+      "image": "Test",
+      "faction": "Changeling",
+      "cardType": "Position",
+      "cooldown": {
+        "value": 10,
+        "display": "10s"
+      },
+      "time": {
+        "value": 0,
+        "display": ""
+      },
+      "bpm": {
+        "value": 0,
+        "display": ""
+      },
+      "edge": {
+        "value": 0,
+        "display": "0"
+      },
+      "combo": {
+        "value": 0,
+        "display": "0"
+      },
+      "draw": {
+        "value": 0,
+        "display": ""
+      },
+      "damage": {
+        "value": 0,
+        "display": ""
+      },
+      "rarity": "Common",
+      "artist": "Someone @ 2026",
+      "tags": [
+        "card:changeling"
+      ],
+      "effects": {
+        "onDraw": [],
+        "onPlay": [
+          {
+            "name": "switch_position",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "PoseOralGiving",
+              "Face=Ass|Genitals|Hoof|Nipple",
+              "Hoof=Ass|Chest|Genitals|Hoof|Nipple",
+              "Horn=Ass|Chest|Genitals|Hoof|Nipple",
+              "Mouth=Ass|Genitals|Hoof|Nipple",
+              "Wing=Ass|Genitals|Hoof|Nipple"
+            ]
+          },
+          {
+            "name": "switch_position",
+            "targets": [
+              "other"
+            ],
+            "args": [
+              "PoseOralRecieving",
+              "Ass=Face|Horn|Mouth",
+              "Genitals=Face|Hoof|Horn|Mouth",
+              "Hoof=Face|Hoof|Horn|Mouth|Wing",
+              "Mouth=Horn",
+              "Nipple=Face|Horn|Mouth",
+              "Wing=Face|Horn|Mouth|Wing"
+            ]
+          }
+        ],
+        "onDiscard": []
+      },
+      "self": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "other": {
+        "slot": "None",
+        "gendering": 0
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     },
     {
       "id": 100,
@@ -3152,7 +3862,22 @@
       "other": {
         "slot": "Face",
         "gendering": 0
-      }
+      },
+      "upgrade": {
+        "level": 0,
+        "onUpgrade": [
+          {
+            "name": "modify_value",
+            "targets": [
+              "self"
+            ],
+            "args": [
+              "TODO = upgrade.level"
+            ]
+          }
+        ]
+      },
+      "stealth": 0
     }
   ]
 }

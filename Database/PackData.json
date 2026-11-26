@@ -32,7 +32,7 @@
         "Mythic": {"prob": 5, "max": 3},
       },
       "cards": {
-        "_Comment_": "40 Commons, 30 Uncommons, 10 Rares, and 10 Mythics",
+        "_Comment_": "40 Commons, 30 Uncommons, 20 Rares, 10 Epics, and 5 Mythics",
         "Common": [
           {"setId": "chr_0", "id": 0 },
           {"setId": "chr_0", "id": 1 },
@@ -56,7 +56,26 @@
           {"setId": "chr_0", "id": 19 },
           {"setId": "chr_0", "id": 20 },
           {"setId": "chr_0", "id": 21 },
-          {"setId": "chr_0", "id": 22 }
+          {"setId": "chr_0", "id": 22 },
+          {"setId": "chr_0", "id": 23 },
+          {"setId": "chr_0", "id": 24 },
+          {"setId": "chr_0", "id": 25 },
+          {"setId": "chr_0", "id": 26 },
+          {"setId": "chr_0", "id": 27 },
+          {"setId": "chr_0", "id": 28 },
+          {"setId": "chr_0", "id": 29 },
+          {"setId": "chr_0", "id": 30 },
+          {"setId": "chr_0", "id": 31 },
+          {"setId": "chr_0", "id": 32 },
+          {"setId": "chr_0", "id": 33 },
+          {"setId": "chr_0", "id": 34 },
+          {"setId": "chr_0", "id": 35 },
+          {"setId": "chr_0", "id": 36 },
+          {"setId": "chr_0", "id": 37 },
+          {"setId": "chr_0", "id": 38 },
+          {"setId": "chr_0", "id": 39 },
+          {"setId": "chr_0", "id": 41 },
+          {"setId": "chr_0", "id": 40 }
         ],
         "Uncommon": [
         ],

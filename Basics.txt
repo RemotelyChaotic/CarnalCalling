@@ -133,6 +133,16 @@ AI:
 +-----------------------------+
 
 -----------------------------------------------------------------
+
+Stats balance:
+- Action: 
+  Common: DamageBase = (time * 2 / 3) * (bpm / 30) - (time - cooldown) / 2 + mod
+  Uncommon: DamageBase = (time * 2 / 3) * (bpm / 30) - (time - cooldown) / 2 + 5 + mod
+  Rare: DamageBase = (time * 2 / 3) * (bpm / 30) - (time - cooldown) / 2 + + 5 mod + Effect
+  Epic: DamageBase = (time * 2 / 3) * (bpm / 30) - (time - cooldown) / 2 + 10 + mod + Effect
+  Mythic: DamageBase = (time * 2 / 3) * (bpm / 30) - (time - cooldown) / 2 + 15 mod + Effect
+
+-----------------------------------------------------------------
 1 Game = Date:
 
 Start: 4 Cards

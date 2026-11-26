@@ -73,6 +73,12 @@
       "text": "Not gendered card or effect."
     },
     {
+      "id": "position_changeling",
+      "name": "Position Swap",
+      "image": "CardIconSwitchingStanceChangeling",
+      "text": "A card for swapping position. Deifferent positions allow access to different body parts."
+    },
+    {
       "id": "reshuffle",
       "name": "Re-Shuffle",
       "image": "ReshuffleIconNoBorder",
@@ -147,15 +153,20 @@
     {
       "id": "social_changeling",
       "name": "Social",
-      "image": "CardIconSocalChangeling
-      ",
+      "image": "CardIconSocalChangeling",
       "text": "A social card usually for combos and drawing cards."
     },
     {
       "id": "timeout",
       "name": "Timeout",
       "image": "TimeIconNoBorder",
-      "text": "X seconds of delay before a card of the given type can be played."
+      "text": "X seconds until another card can be played."
+    },
+    {
+      "id": "timer",
+      "name": "Timer",
+      "image": "TimerIconNoBorder",
+      "text": "X seconds of the card being active."
     },
     {
       "id": "tutor",

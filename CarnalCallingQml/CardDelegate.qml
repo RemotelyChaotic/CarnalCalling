@@ -22,6 +22,7 @@ Rectangle {
 
     readonly property string actionType: "Action"
     readonly property string socialType: "Social"
+    readonly property string positionType: "Position"
     readonly property string tagIcontype: "icontype"
     readonly property string tagIcontypeGender: "icontype:gender"
     readonly property string tagIcontypeRarity: "icontype:rarity"
@@ -367,7 +368,7 @@ Rectangle {
         }
     }
     Image {
-        id: timingInfoLayer
+        id: cooldownInfoLayer
         x: 85 * zoomFactorX
         y: 85 * zoomFactorY
         width: 155 * zoomFactorX
@@ -388,12 +389,12 @@ Rectangle {
             }
         }
 
-        visible: null != cardData && cardData.time.value > 0
+        visible: null != cardData && cardData.cooldown.value > 0
 
         Text {
             anchors.fill: parent
 
-            text: cardData.time.display
+            text: cardData.cooldown.display
 
             font.family: null != root.currentlyLoadedProject ?
                              root.currentlyLoadedProject.font : "Arial"
@@ -449,6 +450,59 @@ Rectangle {
             height: parent.height
 
             text: cardData.bpm.display
+
+            font.family: null != root.currentlyLoadedProject ?
+                             root.currentlyLoadedProject.font : "Arial"
+            font.pixelSize: StyleParams.cardDescTextPonintSize * zoomFactorX
+            font.hintingPreference: Font.PreferNoHinting
+
+            horizontalAlignment: Text.AlignLeft
+            elide: Text.ElideNone
+            wrapMode: Text.WordWrap
+            color: StyleParams.textColorMenu
+            textFormat: Text.RichText
+
+            style: Text.Outline
+            styleColor: StyleParams.textOutlineColorMenu
+        }
+    }
+    Image {
+        id: statsLayerTiming
+        x: statsLayerBpm.x
+        y: statsLayerBpm.y + statsLayerBpm.height
+        width: 77.5 * zoomFactorX
+        height: 77.5 * zoomFactorY
+
+        asynchronous: true
+        smooth: Settings.playerImageSmooth
+        antialiasing: Settings.playerAntialiasing
+        mipmap: Settings.playerImageMipMap
+        source: {
+            if (null == cardData) {
+                return "";
+            }
+            if (cardRoot.actionType === cardData.cardType && cardData.time.value > 0)
+            {
+                return "image://DataBaseImageProivider/" + currentlyLoadedProjectId + "/" + "TimerIcon" ;
+            }
+            return "";
+        }
+        visible: null != cardData && cardRoot.actionType === cardData.cardType && cardData.time.value > 0
+
+        onStatusChanged: {
+            if (status === Image.Error && cardRoot.unknownImage !== source &&
+                cardRoot.actionType === cardData.cardType) {
+                source = cardRoot.unknownImage;
+            }
+        }
+
+        Text {
+            x: parent.width
+            y: 0
+            width: 77.5 * zoomFactorX
+            height: parent.height
+
+            text: cardData.time.display
 
             font.family: null != root.currentlyLoadedProject ?
                              root.currentlyLoadedProject.font : "Arial"

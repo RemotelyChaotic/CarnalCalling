@@ -30,6 +30,7 @@ const FactionType = Object.freeze({
 const CardType = Object.freeze({
     Social:     EnumValue("Social"),
     Action:     EnumValue("Action"),
+    Position:   EnumValue("Position"),
     Clothes:    EnumValue("Clothes"),
     Blocker:    EnumValue("Blocker"),
     Token:      EnumValue("Token")

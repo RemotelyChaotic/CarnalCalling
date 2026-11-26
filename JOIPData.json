@@ -863,6 +863,20 @@
             ]
         },
         {
+            "sName": "CardIconSwitchingStanceChangeling",
+            "sPath": "pfs:Images/CardGame/Changeling/CardIconSwitchingStanceChangeling.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+                "Position:None",
+                "card:changeling",
+                "icontype:Position",
+                "type:icon"
+            ]
+        },
+        {
             "sName": "CardPreviewRender.qml",
             "sPath": "pfs:CarnalCallingQml/CardPreviewRender.qml",
             "sResourceBundle": "",
@@ -1563,6 +1577,26 @@
             ]
         },
         {
+            "sName": "TimerIcon",
+            "sPath": "pfs:Images/CardGame/Icons/TimerIcon.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
+            "sName": "TimerIconNoBorder",
+            "sPath": "pfs:Images/CardGame/Icons/TimerIconNoBorder.svg",
+            "sResourceBundle": "",
+            "sSource": "",
+            "sSubType": "svg",
+            "type": 0,
+            "vsResourceTags": [
+            ]
+        },
+        {
             "sName": "TutorIcon",
             "sPath": "pfs:Images/CardGame/Icons/TutorIcon.svg",
             "sResourceBundle": "",
@@ -1734,6 +1768,11 @@
         },
         {
             "sDescribtion": "",
+            "sName": "Position:None",
+            "sType": "Position"
+        },
+        {
+            "sDescribtion": "",
             "sName": "Social:None",
             "sType": "Social"
         },
@@ -1760,6 +1799,11 @@
         {
             "sDescribtion": "",
             "sName": "icontype:Action",
+            "sType": "icontype"
+        },
+        {
+            "sDescribtion": "",
+            "sName": "icontype:Position",
             "sType": "icontype"
         },
         {
